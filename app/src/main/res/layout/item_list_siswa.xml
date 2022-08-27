@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_shape3"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="@dimen/dimen_16"
+    android:layout_marginLeft="@dimen/dimen_16"
+    android:layout_marginRight="@dimen/dimen_16"
+    android:layout_marginTop="@dimen/dimen_16">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            android:layout_marginEnd="@dimen/dimen_8"
+            android:contentDescription="Foto Profile"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/dummy_img_user" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/img_user"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Yuveno Setiawan"
+            android:textSize="@dimen/font_size_16" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

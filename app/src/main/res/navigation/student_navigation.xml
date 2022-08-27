@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.wisnu.speechrecognition.view.main.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_studyFragment"
+            app:destination="@id/studyFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_playFragment"
+            app:destination="@id/playFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/studyFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment"
+        android:label="fragment_study"
+        tools:layout="@layout/fragment_study" >
+        <action
+            android:id="@+id/action_studyFragment_to_consonantFragment"
+            app:destination="@id/consonantFragment" />
+        <action
+            android:id="@+id/action_studyFragment_to_lettersFragment"
+            app:destination="@id/lettersFragment" />
+        <action
+            android:id="@+id/action_studyFragment_to_vowelFragment"
+            app:destination="@id/vowelFragment" />
+        <action
+            android:id="@+id/action_studyFragment_to_vocabularyFragment"
+            app:destination="@id/vocabularyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.playing.PlayFragment"
+        android:label="fragment_play"
+        tools:layout="@layout/fragment_play" >
+        <action
+            android:id="@+id/action_playFragment_to_playMatchFragment"
+            app:destination="@id/playMatchFragment" />
+        <action
+            android:id="@+id/action_playFragment_to_playGuessFragment"
+            app:destination="@id/playGuessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vocabularyFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.vocabulary.VocabularyFragment"
+        android:label="fragment_vocabulary"
+        tools:layout="@layout/fragment_vocabulary" >
+        <argument android:name="id_category"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/consonantFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.consonant.ConsonantFragment"
+        android:label="fragment_consonant"
+        tools:layout="@layout/fragment_consonant" >
+        <argument
+            android:name="id_category"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/lettersFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.letters.LettersFragment"
+        android:label="fragment_letters"
+        tools:layout="@layout/fragment_letters" >
+        <argument android:name="id_category"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/vowelTestFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.voweltest.VowelTestFragment"
+        android:label="fragment_vowel_test"
+        tools:layout="@layout/fragment_vowel_test" >
+        <argument
+            android:name="id_vowel"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/vowelFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.vowel.VowelFragment"
+        android:label="fragment_vowel"
+        tools:layout="@layout/fragment_vowel" >
+        <action
+            android:id="@+id/action_vowelFragment_to_vowelTestFragment"
+            app:destination="@id/vowelTestFragment" />
+        <argument android:name="id_category"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/playMatchFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.play.playmatch.PlayMatchFragment"
+        android:label="fragment_play_match"
+        tools:layout="@layout/fragment_play_match" >
+        <argument android:name="id_category"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/playGuessFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.play.playguess.PlayGuessFragment"
+        android:label="fragment_play_guess"
+        tools:layout="@layout/fragment_play_guess" >
+        <argument
+            android:name="id_category"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/scoreFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.students.score.ScoreFragment"
+        android:label="fragment_score"
+        tools:layout="@layout/fragment_score" />
+</navigation>
