@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Aku Bisa Membaca"
+        android:textColor="@color/white"
         android:textAllCaps="false" />
 
     <ImageView
@@ -22,6 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_64"
+        android:layout_marginEnd="@dimen/dimen_16"
         android:src="@drawable/icon_splash" />
-
 </LinearLayout>

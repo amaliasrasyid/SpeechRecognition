@@ -40,18 +40,23 @@ import java.util.*
 fun showMessage(
     activity: Activity,
     title: String,
-    message: String,
+    message: String = "Cek Koneksi Internet Dan Coba Lagi!" ,
     style: String,
     position: Int = GRAVITY_BOTTOM,
     duration: Long = LONG_DURATION
 ) {
     MotionToast.apply {
+        var msg = ""
+        if(message == ""){
+            msg ="Cek Koneksi Internet Dan Coba Lagi!"
+        }
         when (checkSystemMode(activity)) {
+
             MODE_LIGHT -> {
                 createColorToast(
                     activity,
                     title,
-                    message,
+                    msg,
                     style,
                     position,
                     duration,
@@ -65,7 +70,7 @@ fun showMessage(
                 darkColorToast(
                     activity,
                     title,
-                    message,
+                    msg,
                     style,
                     position,
                     duration,

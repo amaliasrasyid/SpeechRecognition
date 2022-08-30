@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EEEEEE"
     android:fillViewport="true"
-    tools:context=".view.main.ui.student.vocabulary.VocabularyFragment">
+    tools:context=".view.main.ui.teacher.students.StudentsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Detail Huruf Vokal"
+            android:text="Daftar Siswa"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +50,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:orientation="vertical"
             android:background="@drawable/bg_shape2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,10 +60,25 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_data_siswa"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/dimen_8"
                 tools:listitem="@layout/item_list_siswa"/>
+
+            <include
+                android:id="@+id/layout_empty"
+                layout="@layout/empty_layout"/>
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_matery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"

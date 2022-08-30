@@ -3,23 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/teacher_navigation"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/homeTeacherFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/homeTeacherFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.home.HomeTeacherFragment"
+        android:label="fragment_home_teacher"
+        tools:layout="@layout/fragment_home_teacher">
         <action
-            android:id="@+id/action_homeFragment_to_studentsFragment"
+            android:id="@+id/action_homeTeacherFragment_to_studentsFragment"
             app:destination="@id/studentsFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_categoryFragment2"
+            android:id="@+id/action_homeTeacherFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentsFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.students.StudentsFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.students.StudentsFragment"
         android:label="fragment_students"
         tools:layout="@layout/fragment_students" >
         <action
@@ -28,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/scoreFragment2"
-        android:name="com.wisnu.speechrecognition.view.main.ui.students.score.ScoreFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.score.ScoreFragment"
         android:label="fragment_score"
         tools:layout="@layout/fragment_score" >
         <argument
@@ -47,4 +46,5 @@
             android:id="@+id/action_categoryFragment_to_scoreFragment2"
             app:destination="@id/scoreFragment2" />
     </fragment>
+
 </navigation>

@@ -1,5 +1,7 @@
 package com.wisnu.speechrecognition.utils
 
+import com.wisnu.speechrecognition.R
+
 object UtilsCode {
     const val MODE_NIGHT = 1
     const val MODE_LIGHT = 0
@@ -8,6 +10,11 @@ object UtilsCode {
     const val REQUEST_SUCCESS = 200
     const val REQUEST_SUCCESS_CREATE = 201
     const val REQUEST_NOT_FOUND = 404
+
+    const val REQUEST_CODE_PERMISSIONS = 1
+    const val REQUEST_CODE_AUDIO_RECORD = 2
+    const val REQUEST_CODE_CAPTURE_IMAGE = 3
+    const val REQUEST_CODE_SELECT_IMAGE = 4
 
     const val PATTERN_DATE_VIEW = "dd MMMM yyyy"
     const val PATTERN_DATE_API = "dd-MM-yyyy"
@@ -33,4 +40,9 @@ object UtilsCode {
     const val DEFAULT_TIMER = "00 : 00"
 
     const val REQUEST_KEY = "request_key"
+
+    const val TITLE_ERROR = "Gagal"
+    const val TITLE_SUCESS = "Sukses"
+    const val TITLE_WARNING = "Peringatan"
+    const val TITLE_INFO = "Informasi"
 }

@@ -8,20 +8,20 @@ data class MateryStudyResponse(
 	val code: Int? = null,
 
 	@field:SerializedName("data")
-	val data: List<DataItem?>? = null,
+	val data: List<MateryStudy>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null
 )
 
-data class DataItem(
+data class MateryStudy(
 
 	@field:SerializedName("tipe_materi")
-	val tipeMateri: Int? = null,
+	val tipeMateri: Int,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
 	@field:SerializedName("teks_materi")
-	val teksMateri: String? = null
+	val teksMateri: String
 )

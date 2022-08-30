@@ -9,7 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApiConfig {
     companion object {
         //  url
-        const val URL = "http://192.168.16.33:3000" // local
+        const val URL = "http://192.168.1.2:8000" // local  WIFI HOME
+//        const val URL = "http://192.168.100.215:8000" // local WIFI KANTOR
+        const val URL_IMAGE = "$URL/images/"
+        const val URL_SOUNDS = "$URL/sounds/"
 //        const val URL = "http://10.0.2.2:3000" // local emulator
 
         private const val ENDPOINT = "$URL/api/"

@@ -2,20 +2,32 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/student_navigation"
     app:startDestination="@+id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.wisnu.speechrecognition.view.main.ui.home.HomeFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.home.HomeStudentFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home_student" >
         <action
             android:id="@+id/action_navigation_home_to_studyFragment"
             app:destination="@id/studyFragment" />
         <action
             android:id="@+id/action_navigation_home_to_playFragment"
             app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_studyFragment2"
+            app:destination="@id/studyFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_studyFragment3"
+            app:destination="@id/studyFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_studyFragment4"
+            app:destination="@id/studyFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_studyFragment5"
+            app:destination="@id/studyFragment" />
     </fragment>
 
     <fragment
@@ -24,95 +36,67 @@
         android:label="fragment_study"
         tools:layout="@layout/fragment_study" >
         <action
-            android:id="@+id/action_studyFragment_to_consonantFragment"
-            app:destination="@id/consonantFragment" />
-        <action
-            android:id="@+id/action_studyFragment_to_lettersFragment"
-            app:destination="@id/lettersFragment" />
-        <action
-            android:id="@+id/action_studyFragment_to_vowelFragment"
-            app:destination="@id/vowelFragment" />
-        <action
-            android:id="@+id/action_studyFragment_to_vocabularyFragment"
-            app:destination="@id/vocabularyFragment" />
+            android:id="@+id/action_studyFragment_to_materialStudyFragment"
+            app:destination="@id/materialStudyFragment" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.student.playing.PlayFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.play.PlayFragment"
         android:label="fragment_play"
         tools:layout="@layout/fragment_play" >
         <action
-            android:id="@+id/action_playFragment_to_playMatchFragment"
-            app:destination="@id/playMatchFragment" />
+            android:id="@+id/action_playFragment_to_guessFragment"
+            app:destination="@id/guessFragment" />
         <action
-            android:id="@+id/action_playFragment_to_playGuessFragment"
-            app:destination="@id/playGuessFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/vocabularyFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.student.vocabulary.VocabularyFragment"
-        android:label="fragment_vocabulary"
-        tools:layout="@layout/fragment_vocabulary" >
-        <argument android:name="id_category"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/consonantFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.student.consonant.ConsonantFragment"
-        android:label="fragment_consonant"
-        tools:layout="@layout/fragment_consonant" >
-        <argument
-            android:name="id_category"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/lettersFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.student.letters.LettersFragment"
-        android:label="fragment_letters"
-        tools:layout="@layout/fragment_letters" >
-        <argument android:name="id_category"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/vowelTestFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.student.voweltest.VowelTestFragment"
-        android:label="fragment_vowel_test"
-        tools:layout="@layout/fragment_vowel_test" >
-        <argument
-            android:name="id_vowel"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/vowelFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.student.vowel.VowelFragment"
-        android:label="fragment_vowel"
-        tools:layout="@layout/fragment_vowel" >
-        <action
-            android:id="@+id/action_vowelFragment_to_vowelTestFragment"
-            app:destination="@id/vowelTestFragment" />
-        <argument android:name="id_category"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/playMatchFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.play.playmatch.PlayMatchFragment"
-        android:label="fragment_play_match"
-        tools:layout="@layout/fragment_play_match" >
-        <argument android:name="id_category"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/playGuessFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.play.playguess.PlayGuessFragment"
-        android:label="fragment_play_guess"
-        tools:layout="@layout/fragment_play_guess" >
-        <argument
-            android:name="id_category"
-            app:argType="integer" />
+            android:id="@+id/action_playFragment_to_pairFragment"
+            app:destination="@id/pairFragment" />
     </fragment>
     <fragment
         android:id="@+id/scoreFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.students.score.ScoreFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.score.ScoreFragment"
         android:label="fragment_score"
         tools:layout="@layout/fragment_score" />
+    <fragment
+        android:id="@+id/materialStudyFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyFragment"
+        android:label="fragment_material_study"
+        tools:layout="@layout/fragment_material_study" >
+        <argument
+            android:name="tipe_materi"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_materialStudyFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+        <argument android:name="nama_tipe"
+            app:argType="string"
+            android:defaultValue='""' />
+        <action
+            android:id="@+id/action_materialStudyFragment_to_scoreFragment"
+            app:destination="@id/scoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.question.QuestionFragment"
+        android:label="fragment_question"
+        tools:layout="@layout/fragment_question" >
+        <argument
+            android:name="id_materi_belajar"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="tipe_materi_belajar"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/guessFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.play.guess.GuessFragment"
+        android:label="fragment_guess"
+        tools:layout="@layout/fragment_guess" />
+    <fragment
+        android:id="@+id/pairFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.play.pair.PairFragment"
+        android:label="fragment_pair"
+        tools:layout="@layout/fragment_pair" />
 </navigation>

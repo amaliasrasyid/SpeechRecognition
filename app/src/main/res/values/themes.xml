@@ -21,4 +21,15 @@
         <item name="boxStrokeWidthFocused">@dimen/dimen_0</item>
         <item name="boxStrokeWidth">@dimen/dimen_0</item>
     </style>
+
+    <style name="CardViewStyleMenu" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">#F3F3F9</item>
+    </style>
+    <style name="Theme.SpeechRecognition.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.SpeechRecognition.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.SpeechRecognition.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

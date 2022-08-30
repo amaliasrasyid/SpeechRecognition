@@ -9,36 +9,53 @@
         <entry key="app/src/main/res/drawable/bg_shape2.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/bg_shape3.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/bg_shape4.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/bg_shape5.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/bg_splash.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/ic_empty.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_notifications.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.121" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_auth.xml" value="0.13689936536718042" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_home_teacher.xml" value="0.20008550662676358" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/activity_teacher.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card_menu.xml" value="0.18631006346328197" />
+        <entry key="app/src/main/res/layout/content_home.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/empty_layout.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_consonant.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.14175724637681159" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_guess.xml" value="0.10342666109486001" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.14188576609247508" />
+        <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_letters.xml" value="0.1885766092475068" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.38716857910156255" />
-        <entry key="app/src/main/res/layout/fragment_play.xml" value="0.2116289012398461" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_material_study.xml" value="0.17965367965367965" />
+        <entry key="app/src/main/res/layout/fragment_pair.xml" value="0.2116289012398461" />
+        <entry key="app/src/main/res/layout/fragment_play.xml" value="0.214992927864215" />
         <entry key="app/src/main/res/layout/fragment_play_guess.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_play_match.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_question.xml" value="0.18449682683590207" />
+        <entry key="app/src/main/res/layout/fragment_question.xml" value="0.1554192229038855" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.10046539306640623" />
         <entry key="app/src/main/res/layout/fragment_score.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_students.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_students.xml" value="0.10757946210268948" />
         <entry key="app/src/main/res/layout/fragment_study.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_vocab_test.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_vocabulary.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_vowel.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/item_list_data.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_list_matery.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_list_menu.xml" value="0.18" />
         <entry key="app/src/main/res/layout/item_list_pilihan_tebak_kata.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/item_list_siswa.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_question.xml" value="0.2925170068027211" />
         <entry key="app/src/main/res/layout/item_score_result.xml" value="0.21967749089840208" />
         <entry key="app/src/main/res/layout/item_test.xml" value="0.18631006346328197" />
+        <entry key="app/src/main/res/layout/item_vocab_question.xml" value="0.16032492518170158" />
       </map>
     </option>
   </component>
