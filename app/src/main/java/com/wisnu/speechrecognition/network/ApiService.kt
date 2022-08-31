@@ -4,6 +4,7 @@ import com.wisnu.speechrecognition.model.login.LoginResponse
 import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
 import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.model.student.StudentScoreResponse
+import com.wisnu.speechrecognition.model.student.StudentScoresResponse
 import com.wisnu.speechrecognition.model.student.StudentsResultResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -45,5 +46,12 @@ interface ApiService {
     @FormUrlEncoded
     @POST("student-score")
     fun storeStudentScrore(@FieldMap params: HashMap<String,Any>): Call<StudentScoreResponse>
+
+
+    @GET("student-score/{tipe_materi}/{id_siswa}")
+    fun allStudentScoress(
+        @Path("tipe_materi") materyType: Int,
+        @Path("id_siswa") studentId: Int,
+    ): Call<StudentScoresResponse>
 
 }

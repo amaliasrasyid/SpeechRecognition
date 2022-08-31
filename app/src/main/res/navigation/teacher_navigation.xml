@@ -21,18 +21,18 @@
         android:name="com.wisnu.speechrecognition.view.main.ui.teacher.students.StudentsFragment"
         android:label="fragment_students"
         tools:layout="@layout/fragment_students" >
-        <action
-            android:id="@+id/action_studentsFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_studentsFragment_to_categoryScoreFragment3"-->
+<!--            app:destination="@id/categoryScoreFragment3" />-->
     </fragment>
     <fragment
         android:id="@+id/scoreFragment2"
         android:name="com.wisnu.speechrecognition.view.main.ui.score.ScoreFragment"
         android:label="fragment_score"
         tools:layout="@layout/fragment_score" >
-        <argument
-            android:name="id_category"
-            app:argType="integer" />
+<!--        <argument-->
+<!--            android:name="id_category"-->
+<!--            app:argType="integer" />-->
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -42,9 +42,15 @@
         <argument
             android:name="id_siswa"
             app:argType="string" />
-        <action
-            android:id="@+id/action_categoryFragment_to_scoreFragment2"
-            app:destination="@id/scoreFragment2" />
     </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/categoryScoreFragment3"-->
+<!--        android:name="com.wisnu.speechrecognition.view.main.ui.score.kategory.CategoryScoreFragment"-->
+<!--        android:label="fragment_category_score"-->
+<!--        tools:layout="@layout/fragment_category_score" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_categoryScoreFragment3_to_scoreFragment2"-->
+<!--            app:destination="@id/scoreFragment2" />-->
+<!--    </fragment>-->
 
 </navigation>

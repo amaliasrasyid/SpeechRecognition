@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_shape3"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="@dimen/dimen_16"
+    android:layout_marginLeft="@dimen/dimen_16"
+    android:layout_marginRight="@dimen/dimen_16"
+    android:layout_marginTop="@dimen/dimen_16">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16">
+
+        <TextView
+            android:id="@+id/tv_name_matery_vokal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_4"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_result_score"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="A-Yah Per-Gi Ke-Pa-Sar" />
+
+        <TextView
+            android:id="@+id/tv_result_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_name_matery_vokal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/tv_name_matery_vokal"
+            android:fontFamily="@font/poppins_bold"
+            android:text="70/100"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/font_size_30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="@+id/tv_name_matery_vokal" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

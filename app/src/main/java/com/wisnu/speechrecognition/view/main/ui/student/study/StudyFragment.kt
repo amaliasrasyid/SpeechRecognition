@@ -21,7 +21,6 @@ class StudyFragment : Fragment(), View.OnClickListener {
     }
     private var _binding: FragmentStudyBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: StudyViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,33 +48,41 @@ class StudyFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         with(binding){
-            when(view){
+            when (view) {
                 cardBelajarHuruf -> {
-                    val  toLetters = StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment().apply{
-                        tipeMateri = TIPE_HURUF_AZ
-                        namaTipe = "Huruf A-Z"
-                    }
+                    val toLetters =
+                        StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment()
+                            .apply {
+                                tipeMateri = TIPE_HURUF_AZ
+                                namaTipe = "Huruf A-Z"
+                            }
                     findNavController().navigate(toLetters)
                 }
                 cardBelajarKonsonan -> {
-                    val toConsonant = StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment().apply {
-                        tipeMateri = TIPE_HURUF_KONSONAN
-                        namaTipe = "Huruf Konsonan"
-                    }
+                    val toConsonant =
+                        StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment()
+                            .apply {
+                                tipeMateri = TIPE_HURUF_KONSONAN
+                                namaTipe = "Huruf Konsonan"
+                            }
                     findNavController().navigate(toConsonant)
                 }
                 cardBelajarVokal -> {
-                    val toVowel = StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment().apply {
-                        tipeMateri = TIPE_HURUF_VOKAL
-                        namaTipe = "Huruf Vokal"
-                    }
+                    val toVowel =
+                        StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment()
+                            .apply {
+                                tipeMateri = TIPE_HURUF_VOKAL
+                                namaTipe = "Huruf Vokal"
+                            }
                     findNavController().navigate(toVowel)
                 }
                 cardBelajarMembaca -> {
-                    val toVocabReading = StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment().apply {
-                        tipeMateri = TIPE_MEMBACA
-                        namaTipe = "Membaca Kosakata"
-                    }
+                    val toVocabReading =
+                        StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment()
+                            .apply {
+                                tipeMateri = TIPE_MEMBACA
+                                namaTipe = "Membaca Kosakata"
+                            }
                     findNavController().navigate(toVocabReading)
                 }
             }

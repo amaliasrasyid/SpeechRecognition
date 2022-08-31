@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.MaterialStudyAdapter
+import com.wisnu.speechrecognition.adapter.MaterialStudyScoreAdapter
 import com.wisnu.speechrecognition.databinding.FragmentMaterialStudyBinding
 import com.wisnu.speechrecognition.model.matery.MateryStudy
+import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
@@ -88,6 +90,7 @@ class MaterialStudyFragment : Fragment() {
         }
 
     }
+
 
     private fun observeMaterialStudy(materyId: Int) {
         with(binding){

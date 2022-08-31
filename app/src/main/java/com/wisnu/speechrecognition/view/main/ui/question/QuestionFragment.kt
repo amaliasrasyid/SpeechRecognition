@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentQuestionBinding
@@ -180,8 +181,24 @@ class QuestionFragment : Fragment(), View.OnClickListener {
                     tvResultScore.text = soalTerjawab.score.toString()
                     tvMessageResultScore.text = kesimpulanHasil(soalTerjawab.score)
                 }
+                with(binding.layoutVocabQuestion){
+                    tvVoiceResult.text = "Yang disebut : ${soalTerjawab.spokenWords}"
+                    tvCorrectResult.text = "Benar Huruf: ${soalTerjawab.righWord}"
+                    tvWrongResult.text = "Salah Huruf: ${soalTerjawab.wrongWord}"
+                    tvDistanceResult.text = "Hasil Rumus: ${soalTerjawab.distance}"
+                    tvResultScore.text = soalTerjawab.score.toString()
+                    tvMessageResultScore.text = kesimpulanHasil(soalTerjawab.score)
+                }
             }else{
                 with(binding.layoutQuestion) {
+                    tvVoiceResult.text = "Yang disebut : ..."
+                    tvCorrectResult.text = "Benar Huruf: ..."
+                    tvWrongResult.text = "Salah Huruf: ..."
+                    tvDistanceResult.text = "Hasil Rumus: ..}"
+                    tvResultScore.text = ""
+                    tvMessageResultScore.text = "-"
+                }
+                with(binding.layoutVocabQuestion){
                     tvVoiceResult.text = "Yang disebut : ..."
                     tvCorrectResult.text = "Benar Huruf: ..."
                     tvWrongResult.text = "Salah Huruf: ..."
@@ -246,6 +263,7 @@ class QuestionFragment : Fragment(), View.OnClickListener {
             prepareQuestions()
         }else{
             //tutup halaman Question (SELESAI)
+            findNavController().popBackStack()
             Log.i("tag","indeks lebih besar dr size soal")
         }
     }
@@ -360,6 +378,14 @@ class QuestionFragment : Fragment(), View.OnClickListener {
             tvResultScore.text = score.toString()
             tvMessageResultScore.text = kesimpulanHasil(score)
         }
+        with(binding.layoutVocabQuestion){
+            tvVoiceResult.text = "Yang disebut : ${recognizedWord}"
+            tvCorrectResult.text = "Benar Huruf: ${rightWord}"
+            tvWrongResult.text = "Salah Huruf: ${wrongWord}"
+            tvDistanceResult.text = "Hasil Rumus: ${distance}"
+            tvResultScore.text = score.toString()
+            tvMessageResultScore.text = kesimpulanHasil(score)
+        }
         //simpan atau update nilai skornya
         storeOrUpdate(score)
     }
@@ -410,7 +436,7 @@ class QuestionFragment : Fragment(), View.OnClickListener {
                         showMessage(
                             requireActivity(),
                             TITLE_SUCESS,
-                            response.message ?: "Berhasil menyimpan nilai",
+                            "Berhasil menyimpan nilai",
                             style = MotionToast.TOAST_SUCCESS
                         )
                     } else {

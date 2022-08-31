@@ -51,7 +51,7 @@
                 android:padding="@dimen/dimen_32">
 
                 <ImageView
-                    android:id="@+id/img_sound"
+                    android:id="@+id/btn_speaker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -60,7 +60,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/img_sound"
+                    android:layout_below="@id/btn_speaker"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/img_ex_vocab" />
             </RelativeLayout>
@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:layout_marginTop="@dimen/dimen_16"
+            android:visibility="gone"
             android:src="@drawable/ic_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +194,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_8"
-            android:text="Kalimat: A"
+            android:text="Kalimat: ..."
             android:textColor="#F80000"
             android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -204,7 +205,7 @@
             android:id="@+id/tv_voice_result"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Yang disebut : A"
+            android:text="Yang disebut : ..."
             android:textColor="#F80000"
             android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -255,16 +256,6 @@
             app:layout_constraintStart_toStartOf="@+id/tv_wrong_result"
             app:layout_constraintTop_toBottomOf="@+id/tv_wrong_result" />
 
-        <TextView
-            android:id="@+id/tv_result_score2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Benar Huruf: ..."
-            android:textColor="#F80000"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="@+id/tv_distance_result"
-            app:layout_constraintTop_toBottomOf="@+id/tv_distance_result" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier7"

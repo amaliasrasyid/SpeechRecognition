@@ -17,17 +17,8 @@
             android:id="@+id/action_navigation_home_to_playFragment"
             app:destination="@id/playFragment" />
         <action
-            android:id="@+id/action_navigation_home_to_studyFragment2"
-            app:destination="@id/studyFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_studyFragment3"
-            app:destination="@id/studyFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_studyFragment4"
-            app:destination="@id/studyFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_studyFragment5"
-            app:destination="@id/studyFragment" />
+            android:id="@+id/action_navigation_home_to_categoryScoreFragment"
+            app:destination="@id/categoryScoreFragment" />
     </fragment>
 
     <fragment
@@ -38,6 +29,10 @@
         <action
             android:id="@+id/action_studyFragment_to_materialStudyFragment"
             app:destination="@id/materialStudyFragment" />
+        <argument
+            android:name="kategori_menu"
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
@@ -51,11 +46,6 @@
             android:id="@+id/action_playFragment_to_pairFragment"
             app:destination="@id/pairFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/scoreFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.score.ScoreFragment"
-        android:label="fragment_score"
-        tools:layout="@layout/fragment_score" />
     <fragment
         android:id="@+id/materialStudyFragment"
         android:name="com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyFragment"
@@ -71,9 +61,6 @@
         <argument android:name="nama_tipe"
             app:argType="string"
             android:defaultValue='""' />
-        <action
-            android:id="@+id/action_materialStudyFragment_to_scoreFragment"
-            app:destination="@id/scoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
@@ -99,4 +86,27 @@
         android:name="com.wisnu.speechrecognition.view.main.ui.student.play.pair.PairFragment"
         android:label="fragment_pair"
         tools:layout="@layout/fragment_pair" />
+    <fragment
+        android:id="@+id/ScoreFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.score.ScoreFragment"
+        android:label="fragment_score"
+        tools:layout="@layout/fragment_score">
+        <argument
+            android:name="tipe_materi_score"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="nama_tipe_score"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryScoreFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.score.kategory.CategoryScoreFragment"
+        android:label="fragment_category_score"
+        tools:layout="@layout/fragment_category_score" >
+        <action
+            android:id="@+id/action_categoryScoreFragment_to_scoreFragment"
+            app:destination="@id/ScoreFragment" />
+    </fragment>
 </navigation>

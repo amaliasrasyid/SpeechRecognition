@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
+import com.wisnu.speechrecognition.model.student.StudentScoresResponse
 import com.wisnu.speechrecognition.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +21,7 @@ class MaterialStudyViewModel : ViewModel() {
         _materialStudy = getMaterialStudy(materyType);
         return _materialStudy
     }
-   
+
     fun getMaterialStudy(materyType: Int): MutableLiveData<MateryStudyResponse>{
         val client = ApiConfig.getApiService().materyStudy(materyType)
         val gson = Gson()

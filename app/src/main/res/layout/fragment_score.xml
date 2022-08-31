@@ -6,6 +6,7 @@
     tools:context=".view.main.ui.score.ScoreFragment">
 
 <include
+    android:id="@+id/score"
     layout="@layout/item_score_result"/>
 
 </LinearLayout>

@@ -66,7 +66,8 @@ class HomeStudentFragment : Fragment(), View.OnClickListener {
                     findNavController().navigate(R.id.action_navigation_home_to_playFragment)
                 }
                 cardMenu3 -> {
-//                    findNavController().navigate(R.id.action_navigation_home_to_studyFragment)
+                    val toKategoriNilaiSiswa = HomeStudentFragmentDirections.actionNavigationHomeToCategoryScoreFragment()
+                    findNavController().navigate(toKategoriNilaiSiswa)
                 }
             }
         }
