@@ -2,6 +2,7 @@ package com.wisnu.speechrecognition.view.main.ui.student.study
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,12 +43,16 @@ class StudyFragment : Fragment(), View.OnClickListener {
             cardBelajarKonsonan.setOnClickListener(this@StudyFragment)
             cardBelajarVokal.setOnClickListener(this@StudyFragment)
             cardBelajarMembaca.setOnClickListener(this@StudyFragment)
+            btnBack.setOnClickListener(this@StudyFragment)
         }
         //passing data dg observer pattern (live data)
     }
 
     override fun onClick(view: View?) {
         with(binding){
+            if(view?.id == R.id.btn_back){
+                findNavController().navigateUp()
+            }
             when (view) {
                 cardBelajarHuruf -> {
                     val toLetters =
@@ -86,6 +91,7 @@ class StudyFragment : Fragment(), View.OnClickListener {
                     findNavController().navigate(toVocabReading)
                 }
             }
+
         }
     }
 }

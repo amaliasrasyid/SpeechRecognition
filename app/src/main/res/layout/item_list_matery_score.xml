@@ -41,7 +41,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="70/100"
             android:textAlignment="textEnd"
-            android:textSize="@dimen/font_size_30"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
             app:layout_constraintTop_toTopOf="@+id/tv_name_matery_vokal" />

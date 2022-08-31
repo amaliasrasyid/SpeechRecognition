@@ -1,6 +1,7 @@
 package com.wisnu.speechrecognition.view.main.ui.score.kategory
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,7 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
             cardBelajarKonsonan.setOnClickListener(this@CategoryScoreFragment)
             cardBelajarVokal.setOnClickListener(this@CategoryScoreFragment)
             cardBelajarMembaca.setOnClickListener(this@CategoryScoreFragment)
+            btnBack.setOnClickListener(this@CategoryScoreFragment)
         }
     }
 
@@ -50,6 +52,9 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
 
     override fun onClick(view: View?) {
         with(binding){
+            if(view?.id == R.id.btn_back){
+                findNavController().navigateUp()
+            }
             when (view) {
                 cardBelajarHuruf -> {
                     val toLetters = CategoryScoreFragmentDirections.actionCategoryScoreFragmentToScoreFragment()

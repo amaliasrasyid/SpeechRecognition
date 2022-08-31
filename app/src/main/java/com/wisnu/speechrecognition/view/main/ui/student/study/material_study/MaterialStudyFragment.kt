@@ -31,7 +31,7 @@ class MaterialStudyFragment : Fragment() {
     private val viewModel by viewModels<MaterialStudyViewModel>()
     private var _binding: FragmentMaterialStudyBinding? = null
     private val binding get() = _binding!!
-    private lateinit var materyAdapter: MaterialStudyAdapter
+    private lateinit var materyAdapter: MaterialStudyScoreAdapter
     private lateinit var args: MaterialStudyFragmentArgs
 
 
@@ -68,7 +68,7 @@ class MaterialStudyFragment : Fragment() {
             }
 
             //adapter
-            materyAdapter = MaterialStudyAdapter()
+            materyAdapter = MaterialStudyScoreAdapter()
             with(rvMaterialStudy){
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
@@ -76,6 +76,7 @@ class MaterialStudyFragment : Fragment() {
             }
             val materyType = args.namaTipe
             tvMaterialStudy.text = materyType
+            btnBack.setOnClickListener{findNavController().navigateUp()}
 
             materyAdapter.setOnItemClickCallBack(object : MaterialStudyAdapter.OnItemClickCallBack {
                 override fun onItemClicked(materyStudy: MateryStudy) {

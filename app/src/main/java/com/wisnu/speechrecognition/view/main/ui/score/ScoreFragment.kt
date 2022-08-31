@@ -17,6 +17,10 @@ import com.wisnu.speechrecognition.databinding.FragmentScoreBinding
 import com.wisnu.speechrecognition.model.matery.MateryStudy
 import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
+import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_AZ
+import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_KONSONAN
+import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_VOKAL
+import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_MEMBACA
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyFragmentArgs
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyFragmentDirections
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyViewModel
@@ -24,9 +28,10 @@ import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.Mat
 class ScoreFragment : Fragment() {
 
     private val viewModel by viewModels<ScoreViewModel>()
+    private val viewModel2 by viewModels<MaterialStudyViewModel>()
     private var _binding: FragmentScoreBinding? = null
     private val binding get() = _binding!!
-    private lateinit var materyStudyAdapter: MaterialStudyScoreAdapter
+    private lateinit var materyStudyScoreAdapter: MaterialStudyScoreAdapter
     private lateinit var args: ScoreFragmentArgs
 
 
@@ -48,33 +53,31 @@ class ScoreFragment : Fragment() {
         with(binding.score){
             val userId = UserPreference(requireContext()).getUser().id ?: 0
             when(tipeMateri){
-                StudyFragment.TIPE_HURUF_AZ -> {
-                    observeStudentScores(StudyFragment.TIPE_HURUF_AZ,userId)
-                }
-                StudyFragment.TIPE_HURUF_KONSONAN -> {
-                    observeStudentScores(StudyFragment.TIPE_HURUF_KONSONAN,userId)
-                }
-                StudyFragment.TIPE_HURUF_VOKAL -> {
-                    observeStudentScores(StudyFragment.TIPE_HURUF_VOKAL,userId)
-                }
-                StudyFragment.TIPE_MEMBACA -> {
-                    observeStudentScores(StudyFragment.TIPE_MEMBACA,userId)
-                }
+                TIPE_HURUF_AZ -> observeStudentScores(TIPE_HURUF_AZ,userId)
+                TIPE_HURUF_KONSONAN -> observeStudentScores(tipeMateri,userId)
+                TIPE_HURUF_VOKAL -> observeMaterialStudy(TIPE_HURUF_VOKAL)
+                TIPE_MEMBACA -> observeStudentScores(TIPE_MEMBACA,userId)
             }
 
-            //adapter
-            materyStudyAdapter = MaterialStudyScoreAdapter()
+            //adapter score
+            materyStudyScoreAdapter = MaterialStudyScoreAdapter()
             with(rvScore){
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
-                this.adapter = materyStudyAdapter
+                this.adapter = materyStudyScoreAdapter
             }
-            val materyType = args.namaTipeScore
-            tvScore.text = materyType
-            }
-        }
 
-    private fun observeStudentScores(tipeMateri: Int,idSiswa: Int) {
+            tvScore.text = args.namaTipeScore
+            materyStudyScoreAdapter.setOnItemClickCallBack(object : MaterialStudyAdapter.OnItemClickCallBack {
+                override fun onItemClicked(materyStudy: MateryStudy) {
+                    observeStudentScores(materyStudy.tipeMateri,userId,true)
+                }
+            })
+            btnBack.setOnClickListener{findNavController().navigateUp()}
+        }
+    }
+
+    private fun observeStudentScores(tipeMateri: Int,idSiswa: Int,isVocal: Boolean = false) {
         with(binding.score){
             viewModel.studentScores(tipeMateri,idSiswa).observe(viewLifecycleOwner, { response ->
                 pbScore.visibility = View.GONE
@@ -82,7 +85,8 @@ class ScoreFragment : Fragment() {
                     if(!response.data.isEmpty()){
                         if (response.code == 200) {
                             val result = response.data
-                            materyStudyAdapter.setData(result)
+                            materyStudyScoreAdapter.setVokal(isVocal)
+                            materyStudyScoreAdapter.setData(result)
                         } else {
                             dataNotFound()
                         }
@@ -95,6 +99,29 @@ class ScoreFragment : Fragment() {
             })
         }
     }
+
+    private fun observeMaterialStudy(materyId: Int) {
+        with(binding.score){
+            viewModel2.materialStudy(materyId).observe(viewLifecycleOwner, { response ->
+                pbScore.visibility = View.GONE
+                if (response.data != null) {
+                    if(!response.data.isEmpty()){
+                        if (response.code == 200) {
+                            val result = response.data
+                            materyStudyScoreAdapter.setData(result)
+                        } else {
+                            dataNotFound()
+                        }
+                    }else{
+                        dataNotFound()
+                    }
+                } else {
+                    dataNotFound()
+                }
+            })
+        }
+    }
+
 
     private fun dataNotFound() {
         with(binding.score) {

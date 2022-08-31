@@ -31,7 +31,7 @@
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.14175724637681159" />
         <entry key="app/src/main/res/layout/fragment_guess.xml" value="0.10342666109486001" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.14188576609247508" />
+        <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_letters.xml" value="0.1885766092475068" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
@@ -50,7 +50,7 @@
         <entry key="app/src/main/res/layout/fragment_vowel.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/item_list_data.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_list_matery.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/item_list_matery_score.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_list_matery_score.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_list_menu.xml" value="0.18" />
         <entry key="app/src/main/res/layout/item_list_pilihan_tebak_kata.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/item_list_siswa.xml" value="0.25" />

@@ -29,5 +29,8 @@ data class StudentScore(
 	val id: Int? = null,
 
 	@field:SerializedName("nama_materi")
-	val namaMateri: String? = null
+	val namaMateri: String? = null,
+
+	@field:SerializedName("kalimat_vokal")
+	val kalimatVokal: String? = null
 )

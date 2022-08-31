@@ -2,6 +2,7 @@ package com.wisnu.speechrecognition.view.main.ui.student.play
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentPlayBinding
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragmentDirections
 
 class PlayFragment : Fragment(),View.OnClickListener {
 
@@ -34,18 +33,23 @@ class PlayFragment : Fragment(),View.OnClickListener {
     }
 
     private fun prepareView() {
-
+        with(binding){
+            cardGuessWord.setOnClickListener(this@PlayFragment)
+            cardFindPairWords.setOnClickListener(this@PlayFragment)
+            btnBack.setOnClickListener(this@PlayFragment)
+        }
     }
 
     override fun onClick(view: View?) {
         with(binding){
+            if(view?.id == R.id.btn_back){
+                findNavController().navigateUp()
+                Log.e("btn back","clicked")
+            }
             when(view){
-                cardGuessWord -> {
-                    findNavController().navigate(R.id.action_playFragment_to_guessFragment)
-                }
-                cardFindPairWords -> {
-                    findNavController().navigate(R.id.action_playFragment_to_pairFragment)
-                }
+                cardGuessWord -> findNavController().navigate(R.id.action_playFragment_to_guessFragment)
+                cardFindPairWords -> findNavController().navigate(R.id.action_playFragment_to_pairFragment)
+//                R.id.btn_back -> findNavController().navigateUp()
             }
         }
     }
