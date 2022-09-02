@@ -8,19 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wisnu.speechrecognition.adapter.MaterialStudyAdapter
 import com.wisnu.speechrecognition.adapter.MaterialStudyScoreAdapter
 import com.wisnu.speechrecognition.databinding.FragmentMaterialStudyBinding
 import com.wisnu.speechrecognition.model.matery.MateryStudy
-import com.wisnu.speechrecognition.session.UserPreference
-import com.wisnu.speechrecognition.utils.UtilsCode
-import com.wisnu.speechrecognition.utils.showMessage
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_AZ
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_VOKAL
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_MEMBACA
-import www.sanju.motiontoast.MotionToast
 
 class MaterialStudyFragment : Fragment() {
 
@@ -78,7 +72,7 @@ class MaterialStudyFragment : Fragment() {
             tvMaterialStudy.text = materyType
             btnBack.setOnClickListener{findNavController().navigateUp()}
 
-            materyAdapter.setOnItemClickCallBack(object : MaterialStudyAdapter.OnItemClickCallBack {
+            materyAdapter.setOnItemClickCallBack(object : MaterialStudyScoreAdapter.OnItemClickCallBack {
                 override fun onItemClicked(materyStudy: MateryStudy) {
                     // move intent and send id chapter
                     val toQuestion = MaterialStudyFragmentDirections.actionMaterialStudyFragmentToQuestionFragment().apply {

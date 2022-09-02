@@ -8,7 +8,7 @@
     tools:context=".view.main.ui.category.CategoryFragment">
 
     <ImageButton
-        android:id="@+id/btn_notification"
+        android:id="@+id/btn_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="@dimen/dimen_24"
@@ -27,8 +27,8 @@
         android:textSize="@dimen/font_size_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_notification"
-        app:layout_constraintTop_toTopOf="@+id/btn_notification" />
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="@+id/btn_back" />
 
     <TextView
         android:id="@+id/placeholder_tv_home_2"
@@ -58,6 +58,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/card_belajar_huruf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_16"
@@ -89,6 +90,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/card_belajar_konsonan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dimen_24"
@@ -119,6 +121,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_belajar_vokal"
                 style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,6 +153,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/card_belajar_membaca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dimen_24"
@@ -209,6 +213,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_bermain_tebak_kata"
                 style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -242,6 +247,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/card_bermain_temukan_pasangan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dimen_24"
@@ -294,7 +300,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="left"
-        app:constraint_referenced_ids="btn_notification" />
+        app:constraint_referenced_ids="btn_back" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

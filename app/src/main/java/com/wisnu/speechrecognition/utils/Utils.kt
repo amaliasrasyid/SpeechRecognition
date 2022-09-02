@@ -46,17 +46,13 @@ fun showMessage(
     duration: Long = LONG_DURATION
 ) {
     MotionToast.apply {
-        var msg = ""
-        if(message == ""){
-            msg ="Cek Koneksi Internet Dan Coba Lagi!"
-        }
         when (checkSystemMode(activity)) {
 
             MODE_LIGHT -> {
                 createColorToast(
                     activity,
                     title,
-                    msg,
+                    message,
                     style,
                     position,
                     duration,
@@ -70,7 +66,7 @@ fun showMessage(
                 darkColorToast(
                     activity,
                     title,
-                    msg,
+                    message,
                     style,
                     position,
                     duration,

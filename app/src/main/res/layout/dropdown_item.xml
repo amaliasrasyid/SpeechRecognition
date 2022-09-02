@@ -1,0 +1,10 @@
+<TextView android:id="@+id/tv_material_study"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_8"
+    android:fontFamily="@font/poppins_bold"
+    android:maxLines="1"
+    tools:text="Mengenal Huruf A-Z"
+    android:textSize="@dimen/dimen_16"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" />

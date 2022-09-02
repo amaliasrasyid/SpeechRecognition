@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_back2"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:layout_marginBottom="@dimen/dimen_16"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_material_study"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_4"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_bold"
+                android:maxLines="1"
+                android:text="Form Tambah Soal Belajar"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_back"
+                app:layout_constraintTop_toTopOf="@+id/btn_back" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_4"
+                android:background="@drawable/bg_shape_corner_top_blue"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline2">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_teks_jawaban"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimen_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/placeholder_tv_login_2">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_teks_jawaban"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Kalimat Teks (jawaban)"
+                        android:imeOptions="actionNext"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_parent_kalimat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    android:layout_marginEnd="@dimen/dimen_16"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/edt_kalimat_vokal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input"
+                        android:padding="@dimen/dimen_8"
+                        android:visibility="gone"
+                        android:hint="Kalimat Vokal (jawaban)" />
+                </LinearLayout>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:backgroundTint="#0089FF"
+                    android:text="Tambah Kalimat"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_gambar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    android:paddingStart="@dimen/dimen_16"
+                    android:paddingEnd="@dimen/dimen_16"
+                    android:text="Gambar"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/pick_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16"
+                    android:background="@drawable/outline_card"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="@dimen/dimen_16"
+                        android:src="@drawable/ic_image_file" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_16"
+                        android:text="Pilih Gambar"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_reselect_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:layout_marginEnd="@dimen/dimen_16"
+                    android:backgroundTint="#588CB8"
+                    android:text="Hapus Gambar"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/imgPreviewUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_margin="@dimen/dimen_16"
+                    android:layout_marginTop="24dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    tools:src="@drawable/img_not_found" />
+
+                <TextView
+                    android:id="@+id/tv_suara"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    android:paddingStart="@dimen/dimen_16"
+                    android:paddingEnd="@dimen/dimen_16"
+                    android:text="Suara"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/pick_audio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16"
+                    android:background="@drawable/outline_card"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="@dimen/dimen_16"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_file_audio" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_16"
+                        android:text="Pilih Audio Suara"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_reselect_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:layout_marginEnd="@dimen/dimen_16"
+                    android:backgroundTint="#588CB8"
+                    android:text="Hapus Audio"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/audio_preview_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16"
+                    android:background="@drawable/outline_card"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="@dimen/dimen_16"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_sound" />
+
+                    <TextView
+                        android:id="@+id/tv_nama_file_audio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_16"
+                        android:text="nama file audio"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_simpan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:backgroundTint="#0089FF"
+                    android:text="Simpan" />
+
+            </LinearLayout>
+
+
+            <ProgressBar
+                android:id="@+id/pb_matery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_home_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

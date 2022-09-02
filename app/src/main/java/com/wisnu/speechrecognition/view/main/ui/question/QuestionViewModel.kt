@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
 import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.model.student.StudentScoreResponse
 import com.wisnu.speechrecognition.network.ApiConfig
@@ -30,7 +31,7 @@ class QuestionViewModel : ViewModel() {
     }
 
     //api bisa handle sekaligus update jg jika data tidak ditemukan
-    private fun storeStudentScore(params: HashMap<String, Any>) {
+    fun storeStudentScore(params: HashMap<String, Any>) {
         val client = ApiConfig.getApiService().storeStudentScrore(params)
         val gson = Gson()
         client.enqueue(object : Callback<StudentScoreResponse> {
@@ -52,7 +53,31 @@ class QuestionViewModel : ViewModel() {
         })
     }
 
+    fun delete(questionId: Int):LiveData<QuestionStudyResponse>{
+        deleteQuestion(questionId)
+        return _questions
+    }
 
+    private fun deleteQuestion(questionId: Int){
+        val client = ApiConfig.getApiService().deleteQuestionStudy(questionId)
+        val gson = Gson()
+        client.enqueue(object : Callback<QuestionStudyResponse> {
+            override fun onResponse(call: Call<QuestionStudyResponse>, response: Response<QuestionStudyResponse>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    _questions.postValue(result!!)
+                } else {
+                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
+                    _questions.postValue(errResult)
+                    Log.e(TAG, "onFailure: $errResult")
+                }
+            }
+
+            override fun onFailure(call: Call<QuestionStudyResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
 
     fun getQuestionsStudy(materyId: Int): MutableLiveData<QuestionStudyResponse>{
         val client = ApiConfig.getApiService().getQuestionsStudy(materyId)

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentCategoryScoreBinding
@@ -23,6 +24,7 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
 
     private var _binding: FragmentCategoryScoreBinding? = null
     private val binding get() = _binding!!
+    private var id_siswa = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,50 +48,100 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
             cardBelajarMembaca.setOnClickListener(this@CategoryScoreFragment)
             btnBack.setOnClickListener(this@CategoryScoreFragment)
         }
+        id_siswa = CategoryScoreFragmentArgs.fromBundle(arguments as Bundle).idSiswa
     }
 
     
-
     override fun onClick(view: View?) {
-        with(binding){
-            if(view?.id == R.id.btn_back){
+        with(binding) {
+            if (view?.id == R.id.btn_back) {
                 findNavController().navigateUp()
             }
-            when (view) {
-                cardBelajarHuruf -> {
-                    val toLetters = CategoryScoreFragmentDirections.actionCategoryScoreFragmentToScoreFragment()
-                            .apply {
-                                tipeMateriScore = TIPE_HURUF_AZ
-                                namaTipeScore = "Nilai Huruf A-Z"
-                            }
-                    findNavController().navigate(toLetters)
-                }
-                cardBelajarKonsonan -> {
-                    val toConsonant = CategoryScoreFragmentDirections.actionCategoryScoreFragmentToScoreFragment()
-                            .apply {
-                                tipeMateriScore = TIPE_HURUF_KONSONAN
-                                namaTipeScore = "NIlai Huruf Konsonan"
-                            }
-                    findNavController().navigate(toConsonant)
-                }
-                cardBelajarVokal -> {
-                    val toVowel = CategoryScoreFragmentDirections.actionCategoryScoreFragmentToScoreFragment()
-                            .apply {
-                                tipeMateriScore = TIPE_HURUF_VOKAL
-                                namaTipeScore = "Nilai Huruf Vokal"
-                            }
-                    findNavController().navigate(toVowel)
-                }
-                cardBelajarMembaca -> {
-                    val toVocabReading = CategoryScoreFragmentDirections.actionCategoryScoreFragmentToScoreFragment()
-                            .apply {
-                                tipeMateriScore = TIPE_MEMBACA
-                                namaTipeScore = "Nilai Membaca Kosakata"
-                            }
-                    findNavController().navigate(toVocabReading)
-                }
-            }
 
+            if (id_siswa == 0) {
+                when (view) {
+                    cardBelajarHuruf -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment_to_scoreFragment,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_HURUF_AZ,
+                                "nama_tipe_score" to "Nilai Huruf A-Z"
+                            )
+                        )
+                    }
+                    cardBelajarKonsonan -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment_to_scoreFragment,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_HURUF_KONSONAN,
+                                "nama_tipe_score" to "NIlai Huruf Konsonan"
+                            )
+                        )
+                    }
+                    cardBelajarVokal -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment_to_scoreFragment,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_HURUF_VOKAL,
+                                "nama_tipe_score" to "Nilai Huruf Vokal"
+                            )
+                        )
+                    }
+                    cardBelajarMembaca -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment_to_scoreFragment,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_MEMBACA,
+                                "nama_tipe_score" to "Nilai Membaca Kosakata"
+                            )
+                        )
+                    }
+                }
+            } else {
+                when (view) {
+                    cardBelajarHuruf -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment2_to_scoreFragment2,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_HURUF_AZ,
+                                "nama_tipe_score" to "Nilai Huruf A-Z",
+                                "id_siswa" to id_siswa
+                            )
+                        )
+                    }
+                    cardBelajarKonsonan -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment2_to_scoreFragment2,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_HURUF_KONSONAN,
+                                "nama_tipe_score" to "NIlai Huruf Konsonan",
+                                "id_siswa" to id_siswa
+                            )
+                        )
+                    }
+                    cardBelajarVokal -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment2_to_scoreFragment2,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_HURUF_VOKAL,
+                                "nama_tipe_score" to "Nilai Huruf Vokal",
+                                "id_siswa" to id_siswa
+                            )
+                        )
+                    }
+                    cardBelajarMembaca -> {
+                        findNavController().navigate(
+                            R.id.action_categoryScoreFragment2_to_scoreFragment2,
+                            bundleOf(
+                                "tipe_materi_score" to TIPE_MEMBACA,
+                                "nama_tipe_score" to "Nilai Membaca Kosakata",
+                                "id_siswa" to id_siswa
+                            )
+                        )
+                    }
+                }
+
+            }
         }
     }
 }

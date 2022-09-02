@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EEEEEE"
     android:fillViewport="true"
-    tools:context=".view.main.ui.teacher.students.StudentsFragment">
+    tools:context=".view.main.ui.teacher.kelolasoal.lessonQ.VowelSentenceFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,11 +24,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_material_study"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Daftar Siswa"
+            tools:text="Daftar Soal Huruf Vokal"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
             android:src="@drawable/ic_search"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_title"
+            app:layout_constraintStart_toEndOf="@+id/tv_material_study"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
@@ -56,18 +56,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2">
+            <include
+                android:id="@+id/layout_empty"
+                android:visibility="gone"
+                layout="@layout/empty_layout"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_data_siswa"
+                android:id="@+id/rv_vowel_questions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/dimen_8"
-                tools:listitem="@layout/item_list_siswa"/>
-
-            <include
-                android:id="@+id/layout_empty"
-                layout="@layout/empty_layout"/>
+                tools:listitem="@layout/item_list_dmatery"/>
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabAddVowelQ"
+            style="@style/CustomTextViewBoldButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="Tambah Soal"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            app:icon="@android:drawable/ic_input_add"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ProgressBar
             android:id="@+id/pb_matery"

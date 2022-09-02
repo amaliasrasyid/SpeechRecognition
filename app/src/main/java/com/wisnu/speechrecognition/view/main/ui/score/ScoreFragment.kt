@@ -1,6 +1,5 @@
 package com.wisnu.speechrecognition.view.main.ui.score
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,20 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wisnu.speechrecognition.R
-import com.wisnu.speechrecognition.adapter.MaterialStudyAdapter
 import com.wisnu.speechrecognition.adapter.MaterialStudyScoreAdapter
-import com.wisnu.speechrecognition.databinding.FragmentMaterialStudyBinding
 import com.wisnu.speechrecognition.databinding.FragmentScoreBinding
 import com.wisnu.speechrecognition.model.matery.MateryStudy
 import com.wisnu.speechrecognition.session.UserPreference
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_AZ
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_VOKAL
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_MEMBACA
-import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyFragmentArgs
-import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyFragmentDirections
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyViewModel
 
 class ScoreFragment : Fragment() {
@@ -33,6 +26,7 @@ class ScoreFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var materyStudyScoreAdapter: MaterialStudyScoreAdapter
     private lateinit var args: ScoreFragmentArgs
+    private var idStudent = 0
 
 
     override fun onCreateView(
@@ -40,23 +34,29 @@ class ScoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentScoreBinding.inflate(inflater, container, false)
-        return binding.root    }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         args = ScoreFragmentArgs.fromBundle(arguments as Bundle)
+        idStudent = if(args.idSiswa == 0){
+            UserPreference(requireContext()).getUser().id ?: 0
+        }else{
+            args.idSiswa
+        }
+
         val tipeMateri = args.tipeMateriScore
-        prepareView(tipeMateri)
+        prepareView(tipeMateri,idStudent)
     }
 
-    private fun prepareView(tipeMateri: Int) {
+    private fun prepareView(tipeMateri: Int, idStudent: Int) {
         with(binding.score){
-            val userId = UserPreference(requireContext()).getUser().id ?: 0
             when(tipeMateri){
-                TIPE_HURUF_AZ -> observeStudentScores(TIPE_HURUF_AZ,userId)
-                TIPE_HURUF_KONSONAN -> observeStudentScores(tipeMateri,userId)
+                TIPE_HURUF_AZ -> observeStudentScores(TIPE_HURUF_AZ,idStudent)
+                TIPE_HURUF_KONSONAN -> observeStudentScores(tipeMateri,idStudent)
                 TIPE_HURUF_VOKAL -> observeMaterialStudy(TIPE_HURUF_VOKAL)
-                TIPE_MEMBACA -> observeStudentScores(TIPE_MEMBACA,userId)
+                TIPE_MEMBACA -> observeStudentScores(TIPE_MEMBACA,idStudent)
             }
 
             //adapter score
@@ -68,9 +68,9 @@ class ScoreFragment : Fragment() {
             }
 
             tvScore.text = args.namaTipeScore
-            materyStudyScoreAdapter.setOnItemClickCallBack(object : MaterialStudyAdapter.OnItemClickCallBack {
+            materyStudyScoreAdapter.setOnItemClickCallBack(object : MaterialStudyScoreAdapter.OnItemClickCallBack {
                 override fun onItemClicked(materyStudy: MateryStudy) {
-                    observeStudentScores(materyStudy.tipeMateri,userId,true)
+                    observeStudentScores(materyStudy.tipeMateri,idStudent,true)
                 }
             })
             btnBack.setOnClickListener{findNavController().navigateUp()}
@@ -129,6 +129,4 @@ class ScoreFragment : Fragment() {
             layoutEmpty.visibility = View.VISIBLE
         }
     }
-
-
 }

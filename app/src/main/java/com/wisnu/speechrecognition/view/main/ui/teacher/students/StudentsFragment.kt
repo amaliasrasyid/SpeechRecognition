@@ -1,20 +1,18 @@
 package com.wisnu.speechrecognition.view.main.ui.teacher.students
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.R
-import com.wisnu.speechrecognition.adapter.MaterialStudyAdapter
 import com.wisnu.speechrecognition.adapter.StudentAdapter
 import com.wisnu.speechrecognition.databinding.FragmentStudentsBinding
-import com.wisnu.speechrecognition.databinding.FragmentStudyBinding
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyViewModel
-import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyViewModel
+import com.wisnu.speechrecognition.model.student.StudentsResult
 
 class StudentsFragment : Fragment() {
     private var _binding: FragmentStudentsBinding? = null
@@ -47,6 +45,15 @@ class StudentsFragment : Fragment() {
                 setHasFixedSize(true)
                 this.adapter = studentsAdapter
             }
+            btnBack.setOnClickListener{
+                findNavController().navigateUp()
+            }
+            studentsAdapter.setOnItemClickCallBack(object : StudentAdapter.OnItemClickCallBack {
+                override fun onItemClicked(studentsResult: StudentsResult) {
+                    findNavController().navigate(R.id.action_studentsFragment_to_categoryScoreFragment2,
+                        bundleOf("id_siswa" to studentsResult.id))
+                }
+            })
         }
         observeStudents()
     }

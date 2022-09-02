@@ -108,5 +108,9 @@
         <action
             android:id="@+id/action_categoryScoreFragment_to_scoreFragment"
             app:destination="@id/ScoreFragment" />
+        <argument
+            android:name="id_siswa"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

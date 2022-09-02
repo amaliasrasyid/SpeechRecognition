@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +20,14 @@
         android:theme="@style/Theme.SpeechRecognition"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".UploadGuessQActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity"
+            android:exported="false"
+            android:label="@string/title_activity_upload_lesson_qactivity"
+            android:theme="@style/Theme.SpeechRecognition"></activity>
         <activity
             android:name=".view.main.ui.teacher.TeacherActivity"
             android:exported="false" />

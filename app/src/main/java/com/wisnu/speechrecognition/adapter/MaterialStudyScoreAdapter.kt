@@ -27,8 +27,7 @@ class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         isVokal = boolean
     }
 
-
-    private var onItemClickCallBack: MaterialStudyAdapter.OnItemClickCallBack? = null
+    private var onItemClickCallBack: OnItemClickCallBack? = null
 
     private val TAG = MaterialStudyScoreAdapter::class.simpleName
 
@@ -50,7 +49,7 @@ class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         Log.d(TAG, "setData: $listMateryStudy")
     }
 
-    fun setOnItemClickCallBack(onItemClickCallBack: MaterialStudyAdapter.OnItemClickCallBack) {
+    fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
         this.onItemClickCallBack = onItemClickCallBack
     }
 

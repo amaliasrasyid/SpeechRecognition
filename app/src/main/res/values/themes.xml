@@ -29,6 +29,22 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="CustomTextViewBold" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/abhayalibre_semibold</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CustomTextViewRegular" parent="CustomTextViewBold">
+        <item name="fontFamily">@font/aclonica</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CustomTextViewBoldButton" parent="CustomTextViewBold">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Theme.SpeechRecognition.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.SpeechRecognition.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

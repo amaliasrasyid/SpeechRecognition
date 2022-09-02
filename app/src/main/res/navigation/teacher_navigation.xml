@@ -21,18 +21,27 @@
         android:name="com.wisnu.speechrecognition.view.main.ui.teacher.students.StudentsFragment"
         android:label="fragment_students"
         tools:layout="@layout/fragment_students" >
-<!--        <action-->
-<!--            android:id="@+id/action_studentsFragment_to_categoryScoreFragment3"-->
-<!--            app:destination="@id/categoryScoreFragment3" />-->
+        <action
+            android:id="@+id/action_studentsFragment_to_categoryScoreFragment2"
+            app:destination="@id/categoryScoreFragment2" />
     </fragment>
     <fragment
         android:id="@+id/scoreFragment2"
         android:name="com.wisnu.speechrecognition.view.main.ui.score.ScoreFragment"
         android:label="fragment_score"
         tools:layout="@layout/fragment_score" >
-<!--        <argument-->
-<!--            android:name="id_category"-->
-<!--            app:argType="integer" />-->
+        <argument
+            android:name="tipe_materi_score"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="nama_tipe_score"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="id_siswa"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -42,15 +51,110 @@
         <argument
             android:name="id_siswa"
             app:argType="string" />
+        <action
+            android:id="@+id/action_categoryFragment_to_materyFragment"
+            app:destination="@id/materyFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_guessQFragment"
+            app:destination="@id/guessQFragment" />
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/categoryScoreFragment3"-->
-<!--        android:name="com.wisnu.speechrecognition.view.main.ui.score.kategory.CategoryScoreFragment"-->
-<!--        android:label="fragment_category_score"-->
-<!--        tools:layout="@layout/fragment_category_score" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_categoryScoreFragment3_to_scoreFragment2"-->
-<!--            app:destination="@id/scoreFragment2" />-->
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/categoryScoreFragment2"
+        android:name="com.wisnu.speechrecognition.view.main.ui.score.kategory.CategoryScoreFragment"
+        android:label="fragment_category_score"
+        tools:layout="@layout/fragment_category_score" >
+        <action
+            android:id="@+id/action_categoryScoreFragment2_to_scoreFragment2"
+            app:destination="@id/scoreFragment2" />
+        <argument
+            android:name="id_siswa"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadLessonQFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQFragment"
+        android:label="Fragment_upload_lesson_q"
+        tools:layout="@layout/activity_upload_lesson_q" >
+        <argument
+            android:name="id_materi"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="id_soal"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="tipe_materi"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/materyFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.MateryFragment"
+        android:label="fragment_matery"
+        tools:layout="@layout/fragment_matery" >
+        <action
+            android:id="@+id/action_materyFragment_to_uploadMateryFragment"
+            app:destination="@id/uploadMateryFragment" />
+        <action
+            android:id="@+id/action_materyFragment_to_vowelSentenceFragment"
+            app:destination="@id/vowelSentenceFragment" />
+        <argument
+            android:name="tipe_materi"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="nama_tipe"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadMateryFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.uploadmateri.UploadMateryFragment"
+        android:label="fragment_upload_matery"
+        tools:layout="@layout/fragment_upload_matery" >
+        <argument
+            android:name="tipe_materi_data"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="id_data"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="teks_materi"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/vowelSentenceFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.VowelSentenceFragment"
+        android:label="fragment_vowel_sentence"
+        tools:layout="@layout/fragment_vowel_sentence" >
+        <argument
+            android:name="id_materi"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/guessQFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.GuessQFragment"
+        android:label="fragment_guess_q"
+        tools:layout="@layout/fragment_guess_q" >
+        <action
+            android:id="@+id/action_guessQFragment_to_uploadGuessQFragment"
+            app:destination="@id/uploadGuessQFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadGuessQFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity"
+        android:label="fragment_upload_guess_q"
+        tools:layout="@layout/activity_upload_guess_q" >
+        <argument
+            android:name="id_soal"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>

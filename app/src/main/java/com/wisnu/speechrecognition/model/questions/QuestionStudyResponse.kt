@@ -1,5 +1,6 @@
 package com.wisnu.speechrecognition.model.questions
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class QuestionStudyResponse(
@@ -13,7 +14,6 @@ data class QuestionStudyResponse(
 	@field:SerializedName("message")
 	val message: String
 )
-
 data class Question(
 
 	@field:SerializedName("materi_pelajaran")
