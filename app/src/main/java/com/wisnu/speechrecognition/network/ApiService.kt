@@ -55,7 +55,7 @@ interface ApiService {
     fun storeQuestionStudy(
         @Part audio: MultipartBody.Part?,
         @Part image: MultipartBody.Part?,
-        @PartMap params: HashMap<String,Any>
+        @PartMap params: HashMap<String,RequestBody>
     ): Call<QuestionStudyResponse>
 
     @DELETE("lessonq/{id}")

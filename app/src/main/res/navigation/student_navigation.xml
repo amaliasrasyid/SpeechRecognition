@@ -99,6 +99,10 @@
             android:name="nama_tipe_score"
             app:argType="string"
             android:defaultValue='""' />
+        <argument
+            android:name="id_siswa"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/categoryScoreFragment"
@@ -113,4 +117,9 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>

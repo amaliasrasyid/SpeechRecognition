@@ -8,6 +8,8 @@ import com.wisnu.speechrecognition.databinding.ItemListDmateryBinding
 import com.wisnu.speechrecognition.model.questions.GuessQItem
 
 class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.GuessQViewHolder>() {
+    private val REQUEST_TYPE_ = 1
+    private val ITEM_TYPE_MATERY = 2
     private val listGuessQ= ArrayList<GuessQItem>()
 
     private val TAG = GuessQAdapter::class.simpleName

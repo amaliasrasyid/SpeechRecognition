@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.network.ApiConfig
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +23,7 @@ class UploadLessonQViewModel: ViewModel() {
         return _lessonQ
     }
 
-    fun uploadLessonQ(image: MultipartBody.Part?,audio: MultipartBody.Part?,params: HashMap<String,Any>): LiveData<QuestionStudyResponse>{
+    fun uploadLessonQ(image: MultipartBody.Part?,audio: MultipartBody.Part?,params: HashMap<String,RequestBody>): LiveData<QuestionStudyResponse>{
         storeOrUpdateLessonQ(audio,image,params)
         return _lessonQ
     }
@@ -50,7 +51,7 @@ class UploadLessonQViewModel: ViewModel() {
     }
 
 
-    private fun storeOrUpdateLessonQ(image: MultipartBody.Part?,audio: MultipartBody.Part?, params: HashMap<String, Any>) {
+    private fun storeOrUpdateLessonQ(image: MultipartBody.Part?,audio: MultipartBody.Part?, params: HashMap<String, RequestBody>) {
         val client = ApiConfig.getApiService().storeQuestionStudy(audio,image,params)
         val gson = Gson()
         client.enqueue(object : Callback<QuestionStudyResponse> {
@@ -62,6 +63,7 @@ class UploadLessonQViewModel: ViewModel() {
                     val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
                     _lessonQ.postValue(errResult)
                     Log.e(TAG, "onFailure: $errResult")
+//                    [size=22466 text={\n    "message": "SQLSTATE[23000]: Integrity constraint violatio…]
                 }
             }
 

@@ -20,7 +20,9 @@ import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.question.QuestionViewModel
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.GuessQFragment
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.EXTRA_DATA_MATERY_ID
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.EXTRA_DATA_QUESTION
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.TYPE_VOWEL
 import www.sanju.motiontoast.MotionToast
 
 class VowelSentenceFragment : Fragment() {
@@ -71,6 +73,8 @@ class VowelSentenceFragment : Fragment() {
             })
             fabAddVowelQ.setOnClickListener{
                 val intent = Intent(requireActivity(),UploadLessonQActivity::class.java)
+                intent.putExtra(EXTRA_DATA_MATERY_ID,idMatery)
+                intent.putExtra(TYPE_VOWEL,true)
                 startActivity(intent)
             }
             btnBack.setOnClickListener{
@@ -140,6 +144,7 @@ class VowelSentenceFragment : Fragment() {
         val intent = Intent(requireActivity(),UploadLessonQActivity::class.java)
         intent.apply {
             putExtra(EXTRA_DATA_QUESTION,parcelableQ)
+            putExtra(EXTRA_DATA_MATERY_ID,parcelableQ.materiPelajaran)
         }
         startActivity(intent)
     }
@@ -159,5 +164,10 @@ class VowelSentenceFragment : Fragment() {
                 pbLoader.visibility = android.view.View.GONE
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeQuestion(idMatery)
     }
 }

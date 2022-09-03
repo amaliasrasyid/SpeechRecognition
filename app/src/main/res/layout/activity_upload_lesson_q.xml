@@ -45,8 +45,9 @@
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_4"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_shape_corner_top_blue"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +127,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginTop="@dimen/dimen_16"
-                        android:src="@drawable/ic_image_file"/>                        "/>
+                        android:src="@drawable/ic_image_file" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -150,12 +151,12 @@
                 <ImageView
                     android:id="@+id/imgPreviewUpload"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16"
                     android:layout_marginTop="24dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:visibility="gone"
-                    tools:src="@drawable/img_not_found" />
+                    tools:src="@drawable/img_example_test" />
 
                 <TextView
                     android:id="@+id/tv_suara"
@@ -238,7 +239,6 @@
                     android:text="Simpan" />
 
             </LinearLayout>
-
 
             <ProgressBar
                 android:id="@+id/pb_loader"

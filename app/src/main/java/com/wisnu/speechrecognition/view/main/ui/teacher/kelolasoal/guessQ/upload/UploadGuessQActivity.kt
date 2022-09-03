@@ -123,6 +123,7 @@ class UploadGuessQActivity : AppCompatActivity(), View.OnClickListener {
                 btnSimpan -> saveGuessQ()
                 pickAudio -> selectAudio()
                 btnReselectAudio -> {
+                    isAudioExist = false
                     audioPreviewUpload.visibility = View.GONE
                     pickAudio.visibility = View.VISIBLE
                     tvSuara.visibility = View.VISIBLE
