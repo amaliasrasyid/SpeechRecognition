@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQFragment">
+    tools:context=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -15,12 +15,13 @@
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:src="@drawable/ic_back2"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="@dimen/dimen_16"
                 android:layout_marginBottom="@dimen/dimen_16"
+                android:background="@null"
+                android:padding="@dimen/dimen_8"
+                android:src="@drawable/ic_back2"
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_4"
-                android:layout_marginEnd="@dimen/dimen_8"
+                android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_bold"
                 android:maxLines="1"
@@ -44,7 +45,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/dimen_4"
                 android:background="@drawable/bg_shape_corner_top_blue"
                 android:orientation="vertical"
@@ -80,14 +81,15 @@
                     android:layout_marginTop="@dimen/dimen_16"
                     android:layout_marginEnd="@dimen/dimen_16"
                     android:orientation="vertical">
+
                     <EditText
                         android:id="@+id/edt_kalimat_vokal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/card_input"
+                        android:hint="Kalimat Vokal (jawaban)"
                         android:padding="@dimen/dimen_8"
-                        android:visibility="gone"
-                        android:hint="Kalimat Vokal (jawaban)" />
+                        android:visibility="gone" />
                 </LinearLayout>
 
 
@@ -124,7 +126,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginTop="@dimen/dimen_16"
-                        android:src="@drawable/ic_image_file" />
+                        android:src="@drawable/ic_image_file"/>                        "/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -208,7 +210,7 @@
                     android:background="@drawable/outline_card"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:visibility="gone" >
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="80dp"
@@ -239,7 +241,7 @@
 
 
             <ProgressBar
-                android:id="@+id/pb_matery"
+                android:id="@+id/pb_loader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

@@ -17,10 +17,38 @@ class UploadLessonQViewModel: ViewModel() {
     private val TAG = UploadLessonQViewModel::class.java.simpleName
     private val RESPONSE_CLASS = QuestionStudyResponse::class.java
 
+    fun questions(materyId: Int): LiveData<QuestionStudyResponse>{
+        _lessonQ = getQuestionsStudy(materyId)
+        return _lessonQ
+    }
+
     fun uploadLessonQ(image: MultipartBody.Part?,audio: MultipartBody.Part?,params: HashMap<String,Any>): LiveData<QuestionStudyResponse>{
         storeOrUpdateLessonQ(audio,image,params)
         return _lessonQ
     }
+
+    fun getQuestionsStudy(materyId: Int): MutableLiveData<QuestionStudyResponse>{
+        val client = ApiConfig.getApiService().getQuestionsStudy(materyId)
+        val gson = Gson()
+        client.enqueue(object : Callback<QuestionStudyResponse> {
+            override fun onResponse(call: Call<QuestionStudyResponse>, response: Response<QuestionStudyResponse>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    _lessonQ.postValue(result!!)
+                } else {
+                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
+                    _lessonQ.postValue(errResult)
+                    Log.e(TAG, "onFailure: $errResult")
+                }
+            }
+
+            override fun onFailure(call: Call<QuestionStudyResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+        return _lessonQ
+    }
+
 
     private fun storeOrUpdateLessonQ(image: MultipartBody.Part?,audio: MultipartBody.Part?, params: HashMap<String, Any>) {
         val client = ApiConfig.getApiService().storeQuestionStudy(audio,image,params)

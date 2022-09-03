@@ -7,13 +7,13 @@ import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,19 +21,21 @@ import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.ActivityUploadLessonQBinding
-import com.wisnu.speechrecognition.local_db.QuestionClass
+import com.wisnu.speechrecognition.local_db.QuestionStudyClass
+import com.wisnu.speechrecognition.model.matery.MateryStudy
+import com.wisnu.speechrecognition.model.questions.Question
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.network.UploadRequestBody
+import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
 import com.wisnu.speechrecognition.utils.showMessage
-import com.wisnu.speechrecognition.view.main.ui.score.ScoreFragmentArgs
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_AZ
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_KONSONAN
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_VOKAL
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_MEMBACA
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import www.sanju.motiontoast.MotionToast
 import java.io.File
 
@@ -41,17 +43,19 @@ import java.io.File
 class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityUploadLessonQBinding
-    private lateinit var viewModel: UploadLessonQViewModel
+    private val viewModel by viewModels<UploadLessonQViewModel>()
     private var listTeksJawaban =  ArrayList<String>()
-    private var params = HashMap<String,Any>()
 
     private var tipeMateriSoal = 0
 
-    private var gambarPath: String? = null
+    private var imagePath: String? = null
     private var audioPath: String? = null
 
-    private lateinit var bodyImage: MultipartBody.Part
-    private lateinit var bodyAudio: MultipartBody.Part
+    private var idQuestion = 0
+    private var idMatery = 0
+    private var type = 0
+    private var isAudioExist = false
+    private var isImageExist = false
 
     private var imageUri: Uri? = null
 
@@ -61,15 +65,16 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val TYPE = "type"
-        const val REQUEST_ADD_VIDEO = 10
-        const val REQUEST_ADD_IMAGE = 11
-        const val REQUEST_EDIT_VIDEO = 20
-        const val REQUEST_EDIT_IMAGE = 21
-        const val EXTRA_DATA = "extra_data"
+        const val REQUEST_ADD = 30
+        const val REQUEST_EDIT = 40
+        const val EXTRA_DATA_QUESTION = "extra_data_question"
+        const val EXTRA_DATA_MATERY_ID = "extra_data_matery_id"
         private const val REQUEST_CODE_PERMISSIONS = 111
         private const val REQUEST_CODE_SELECT_IMAGE = 333
         private const val REQUEST_CODE_SELECT_AUDIO = 444
         private const val AUDIO = 200
+        private const val MUST_PICK_IMAGE = "Gambar soal harus dipilih, tidak boleh kosong!"
+        private const val MUST_PICK_AUDIO = "Audio soal harus dipilih, tidak boleh kosong!"
     }
 
 
@@ -83,8 +88,10 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun prepareView() {
+        loader(true) //Kasih notif klu sdg cek apa data ada
         with(binding){
             btnAddView.setOnClickListener(this@UploadLessonQActivity)
+            btnBack.setOnClickListener(this@UploadLessonQActivity)
             btnSimpan.setOnClickListener(this@UploadLessonQActivity)
             pickImage.setOnClickListener(this@UploadLessonQActivity)
             pickAudio.setOnClickListener(this@UploadLessonQActivity)
@@ -92,33 +99,22 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
             btnReselectAudio.setOnClickListener(this@UploadLessonQActivity)
             audioPreviewUpload.setOnClickListener(this@UploadLessonQActivity)
 
-            //cek store atau update layout
+            //cek jika ada datanya
             if(intent.extras != null){
-                val question = intent.getParcelableExtra<QuestionClass>("question")
-                if(question != null){
-                    edtTeksJawaban.setText(question.teksJawaban)
-
-                    //image
-                    Glide.with(this@UploadLessonQActivity)
-                        .load(ApiConfig.URL_IMAGE +question.gambar)
-                        .error(R.drawable.no_profile_images)
-                        .into(imgPreviewUpload)
-                    imgPreviewUpload.visibility = View.VISIBLE
-                    btnReselectImg.visibility = View.VISIBLE
-                    pickImage.visibility = View.GONE
-
-                    //audio
-                    audioPreviewUpload.visibility = View.VISIBLE
-                    btnReselectAudio.visibility = View.VISIBLE
-                    pickAudio.visibility = View.GONE
-                    tvNamaFileAudio.text = question.suara
-                    //Prepare Voice
-                    mediaPlayer = MediaPlayer()
-                    val urlAudio = ApiConfig.URL_SOUNDS + question.suara
-                    prepareMediaPlayer(urlAudio)
+                idMatery = intent.getIntExtra(EXTRA_DATA_MATERY_ID,0)
+                val question = intent.getParcelableExtra<QuestionStudyClass>(EXTRA_DATA_QUESTION)
+                if(question == null){
+                    getQuestions(idMatery)
+                }else{
+                    prepareViewWithData(question)
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.finish()
     }
 
     override fun onClick(view: View?) {
@@ -148,7 +144,93 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
                     //play audio
                     mediaPlayer?.start()
                 }
+                btnBack -> finish()
                 else -> {}
+            }
+        }
+    }
+
+    private fun getQuestions(materyId:Int) { //PASTI SATU KECUALI VOKAL
+        viewModel.questions(materyId).observe(this) { response ->
+            loader(false)
+            if (response.data != null) {
+                if (!response.data.isEmpty()) {
+                    if (response.code == 200) {
+                        val results = response.data
+                        prepareViewWithData(results.get(0))
+                    }
+                } else {
+                    prepareViewWithData()
+                }
+            } else {
+                showMessage(
+                    this,
+                    TITLE_ERROR,
+                    style = MotionToast.TOAST_ERROR
+                )
+            }
+        }
+    }
+
+    private fun prepareViewWithData(item: Any? = null) {
+        with(binding){
+            if(item != null){
+                when(item){
+                    is Question -> {
+                        edtTeksJawaban.setText(item.teksJawaban)
+
+                        //image
+                        Glide.with(this@UploadLessonQActivity)
+                            .load(ApiConfig.URL_IMAGE + item.gambar)
+                            .error(R.drawable.no_profile_images)
+                            .into(imgPreviewUpload)
+                        imgPreviewUpload.visibility = View.VISIBLE
+                        btnReselectImg.visibility = View.VISIBLE
+                        pickImage.visibility = View.GONE
+                        isImageExist = true
+
+                        //audio
+                        audioPreviewUpload.visibility = View.VISIBLE
+                        btnReselectAudio.visibility = View.VISIBLE
+                        pickAudio.visibility = View.GONE
+                        tvNamaFileAudio.text = item.suara
+
+                        audioPath = item.suara
+                        imagePath = item.gambar
+
+                        //Prepare Voice
+                        mediaPlayer = MediaPlayer()
+                        val urlAudio = ApiConfig.URL_SOUNDS + item.suara
+                        prepareMediaPlayer(urlAudio)
+                    }
+                    is QuestionStudyClass -> {
+                        edtTeksJawaban.setText(item.teksJawaban)
+
+                        //image
+                        Glide.with(this@UploadLessonQActivity)
+                            .load(ApiConfig.URL_IMAGE + item.gambar)
+                            .error(R.drawable.no_profile_images)
+                            .into(imgPreviewUpload)
+                        imgPreviewUpload.visibility = View.VISIBLE
+                        btnReselectImg.visibility = View.VISIBLE
+                        pickImage.visibility = View.GONE
+                        isImageExist = true
+
+                        //audio
+                        audioPreviewUpload.visibility = View.VISIBLE
+                        btnReselectAudio.visibility = View.VISIBLE
+                        pickAudio.visibility = View.GONE
+                        tvNamaFileAudio.text = item.suara
+
+                        audioPath = item.suara
+                        imagePath = item.gambar
+
+                        //Prepare Voice
+                        mediaPlayer = MediaPlayer()
+                        val urlAudio = ApiConfig.URL_SOUNDS + item.suara
+                        prepareMediaPlayer(urlAudio)
+                    }
+                }
             }
         }
     }
@@ -229,72 +311,122 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun saveQuestion() {
-        with(binding){
-            if(tipeMateriSoal == 0){
-                showMessage(
-                    this@UploadLessonQActivity,
-                    TITLE_WARNING,
-                    "Tipe materi soal tidak boleh kosong!",
-                    style = MotionToast.TOAST_WARNING
-                )
-            }else if(listTeksJawaban.size != 0){
-                showMessage(
-                    this@UploadLessonQActivity,
-                    TITLE_WARNING,
-                    "Teks jawaban soal tidak boleh kosong!",
-                    style = MotionToast.TOAST_WARNING
-                )
-            }
-            getListEdtJawaban()
-            reqFileImage()
-            reqFileAudio()
-            val listAnswer = listTeksJawaban
-            val materyQType = tipeMateriSoal
-            storeLessonQuestion(bodyImage,bodyAudio,listAnswer,materyQType)
+        with(binding) {
+            val teksJawaban = edtTeksJawaban.text ?: ""
 
-        }
+            when (type) {
+//                REQUEST_ADD -> {
+//                    showMessage(
+//                        this@UploadLessonQActivity,
+//                        title = TITLE_WARNING,
+//                        message = MUST_PICK_AUDIO,
+//                        style = MotionToast.TOAST_WARNING
+//                    )
+//                }
+                REQUEST_ADD -> {
+                    if (imagePath.isNullOrEmpty()) {
+                        showMessage(
+                            activity = this@UploadLessonQActivity,
+                            title = TITLE_WARNING,
+                            message = MUST_PICK_IMAGE,
+                            style = MotionToast.TOAST_WARNING
+                        )
+                        return@with
+                    }
+                    if (audioPath.isNullOrEmpty()) {
+                        showMessage(
+                            activity = this@UploadLessonQActivity,
+                            title = TITLE_WARNING,
+                            message = MUST_PICK_AUDIO,
+                            style = MotionToast.TOAST_WARNING
+                        )
+                        return@with
+                    }
+                }
+            }
+                when {
+                    teksJawaban.isEmpty() -> {
+                        showMessage(
+                            this@UploadLessonQActivity,
+                            TITLE_WARNING,
+                            "Teks jawaban soal tidak boleh kosong!",
+                            style = MotionToast.TOAST_WARNING
+                        )
+                        return@with
+                    }
+                    else -> {
+                        val bodyImage = reqFileImage()
+                        val bodyAudio = reqFileAudio()
+                        val materyQType = tipeMateriSoal
+                        var params = HashMap<String, Any>()
+                        params.put("id", idQuestion)
+                        params.put("id_materi", idMatery)
+                        params.put("teks_jawaban", teksJawaban)
+                        storeLessonQuestion(bodyImage, bodyAudio, params)
+                    }
+                }
+            }
     }
 
     private fun storeLessonQuestion(
         bodyImage: MultipartBody.Part,
         bodyAudio: MultipartBody.Part,
-        listAnswer: ArrayList<String>,
-        materyQType: Int
+        params: HashMap<String,Any>
     ) {
-
-    }
-
-    private fun reqFileImage(){
-        if (gambarPath == null) {
-            showMessage(
-                this@UploadLessonQActivity,
-                TITLE_WARNING,
-                "Data gambar harus ada, silahkan pilih gambar untuk soal",
-                style = MotionToast.TOAST_WARNING
-            )
-        } else {
-            val fileImage = File(gambarPath)
-            val reqFileImage =
-                fileImage.asRequestBody("image/jpeg/jpg/png".toMediaTypeOrNull())
-            bodyImage = MultipartBody.Part.createFormData(
-                "gambar", fileImage.name, reqFileImage
-            )
+        viewModel.uploadLessonQ(bodyImage,bodyAudio,params).observe(this) { response ->
+            loader(false)
+            if (response.data != null) {
+                if (response.code == 200) {
+                    showMessage(
+                        this@UploadLessonQActivity,
+                        TITLE_SUCESS,
+                        "Berhasil menyimpan soal",
+                        style = MotionToast.TOAST_SUCCESS
+                    )
+                } else {
+                    showMessage(
+                        this@UploadLessonQActivity,
+                        TITLE_ERROR,
+                        response.message ?: "",
+                        style = MotionToast.TOAST_ERROR
+                    )
+                }
+            } else {
+                showMessage(
+                    this@UploadLessonQActivity,
+                    UtilsCode.TITLE_ERROR,
+                    "nilai gagal disimpan",
+                    style = MotionToast.TOAST_ERROR
+                )
+            }
         }
     }
 
-    private fun reqFileAudio(){
-        if (audioPath == null) {
-            showMessage(
-                this@UploadLessonQActivity,
-                TITLE_WARNING,
-                "Data gambar harus ada, silahkan pilih gambar untuk soal",
-                style = MotionToast.TOAST_WARNING
-            )
-        } else {
-            val fileAudio = File(audioPath)
-            val reqFileAudio = UploadRequestBody(fileAudio, "audio/mp3/wav/m4a")
-            bodyAudio = MultipartBody.Part.createFormData("soal_suara", fileAudio.name, reqFileAudio)
-        }
+    private fun reqFileImage(): MultipartBody.Part {
+        val fileImage = File(imagePath!!)
+        val reqFileImage =
+            fileImage.asRequestBody("image/jpeg/jpg/png".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData(
+            "gambar", fileImage.name, reqFileImage
+        )
+    }
+
+    private fun reqFileImageEmpty(): MultipartBody.Part {
+        val reqFileImage = ""
+            .toRequestBody("image/jpeg/jpg/png".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("gambar", "", reqFileImage)
+    }
+
+    private fun reqFileAudio(): MultipartBody.Part {
+        val fileAudio = File(audioPath)
+        val reqFileAudio = UploadRequestBody(fileAudio, "audio/mp3/wav/m4a/amr")
+        return MultipartBody.Part.createFormData("suara", fileAudio.name, reqFileAudio)
+    }
+
+    private fun reqFileAudioEmpty(): MultipartBody.Part {
+        val reqFileAudio = ""
+            .toRequestBody("audio/mp3/wav/m4a/amr".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("suara", "", reqFileAudio)
     }
 
     private fun getPathImage(contentUri: Uri): String? {
@@ -339,8 +471,10 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
             mediaPlayer?.setDataSource(urlAudio) // URL music file
             mediaPlayer?.prepare()
+            isAudioExist = true
         } catch (e: Exception) {
             Log.e(TAG, "prepareMediaPlayer: ${e.message}")
+            isAudioExist = false
         }
     }
 
@@ -351,11 +485,12 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
                 REQUEST_CODE_SELECT_IMAGE -> {
                     if (resultCode == RESULT_OK) {
                         imageUri = data?.data
-                        gambarPath = getPathImage(imageUri!!)
+                        imagePath = getPathImage(imageUri!!)
                         imgPreviewUpload.visibility = View.VISIBLE
                         btnReselectImg.visibility = View.VISIBLE
                         pickImage.visibility = View.GONE
                         imgPreviewUpload.setImageURI(imageUri)
+                        isImageExist = true
                     }
                 }
                 REQUEST_CODE_SELECT_AUDIO -> {
@@ -431,6 +566,14 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
+    private fun loader(state: Boolean) {
+        with(binding) {
+            if (state) {
+                pbLoader.visibility = android.view.View.VISIBLE
+            } else {
+                pbLoader.visibility = android.view.View.GONE
+            }
+        }
+    }
 
 }

@@ -156,5 +156,10 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <activity
+        android:id="@+id/userProfileActivity"
+        android:name="com.wisnu.speechrecognition.view.main.ui.profile.UserProfileActivity"
+        android:label="activity_user_profile"
+        tools:layout="@layout/activity_user_profile" />
 
 </navigation>

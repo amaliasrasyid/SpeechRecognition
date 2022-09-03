@@ -1,7 +1,9 @@
 package com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +13,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.MateryAdapter
 import com.wisnu.speechrecognition.databinding.FragmentMateryBinding
-import com.wisnu.speechrecognition.local_db.QuestionClass
+import com.wisnu.speechrecognition.local_db.QuestionStudyClass
 import com.wisnu.speechrecognition.model.matery.MateryStudy
 import com.wisnu.speechrecognition.model.questions.Question
+import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.showMessage
+import com.wisnu.speechrecognition.view.auth.AuthViewModel
+import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_AZ
+import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_VOKAL
+import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_MEMBACA
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.EXTRA_DATA_MATERY_ID
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.EXTRA_DATA_QUESTION
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.REQUEST_ADD
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.REQUEST_EDIT
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.TYPE
 import www.sanju.motiontoast.MotionToast
 
 class MateryFragment : Fragment() {
@@ -28,6 +40,10 @@ class MateryFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var materyAdapter: MateryAdapter
     private lateinit var args: MateryFragmentArgs
+    private var tipeMateri = 0
+
+    private val TAG = MateryFragment::class.java.simpleName
+
 
     companion object {
         fun newInstance() = MateryFragment()
@@ -39,30 +55,30 @@ class MateryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMateryBinding.inflate(inflater, container, false)
-        return binding.root    
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         args = MateryFragmentArgs.fromBundle(arguments as Bundle)
-        val tipeMateri = args.tipeMateri
+        tipeMateri = args.tipeMateri
         prepareView(tipeMateri)
     }
 
     private fun prepareView(tipeMateri: Int) {
         with(binding){
             when(tipeMateri){
-                StudyFragment.TIPE_HURUF_AZ -> {
-                    observeMaterialStudy(StudyFragment.TIPE_HURUF_AZ)
+                TIPE_HURUF_AZ -> {
+                    observeMaterialStudy(TIPE_HURUF_AZ)
                 }
-                StudyFragment.TIPE_HURUF_KONSONAN -> {
-                    observeMaterialStudy(StudyFragment.TIPE_HURUF_KONSONAN)
+                TIPE_HURUF_KONSONAN -> {
+                    observeMaterialStudy(TIPE_HURUF_KONSONAN)
                 }
-                StudyFragment.TIPE_HURUF_VOKAL -> {
-                    observeMaterialStudy(StudyFragment.TIPE_HURUF_VOKAL)
+                TIPE_HURUF_VOKAL -> {
+                    observeMaterialStudy(TIPE_HURUF_VOKAL)
                 }
-                StudyFragment.TIPE_MEMBACA -> {
-                    observeMaterialStudy(StudyFragment.TIPE_MEMBACA)
+                TIPE_MEMBACA -> {
+                    observeMaterialStudy(TIPE_MEMBACA)
                 }
             }
             //adapter
@@ -77,14 +93,31 @@ class MateryFragment : Fragment() {
             btnBack.setOnClickListener{findNavController().navigateUp()}
 
             materyAdapter.setOnItemClickCallBack(object : MateryAdapter.OnItemClickCallBack {
-                override fun onItemClicked(materyStudy: MateryStudy) {
-                    //siapkan data soal
-                    getQuestions(materyStudy)
+                override fun onItemClicked(item: MateryStudy) {
+                    when(item.tipeMateri){
+                        TIPE_HURUF_VOKAL -> {
+                            val toVowelSentence = MateryFragmentDirections.actionMateryFragmentToVowelSentenceFragment().apply {
+                                idMateri = item.id
+                            }
+                            findNavController().navigate(toVowelSentence)
+                        }
+                        else -> {
+                            val intent = Intent(requireActivity(),UploadLessonQActivity::class.java)
+                            intent.apply {
+                                putExtra(EXTRA_DATA_MATERY_ID,item.id)
+                            }
+                            startActivity(intent)
+
+                        }
+                    }
+
                 }
             })
             materyAdapter.setOnItemBtnDeleteCallBack(object : MateryAdapter.OnItemBtnDeleteClickCallBack {
                 override fun onDeleteClicked(position: Int,materyStudy: MateryStudy) {
+                    materyAdapter.removeData(position)
                     deleteMatery(position,materyStudy.id)
+                    Log.d(ContentValues.TAG,"posisi item-${position}")
                 }
             })
             materyAdapter.setOnItemBtnEditCallBack(object : MateryAdapter.OnItemBtnEditClickCallBack {
@@ -115,24 +148,21 @@ class MateryFragment : Fragment() {
         with(binding){
             viewModel.delete(materyId).observe(viewLifecycleOwner, { response ->
                 pbMatery.visibility = View.GONE
-                if (response.data != null) {
-                    if(!response.data.isEmpty()){
-                        if (response.code == 200) {
-                            materyAdapter.removeData(position)
-                        } else {
-                            showMessage(
-                                requireActivity(),
-                                TITLE_ERROR,
-                                response.message ?: "",
-                                style = MotionToast.TOAST_ERROR
-                            )
-                        }
-                    }else{
+                if (response != null) {
+                    if (response.code == 404){
                         showMessage(
                             requireActivity(),
                             TITLE_ERROR,
-                            response.message?: "",
+                            response.message ?: "",
                             style = MotionToast.TOAST_ERROR
+                        )
+                        observeMaterialStudy(materyId)
+                    }else{
+                        showMessage(
+                            requireActivity(),
+                            UtilsCode.TITLE_SUCESS,
+                            response.message ?: "",
+                            style = MotionToast.TOAST_SUCCESS
                         )
                     }
                 } else {
@@ -162,70 +192,9 @@ class MateryFragment : Fragment() {
                         dataNotFound()
                     }
                 } else {
-                    dataNotFound()
+                    Log.e(TAG,"data is null")
                 }
             })
-        }
-    }
-
-    private fun getQuestions(materyStudy: MateryStudy) { //PASTI SATU KECUALI VOKAL
-        viewModel.questions(materyStudy.id).observe(viewLifecycleOwner) { response ->
-            binding.pbMatery.visibility = View.GONE
-            if (response.data != null) {
-                if (!response.data.isEmpty()) {
-                    if (response.code == 200) {
-                        val results = response.data
-                        passDataToForm(results,materyStudy)
-                    } else {
-                        showMessage(
-                            requireActivity(),
-                            TITLE_ERROR,
-                            response.message ?: "",
-                            style = MotionToast.TOAST_ERROR
-                        )
-                    }
-                } else {
-                    showMessage(
-                        requireActivity(),
-                        TITLE_ERROR,
-                        response.message ?: "",
-                        style = MotionToast.TOAST_ERROR
-                    )
-                }
-            } else {
-                showMessage(
-                    requireActivity(),
-                    TITLE_ERROR,
-                    style = MotionToast.TOAST_ERROR
-                )
-            }
-        }
-    }
-
-    private fun passDataToForm(results: List<Question>, item: MateryStudy) {
-        // move intent and send id chapter
-        when(item.tipeMateri){
-            TIPE_HURUF_VOKAL -> {
-                val toVowelSentence = MateryFragmentDirections.actionMateryFragmentToVowelSentenceFragment().apply {
-                    idMateri = item.id
-                }
-                findNavController().navigate(toVowelSentence)
-            }
-            else ->{
-                val resultQ = results.get(0) //hanya vokal yg punya 1:M relasi
-                val question = QuestionClass(
-                    resultQ.id,
-                    resultQ.gambar,
-                    resultQ.suara,
-                    resultQ.teksJawaban,
-                    resultQ.materiPelajaran
-                )
-                val intent = Intent(requireActivity(),UploadLessonQActivity::class.java)
-                intent.apply {
-                    putExtra("question",question)
-                }
-                startActivity(intent)
-            }
         }
     }
 
@@ -234,5 +203,11 @@ class MateryFragment : Fragment() {
             val layoutEmpty = layoutEmpty.root
             layoutEmpty.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MateryFragment","onresume")
+        observeMaterialStudy(tipeMateri)
     }
 }

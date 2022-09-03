@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.wisnu.speechrecognition.databinding.FragmentGuessBinding
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.GuessQViewModel
 
 class GuessFragment : Fragment() {
 
-    private val viewModel by viewModels<GuessViewModel>()
+    private val viewModel by viewModels<GuessQViewModel>()
     private var _binding: FragmentGuessBinding? = null
     private val binding get() = _binding!!
+    private var jumlahBenar = 0
 
     companion object {
         fun newInstance() = GuessFragment()
@@ -34,5 +36,11 @@ class GuessFragment : Fragment() {
     private fun prepareView() {
         TODO("Not yet implemented")
     }
+
+    private  fun observeGuessQ(){
+
+    }
+
+
 
 }

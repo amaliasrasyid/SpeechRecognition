@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_8"
-            android:text="Create Your Account"
+            android:text="Silahkan login untuk masuk ke dalam aplikasi"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,9 +104,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_24"
+            android:backgroundTint="#0089FF"
             android:text="Login"
             android:textSize="16sp"
-            android:backgroundTint="#0089FF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password" />
@@ -147,26 +147,44 @@
             android:layout_width="73dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
+            android:layout_marginEnd="@dimen/dimen_16"
             app:cardElevation="@dimen/dimen_8"
-            app:layout_constraintEnd_toEndOf="@+id/dv_login_2"
-            app:layout_constraintStart_toStartOf="@+id/dv_login"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3">
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_gravity="c">-->
+
             <ImageButton
                 android:id="@+id/btn_gmail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dimen_24"
-                android:src="@drawable/ic_google"
+                android:layout_height="wrap_content"
                 android:background="@null"
+                android:padding="@dimen/dimen_16"
+                android:src="@drawable/ic_google"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3" />
-<!--            </LinearLayout>-->
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            app:cardElevation="@dimen/dimen_8"
+            android:layout_marginStart="@dimen/dimen_16"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3">
+
+            <ImageButton
+                android:id="@+id/btn_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="@dimen/dimen_16"
+                android:src="@drawable/ic_facebook"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -179,6 +197,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

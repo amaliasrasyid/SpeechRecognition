@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_48"
-            android:text="Welcome!"
+            android:text="Register"
             android:textAlignment="center"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,14 +46,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_8"
-            android:text="Create Your Account"
+            android:text="Please create Your Account"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_username"
+            android:id="@+id/ti_fullname"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -63,10 +63,29 @@
             app:layout_constraintTop_toBottomOf="@id/placeholder_tv_login_2">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama lengkap"
+                android:imeOptions="actionNext"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_username"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ti_fullname">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:hint="Email"
                 android:imeOptions="actionNext"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -90,26 +109,18 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_forgot_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_12"
-            android:text="Lupa Password?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_password" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_24"
             android:enabled="false"
+            android:layout_marginTop="@dimen/dimen_32"
             android:text="Login"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password" />
+            app:layout_constraintTop_toBottomOf="@+id/ti_password" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/dv_login"
@@ -125,7 +136,7 @@
             android:id="@+id/placeholder_tv_login_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Atau Login Dengan"
+            android:text="sudah punya akun, silahkan login"
             app:layout_constraintBottom_toBottomOf="@+id/dv_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,34 +152,6 @@
             app:layout_constraintStart_toEndOf="@+id/placeholder_tv_login_3"
             app:layout_constraintTop_toTopOf="@+id/placeholder_tv_login_3" />
 
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Material3.CardView.Elevated"
-            android:layout_width="73dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            app:cardElevation="@dimen/dimen_8"
-            app:layout_constraintEnd_toEndOf="@+id/dv_login_2"
-            app:layout_constraintStart_toStartOf="@+id/dv_login"
-            app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3">
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:orientation="vertical"-->
-            <!--                android:layout_gravity="c">-->
-            <ImageButton
-                android:id="@+id/btn_gmail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dimen_24"
-                android:src="@drawable/ic_google"
-                android:background="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3" />
-            <!--            </LinearLayout>-->
-
-        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

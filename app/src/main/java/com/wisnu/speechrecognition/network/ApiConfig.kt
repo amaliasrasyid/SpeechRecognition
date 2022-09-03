@@ -1,7 +1,8 @@
 package com.wisnu.speechrecognition.network
 
-import androidx.viewbinding.BuildConfig
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,17 +18,33 @@ class ApiConfig {
 
         private const val ENDPOINT = "$URL/api/"
 
+
+        //ALLOWED RETROFIT TO ACCESS LARAVEL API
+        //laravel protect unauthorized access and prevents from unknown client request. and for this case, it was Retrofit
+        var allowedClient = Interceptor { chain: Interceptor.Chain ->
+            val response: Response
+            val newRequest = chain.request().newBuilder()
+                .addHeader("User-Agent", System.getProperty("http.agent")) //IMPORTANT
+                .addHeader(
+                    "Accept",
+                    "application/json"
+                ) //                    .addHeader("Content-Length",)
+                .method(chain.request().method, chain.request().body)
+                .build()
+            newRequest.headers["Cookie"]
+            response = chain.proceed(newRequest)
+            response.headers["Set-Cookie"]
+            response
+        }
+
         private fun client(): OkHttpClient {
             val loggingInterceptor = HttpLoggingInterceptor()
                 .setLevel(
-                    if (BuildConfig.DEBUG) {
-                        HttpLoggingInterceptor.Level.BODY
-                    } else {
-                        HttpLoggingInterceptor.Level.NONE
-                    }
+                    HttpLoggingInterceptor.Level.BODY
                 )
             return OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor(allowedClient)
                 .build()
         }
 

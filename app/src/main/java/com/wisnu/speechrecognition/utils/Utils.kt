@@ -18,6 +18,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.wisnu.speechrecognition.utils.UtilsCode.MODE_LIGHT
 import com.wisnu.speechrecognition.utils.UtilsCode.MODE_NIGHT
@@ -36,6 +37,21 @@ import www.sanju.motiontoast.MotionToast.Companion.GRAVITY_BOTTOM
 import www.sanju.motiontoast.MotionToast.Companion.LONG_DURATION
 import java.io.File
 import java.util.*
+
+fun View.snackbar(message: String) {
+    Snackbar.make(
+        this,
+        message,
+        Snackbar.LENGTH_LONG
+    ).also { snackbar ->
+        snackbar.setAction("OKE") {
+            snackbar.dismiss()
+        }
+//        snackbar.view.apply {
+//            setBackgroundColor(backgroundColor)
+//        }
+    }.show()
+}
 
 fun showMessage(
     activity: Activity,
@@ -78,8 +94,8 @@ fun showMessage(
             }
         }
     }
-
 }
+
 
 fun isLoading(
     state: Boolean,
@@ -167,6 +183,7 @@ fun loadingInBottomSheet(btnSave: Button, progressBarSheet: ProgressBar, isLoadi
 fun createPartFromString(descriptionString: String): RequestBody {
     return descriptionString.toRequestBody(MultipartBody.FORM)
 }
+
 
 fun reqFileImage(path: String?, name: String): MultipartBody.Part {
     val fileImage = File(path!!)

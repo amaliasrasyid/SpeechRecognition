@@ -1,29 +1,39 @@
 package com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wisnu.speechrecognition.R
-import com.wisnu.speechrecognition.adapter.MateryAdapter
-import com.wisnu.speechrecognition.databinding.FragmentGuessBinding
+import com.wisnu.speechrecognition.adapter.GuessQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentGuessQBinding
-import com.wisnu.speechrecognition.databinding.FragmentMateryBinding
-import com.wisnu.speechrecognition.model.matery.MateryStudy
-import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.MateryFragmentArgs
-import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.MateryFragmentDirections
-import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.MateryViewModel
+import com.wisnu.speechrecognition.local_db.QuestionPlayGuess
+import com.wisnu.speechrecognition.model.questions.GuessQItem
+import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
+import com.wisnu.speechrecognition.utils.showMessage
+import com.wisnu.speechrecognition.view.main.ui.student.play.guess.GuessFragment
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity.Companion.EXTRA_DATA_QUESTION
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity.Companion.REQUEST_ADD
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity.Companion.REQUEST_EDIT
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity.Companion.TYPE
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.MateryFragment
+import www.sanju.motiontoast.MotionToast
 
 class GuessQFragment : Fragment() {
     private val viewModel by viewModels<GuessQViewModel>()
     private var _binding: FragmentGuessQBinding? = null
     private val binding get() = _binding!!
-    private lateinit var materyAdapter: MateryAdapter
+    private lateinit var guessQAdapter: GuessQAdapter
+
+    private val TAG = GuessQFragment::class.java.simpleName
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,39 +51,111 @@ class GuessQFragment : Fragment() {
     private fun prepareView() {
         with(binding){
             observeGuessQ()
-            materyAdapter = MateryAdapter()
+            guessQAdapter = GuessQAdapter()
             with(rvMaterialStudy){
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
-                this.adapter = materyAdapter
+                this.adapter = guessQAdapter
             }
-            materyAdapter.setOnItemBtnDeleteCallBack(object : MateryAdapter.OnItemBtnDeleteClickCallBack {
-                override fun onDeleteClicked(position: Int,materyStudy: MateryStudy) {
-                    deleteGuessQ(position,materyStudy.id)
+            guessQAdapter.setOnItemBtnDeleteCallBack(object : GuessQAdapter.OnItemBtnDeleteClickCallBack {
+                override fun onDeleteClicked(position: Int, question: GuessQItem) {
+                    guessQAdapter.removeData(position)
+                    deleteGuessQ(question.id)
+                    Log.d(TAG,"posisi item-${position}")
                 }
             })
-            materyAdapter.setOnItemBtnEditCallBack(object : MateryAdapter.OnItemBtnEditClickCallBack {
-                override fun onEditClicked(materyStudy: MateryStudy) {
-                    //siapkan data soal
-                    val toUploadGuessQ = GuessQFragmentDirections.actionGuessQFragmentToUploadGuessQFragment().apply {
-                        idSoal = materyStudy.id
+            guessQAdapter.setOnItemBtnEditCallBack(object : GuessQAdapter.OnItemBtnEditClickCallBack {
+                override fun onEditClicked(item: GuessQItem) {
+                    val question = QuestionPlayGuess(
+                        id = item.id,
+                        suara = item.suara,
+                        opsi1 = item.opsi1,
+                        opsi2 = item.opsi2,
+                        opsi3 = item.opsi3,
+                        kunciJawaban =  item.kunciJawaban,
+                    )
+                    val intent = Intent(requireActivity(), UploadGuessQActivity::class.java)
+                    intent.apply {
+                        putExtra(TYPE,REQUEST_EDIT)
+                        putExtra(EXTRA_DATA_QUESTION,question)
                     }
-                    findNavController().navigate(toUploadGuessQ)
+                    startActivity(intent)
                 }
             })
             fabAddMatery.setOnClickListener{
-                findNavController().navigate(R.id.action_guessQFragment_to_uploadGuessQFragment)
+                val intent = Intent(requireActivity(), UploadGuessQActivity::class.java)
+                intent.apply {
+                    putExtra(TYPE,REQUEST_ADD)
+                }
+                startActivity(intent)
             }
         }
     }
 
-    private fun observeGuessQ() {
-        TODO("Not yet implemented")
+    private fun observeGuessQ(){
+        with(binding){
+            viewModel.questions().observe(viewLifecycleOwner, { response ->
+                pbMatery.visibility = View.GONE
+                if (response.data != null) {
+                    if(!response.data.isEmpty()){
+                        if (response.code == 200) {
+                            val result = response.data
+                            guessQAdapter.setData(result)
+                        } else {
+                            dataNotFound()
+                        }
+                    }else{
+                        dataNotFound()
+                    }
+                } else {
+                    Log.e(TAG,"data is null")
+                }
+            })
+        }
     }
 
-    private fun deleteGuessQ(position: Int, id: Int) {
-
+    private fun deleteGuessQ(id: Int) {
+        with(binding) {
+            viewModel.delete(id).observe(viewLifecycleOwner) { response ->
+                pbMatery.visibility = View.GONE
+                if (response != null) {
+                    if (response.code == 404) {
+                        showMessage(
+                            requireActivity(),
+                            TITLE_ERROR,
+                            response.message ?: "",
+                            style = MotionToast.TOAST_ERROR
+                        )
+                        observeGuessQ()//ulang data kembali jika gagal hapus di server
+                    } else {
+                        showMessage(
+                            requireActivity(),
+                            TITLE_SUCESS,
+                            response.message ?: "",
+                            style = MotionToast.TOAST_SUCCESS
+                        )
+                    }
+                }else{
+                    showMessage(
+                        requireActivity(),
+                        TITLE_ERROR,
+                        style = MotionToast.TOAST_ERROR
+                    )
+                }
+            }
+        }
     }
 
+    private fun dataNotFound() {
+        with(binding) {
+            val layoutEmpty = layoutEmpty.root
+            layoutEmpty.visibility = View.VISIBLE
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("GuessQFragment","onresume")
+        observeGuessQ()
+    }
 }

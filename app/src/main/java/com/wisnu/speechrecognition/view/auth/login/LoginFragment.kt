@@ -18,7 +18,6 @@ import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_GURU
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
-import com.wisnu.speechrecognition.utils.closeKeyboard
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
@@ -116,30 +115,46 @@ class LoginFragment : Fragment() {
                         viewModel.login(params).observe(viewLifecycleOwner, { result ->
                             progressBar.visibility = View.GONE
                             if (result != null) {
-                                if (result.code == 200) {
-                                    val role = result.data?.role
-                                    UserPreference(requireContext()).apply {
-                                        setUser(
-                                            User(
-                                                id = result.data?.id,
-                                                nama = result.data?.nama,
-                                                role = role,
-                                                gambar = result.data?.gambar
+                                if(result.data != null){
+                                    if (result.code == 200) {
+                                        val role = result.data?.role
+                                        UserPreference(requireContext()).apply {
+                                            setUser(
+                                                User(
+                                                    id = result.data?.id,
+                                                    nama = result.data?.nama,
+                                                    role = role,
+                                                    gambar = result.data?.gambar
+                                                )
                                             )
-                                        )
-                                        setLogin(Login(loginValid))
-                                        when(role){
-                                            ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
-                                            ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+                                            setLogin(Login(loginValid))
+                                            when(role){
+                                                ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
+                                                ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+                                            }
                                         }
+                                    } else {
+                                        showMessage(
+                                            requireActivity(),
+                                            TITLE_ERROR,
+                                            message = result.message ?: "",
+                                            style = MotionToast.TOAST_ERROR
+                                        )
                                     }
-                                } else {
-                                   showMessage(
-                                       requireActivity(),
-                                       TITLE_ERROR,
-                                       style = MotionToast.TOAST_ERROR
-                                   )
+                                }else{
+                                    showMessage(
+                                        requireActivity(),
+                                        TITLE_ERROR,
+                                        message = result.message ?: "",
+                                        style = MotionToast.TOAST_ERROR
+                                    )
                                 }
+                            }else{
+                                showMessage(
+                                    requireActivity(),
+                                    TITLE_ERROR,
+                                    style = MotionToast.TOAST_ERROR
+                                )
                             }
                         })
                     }

@@ -4,10 +4,11 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class QuestionClass(
+data class QuestionPlayGuess(
     var id: Int? = null,
-    var gambar: String? = null,
     var suara: String? = null,
-    var teksJawaban: String? = null,
-    var materiPelajaran: Int? = null,
+    var opsi1: String? = null,
+    var opsi2: String? = null,
+    var opsi3: String? = null,
+    var kunciJawaban: Int? = null,
 ):Parcelable

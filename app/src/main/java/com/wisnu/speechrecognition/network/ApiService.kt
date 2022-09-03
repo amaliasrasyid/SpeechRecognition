@@ -2,11 +2,13 @@ package com.wisnu.speechrecognition.network
 
 import com.wisnu.speechrecognition.model.login.LoginResponse
 import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
+import com.wisnu.speechrecognition.model.questions.QuestionPlayGuessResponse
 import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.model.student.StudentScoreResponse
 import com.wisnu.speechrecognition.model.student.StudentScoresResponse
 import com.wisnu.speechrecognition.model.student.StudentsResultResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -62,14 +64,17 @@ interface ApiService {
 
     // ROUTE-GUESSQ
     @GET("guessq")
-    fun getQuestionsGuess(): Call<Any>
+    fun getQuestionsGuess(): Call<QuestionPlayGuessResponse>
 
     @Multipart
     @POST("guessq")
     fun storeGuessQ(
         @Part audio: MultipartBody.Part?,
-        @PartMap params: HashMap<String,Any>
-    ): Call<QuestionStudyResponse>
+        @PartMap params: HashMap<String, RequestBody>
+    ): Call<QuestionPlayGuessResponse>
+
+    @DELETE("guessq/{id}")
+    fun deleteQuestionGuess(@Path("id") idGuessQ: Int): Call<QuestionPlayGuessResponse>
 
 
     // ROUTE-PAIRQ

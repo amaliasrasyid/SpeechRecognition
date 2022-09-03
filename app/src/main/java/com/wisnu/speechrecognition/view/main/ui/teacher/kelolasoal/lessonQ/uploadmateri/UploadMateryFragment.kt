@@ -54,7 +54,6 @@ class UploadMateryFragment : Fragment(), View.OnClickListener {
                 edtTeksJawaban.setText(teksMateri ?: "")
             }
         }
-
     }
 
     override fun onClick(view: View?) {
@@ -74,7 +73,7 @@ class UploadMateryFragment : Fragment(), View.OnClickListener {
 
             viewModel.storeMateryStudy(materyParams).observe(viewLifecycleOwner, { response ->
                 loader(false)
-                if (response.data != null) {
+                if (response != null) {
                     if (response.code == 200) {
                         showMessage(
                             requireActivity(),

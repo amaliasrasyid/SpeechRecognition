@@ -2,17 +2,13 @@ package com.wisnu.speechrecognition.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.databinding.ItemListDmateryBinding
-import com.wisnu.speechrecognition.databinding.ItemListMateryBinding
-import com.wisnu.speechrecognition.model.matery.MateryStudy
-import com.wisnu.speechrecognition.model.questions.Question
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
+import com.wisnu.speechrecognition.model.questions.GuessQItem
 
-class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.MateryViewHolder>() {
-    private val listGuessQ= ArrayList<Question>()
+class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.GuessQViewHolder>() {
+    private val listGuessQ= ArrayList<GuessQItem>()
 
     private val TAG = GuessQAdapter::class.simpleName
 
@@ -20,11 +16,11 @@ class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.MateryViewHolder>() {
     private var onItemBtnEditCallBack: OnItemBtnEditClickCallBack? = null
 
     interface OnItemBtnDeleteClickCallBack {
-        fun onDeleteClicked(position: Int,question: Question)
+        fun onDeleteClicked(position: Int, question: GuessQItem)
     }
 
     interface OnItemBtnEditClickCallBack {
-        fun onEditClicked(question: Question)
+        fun onEditClicked(question: GuessQItem)
     }
 
     fun setOnItemBtnDeleteCallBack(onItemBtnDeleteCallBack: OnItemBtnDeleteClickCallBack) {
@@ -34,7 +30,7 @@ class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.MateryViewHolder>() {
         this.onItemBtnEditCallBack = onItemBtnEditCallBack
     }
 
-    fun setData(data: List<Question>?) {
+    fun setData(data: List<GuessQItem>?) {
         if (data == null) return
         listGuessQ.clear()
         listGuessQ.addAll(data)
@@ -48,25 +44,27 @@ class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.MateryViewHolder>() {
         notifyItemRemoved(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MateryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuessQViewHolder {
         val binding =
             ItemListDmateryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MateryViewHolder(binding)    }
+        return GuessQViewHolder(binding)    }
 
-    override fun onBindViewHolder(holder: MateryViewHolder, position: Int) {
-        holder.bind(listGuessQ[position])
+    override fun onBindViewHolder(holder: GuessQViewHolder, position: Int) {
+        holder.bind(listGuessQ[position],position)
     }
 
     override fun getItemCount() = listGuessQ.size
 
-    inner class MateryViewHolder(private val binding: ItemListDmateryBinding) :
+    inner class GuessQViewHolder(private val binding: ItemListDmateryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(question: Question) {
+        fun bind(guessQItem: GuessQItem, position: Int) {
             with(binding) {
-                tvNameMatery.text = question.teksJawaban
-                btnDelete.setOnClickListener{onItemBtnDeleteCallBack?.onDeleteClicked(bindingAdapterPosition,question)}
-                btnEdit.setOnClickListener{onItemBtnEditCallBack?.onEditClicked(question)}
+                var positionItem = position + 1
+                tvNameMatery.text = "Soal-${positionItem}"
+                btnDelete.setOnClickListener{onItemBtnDeleteCallBack?.onDeleteClicked(bindingAdapterPosition,guessQItem)}
+                btnEdit.setOnClickListener{onItemBtnEditCallBack?.onEditClicked(guessQItem)}
+
             }
         }
 

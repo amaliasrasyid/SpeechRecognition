@@ -13,7 +13,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MateryViewModel : ViewModel() {
-    private var _questions = MutableLiveData<QuestionStudyResponse>()
     private var _materialStudy = MutableLiveData<MateryStudyResponse>()
     private val TAG = MateryViewModel::class.java.simpleName
     private val RESPONSE_CLASS = MateryStudyResponse::class.java
@@ -32,33 +31,6 @@ class MateryViewModel : ViewModel() {
     fun store(params: HashMap<String,Any>):LiveData<MateryStudyResponse>{
         storeMatery(params)
         return _materialStudy
-    }
-
-    fun questions(materyId: Int): LiveData<QuestionStudyResponse>{
-        _questions = getQuestionsStudy(materyId)
-        return _questions
-    }
-
-    fun getQuestionsStudy(materyId: Int): MutableLiveData<QuestionStudyResponse>{
-        val client = ApiConfig.getApiService().getQuestionsStudy(materyId)
-        val gson = Gson()
-        client.enqueue(object : Callback<QuestionStudyResponse> {
-            override fun onResponse(call: Call<QuestionStudyResponse>, response: Response<QuestionStudyResponse>) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    _questions.postValue(result!!)
-                } else {
-                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS_QUESTION)
-                    _questions.postValue(errResult)
-                    Log.e(TAG, "onFailure: $errResult")
-                }
-            }
-
-            override fun onFailure(call: Call<QuestionStudyResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-        return _questions
     }
 
     private fun storeMatery(params: HashMap<String, Any>) {
