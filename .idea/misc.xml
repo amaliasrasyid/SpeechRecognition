@@ -43,7 +43,7 @@
         <entry key="app/src/main/res/layout/fragment_consonant.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.14175724637681159" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.11922030825022666" />
-        <entry key="app/src/main/res/layout/fragment_guess.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_guess.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_guess_q.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.25" />
@@ -58,7 +58,7 @@
         <entry key="app/src/main/res/layout/fragment_play_match.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_question.xml" value="0.1554192229038855" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_result.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_result.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_score.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_students.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_study.xml" value="0.33" />

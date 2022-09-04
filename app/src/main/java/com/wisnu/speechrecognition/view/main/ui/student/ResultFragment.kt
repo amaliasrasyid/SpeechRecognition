@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.wisnu.speechrecognition.R
-import com.wisnu.speechrecognition.databinding.FragmentGuessBinding
 import com.wisnu.speechrecognition.databinding.FragmentResultBinding
+import com.wisnu.speechrecognition.session.UserPreference
 
-class ResultFragment : Fragment() {
+class ResultFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
@@ -29,5 +30,28 @@ class ResultFragment : Fragment() {
 
     private fun prepareView() {
 //        TODO: Tampilkan hasil skor dan ucapan2 plus2
+        val args = ResultFragmentArgs.fromBundle(arguments as Bundle)
+        val scoreStudent = args.scoreStudent
+        val totalQ = args.totalQuestion
+        val userName = UserPreference(requireContext()).getUser().nama
+
+        with(binding) {
+            tvName.text = userName
+            tvScore.text = "Kamu menjawab ${scoreStudent} soal dengan benar dari total ${totalQ} soal"
+            btnFinish.setOnClickListener(this@ResultFragment)
+            btnClose.setOnClickListener(this@ResultFragment)
+        }
+
     }
+
+    override fun onClick(view: View?) {
+        with(binding){
+            when(view){
+                btnFinish,btnClose -> {
+                    findNavController().navigate(R.id.action_resultFragment_to_playFragment2)
+                }
+            }
+        }
+    }
+
 }

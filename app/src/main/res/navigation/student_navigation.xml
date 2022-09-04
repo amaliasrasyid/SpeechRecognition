@@ -80,7 +80,11 @@
         android:id="@+id/guessFragment"
         android:name="com.wisnu.speechrecognition.view.main.ui.student.play.guess.GuessFragment"
         android:label="fragment_guess"
-        tools:layout="@layout/fragment_guess" />
+        tools:layout="@layout/fragment_guess" >
+        <action
+            android:id="@+id/action_guessFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pairFragment"
         android:name="com.wisnu.speechrecognition.view.main.ui.student.play.pair.PairFragment"
@@ -121,5 +125,18 @@
         android:id="@+id/resultFragment"
         android:name="com.wisnu.speechrecognition.view.main.ui.student.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="score_student"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="total_question"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <action
+            android:id="@+id/action_resultFragment_to_playFragment2"
+            app:destination="@id/playFragment"
+            app:popUpTo="@id/playFragment" />
+    </fragment>
 </navigation>

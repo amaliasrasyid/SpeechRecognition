@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.GuessQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentGuessBinding
@@ -30,7 +31,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
 
     private lateinit var guessQAdapter: GuessQAdapter
     private val listSoal: ArrayList<GuessQItem> = ArrayList()
-    private var mediaPlayer = MediaPlayer()
+    private var mediaPlayer: MediaPlayer? = null
 
     private lateinit var question: GuessQItem
     private var score = 0
@@ -69,7 +70,6 @@ class GuessFragment : Fragment(), View.OnClickListener {
             loader(true)
             observeGuessQ()
         }
-
     }
 
     private fun observeGuessQ(){
@@ -99,6 +99,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
         with(binding){
             question = listSoal.get(index)
             //prepare audio
+            mediaPlayer = MediaPlayer()
             val urlAudio = ApiConfig.URL_SOUNDS + question.suara
             prepareMediaPlayer(urlAudio)
 
@@ -107,9 +108,12 @@ class GuessFragment : Fragment(), View.OnClickListener {
             tvOpsi2.text = question.opsi2
             tvOpsi3.text = question.opsi3
 
-            //prepare timer,progress bar and score
-            var currentProgress = (indexProgress/listSoal.size)*100
-            progressBar.progress = currentProgress.toInt()
+            //prepare timer,seek bar and score
+//            var currentProgress = (indexProgress.toDouble()/listSoal.size)*100
+            seekBar.setOnTouchListener { view, motionEvent -> false  }
+            seekBar.max = 0
+            seekBar.max = listSoal.size
+            seekBar.progress = indexProgress
             tvRight.text = "Benar\n${score}"
 
 
@@ -122,13 +126,15 @@ class GuessFragment : Fragment(), View.OnClickListener {
         with(binding){
             when(view){
                 cardOpsi1 -> checkAnswer(1)
-                cardOpsi2 -> checkAnswer(1)
-                cardOpsi3 -> checkAnswer(1)
+                cardOpsi2 -> checkAnswer(2)
+                cardOpsi3 -> checkAnswer(3)
             }
         }
     }
 
     private fun checkAnswer(selectedOption: Int) {
+        releaseAudio()
+        cancelTimer()
         val answeredKey = question.kunciJawaban
         if(answeredKey == selectedOption){
             score = score + 1
@@ -139,8 +145,17 @@ class GuessFragment : Fragment(), View.OnClickListener {
             prepareQuestions()
         }else{
             //TODO: buka tampilan result fragment
+            val toResult = GuessFragmentDirections.actionGuessFragmentToResultFragment().apply {
+                totalQuestion = listSoal.size
+                scoreStudent = score
+            }
+            findNavController().navigate(toResult)
         }
 
+    }
+
+    private fun cancelTimer() {
+        countDownTimer.cancel()
     }
 
     private fun startTimer() {
@@ -165,14 +180,19 @@ class GuessFragment : Fragment(), View.OnClickListener {
     }
 
     private fun playAudioVoice() {
-        mediaPlayer.start()
+        mediaPlayer?.start()
+    }
+
+    private fun releaseAudio() {
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     private fun prepareMediaPlayer(urlAudio: String) {
         try {
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-            mediaPlayer.setDataSource(urlAudio) // URL music file
-            mediaPlayer.prepare()
+            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer?.setDataSource(urlAudio) // URL music file
+            mediaPlayer?.prepare()
         } catch (e: Exception) {
             Log.e(TAG, "prepareMediaPlayer: ${e.message}")
         }

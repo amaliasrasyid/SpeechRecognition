@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="01:59"
+            android:text="00:00"
             android:textColor="#F80000"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -99,17 +99,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_sound" />
 
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/rv_play_quess"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:layout_margin="@dimen/dimen_16"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/view2"-->
-        <!--            app:layout_constraintEnd_toEndOf="@+id/view2"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/view2"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/view2"-->
-        <!--            tools:listitem="@layout/item_list_pilihan_tebak_kata" />-->
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_opsi1"
             style="@style/Widget.Material3.CardView.Elevated"
@@ -140,7 +129,7 @@
                     android:layout_marginEnd="@dimen/dimen_4"
                     android:layout_marginBottom="@dimen/dimen_4"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="BUKU"
+                    tools:text="BUKU"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="64sp"
@@ -177,7 +166,7 @@
                     android:layout_marginEnd="@dimen/dimen_4"
                     android:layout_marginBottom="@dimen/dimen_4"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="BUKU"
+                    tools:text="BUKU"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="64sp"
@@ -214,7 +203,7 @@
                     android:layout_marginEnd="@dimen/dimen_4"
                     android:layout_marginBottom="@dimen/dimen_4"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="BUKU"
+                    tools:text="BUKU"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="64sp"
@@ -232,12 +221,14 @@
             app:layout_constraintStart_toStartOf="@+id/card_opsi3"
             app:layout_constraintTop_toBottomOf="@+id/card_opsi3" />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar"
+        <SeekBar
+            style="@style/Widget.AppCompat.SeekBar"
+            android:id="@+id/seekBar"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="10dp"
+            android:progress="1"
+            android:max="10"
             android:layout_marginTop="@dimen/dimen_48"
-            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toStartOf="@+id/view2"
             app:layout_constraintTop_toBottomOf="@+id/view2"
