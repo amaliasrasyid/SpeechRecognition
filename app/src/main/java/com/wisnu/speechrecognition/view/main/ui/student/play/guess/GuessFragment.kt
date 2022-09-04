@@ -147,7 +147,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
             //TODO: buka tampilan result fragment
             val toResult = GuessFragmentDirections.actionGuessFragmentToResultFragment().apply {
                 totalQuestion = listSoal.size
-                scoreStudent = score
+                correctNumber = score
             }
             findNavController().navigate(toResult)
         }

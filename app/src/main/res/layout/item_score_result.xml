@@ -1,105 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    android:fillViewport="true"
+    android:layout_height="wrap_content"
     tools:context=".view.main.ui.score.ScoreFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="313dp"
+        android:background="@drawable/bg_top_blue"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bg" />
 
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ic_back2"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/ic_back2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
-            tools:text="Detail Huruf Vokal"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Detail Huruf Vokal" />
 
-        <ImageButton
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_score"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/ic_search"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_score"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_shape2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2">
-            <include
-                android:id="@+id/layout_empty"
-                android:visibility="gone"
-                layout="@layout/empty_layout"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="242dp"
+        android:background="@drawable/bg_bottom_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bg2" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_score"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/dimen_8"
-                tools:listitem="@layout/item_list_matery_score"/>
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
 
-        <ProgressBar
-            android:id="@+id/pb_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+        <include
+            android:id="@+id/layout_empty"
+            layout="@layout/empty_layout"
+            android:visibility="gone" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="50dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_score"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_8"
+            tools:listitem="@layout/item_list_matery_score" />
+    </LinearLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gd_home_v"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
+    <ProgressBar
+        android:id="@+id/pb_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
-        <!--    <androidx.constraintlayout.widget.Barrier-->
-        <!--        android:id="@+id/barrier4"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        app:barrierDirection="left"-->
-        <!--        app:constraint_referenced_ids="btn_notification" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="50dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gd_home_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bg2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.78" />
+</androidx.constraintlayout.widget.ConstraintLayout>

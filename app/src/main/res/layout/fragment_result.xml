@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.main.ui.student.ResultFragment">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_result"
+        android:orientation="vertical"
+        tools:context=".view.main.ui.student.ResultFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp"
-        tools:context=".view.siswa.result.ResultFragment">
-
+        android:padding="20dp">
         <ImageButton
             android:id="@+id/btnClose"
             android:layout_width="wrap_content"
@@ -23,21 +24,32 @@
             android:contentDescription="button close"/>
 
         <ImageView
-            android:id="@+id/img"
+            android:id="@+id/img_congrat"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:contentDescription="image" />
+            android:src="@drawable/ic_medal"
+            android:contentDescription="image success" />
+
+        <ImageView
+            android:id="@+id/img_fail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_fail"
+            android:visibility="gone"
+            android:contentDescription="image fail" />
 
         <TextView
-            android:id="@+id/tv_congratulations"
+            android:id="@+id/tv_result_conclusion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAlignment="center"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:text="Hey, Selamat telah menyelesaikan Permainan Tebak Kata" />
+            android:textColor="@color/white"
+            android:text="Sangat Memuaskan" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -47,6 +59,7 @@
             android:layout_marginTop="25dp"
             android:textSize="28sp"
             android:textStyle="bold"
+            android:visibility="gone"
             tools:text="Ujang" />
 
         <TextView
@@ -56,7 +69,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:textAlignment="center"
-            android:textColor="@android:color/secondary_text_dark"
+            android:fontFamily="@font/poppin_regular"
+            android:textColor="#FAF7F7"
             android:textSize="20sp"
             tools:text="Kamu menjawab 6 soal dengan benar dari total 10 soal" />
 
@@ -71,4 +85,6 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>

@@ -31,17 +31,54 @@ class ResultFragment : Fragment(), View.OnClickListener {
     private fun prepareView() {
 //        TODO: Tampilkan hasil skor dan ucapan2 plus2
         val args = ResultFragmentArgs.fromBundle(arguments as Bundle)
-        val scoreStudent = args.scoreStudent
+        val correctNumber = args.correctNumber
         val totalQ = args.totalQuestion
         val userName = UserPreference(requireContext()).getUser().nama
+        val score = ((correctNumber.toDouble()/totalQ) * 100).toInt()
+        var conclusion = resultConclusion(score)
 
         with(binding) {
             tvName.text = userName
-            tvScore.text = "Kamu menjawab ${scoreStudent} soal dengan benar dari total ${totalQ} soal"
+            tvScore.text = "Kamu menjawab ${correctNumber} soal dengan benar dari total ${totalQ} soal"
+            tvResultConclusion.text = conclusion
+            when (score){
+                in 0..55 -> {
+                    imgFail.visibility = View.VISIBLE
+                    imgCongrat.visibility = View.GONE
+                }
+                in 56..100 -> {
+                    imgCongrat.visibility = View.VISIBLE
+                    imgFail.visibility = View.GONE
+                }
+            }
+
             btnFinish.setOnClickListener(this@ResultFragment)
             btnClose.setOnClickListener(this@ResultFragment)
         }
 
+    }
+
+    private fun resultConclusion(score: Int): String {
+        var mString = "-"
+        //TODO: ubah warna teks nilai sesuai tingkatannya
+        when (score) {
+            in 0..30 -> {
+                mString = "Sangat Tidak Memuaskan"
+            }
+            in 31..50 -> {
+                mString = "Tidak Memuaskan"
+            }
+            in 56..70 -> {
+                mString = "Cukup Memuaskan"
+            }
+            in 71..85 -> {
+                mString = "Memuaskan"
+            }
+            in 86..100 -> {
+                mString = "Sangat Memuaskan"
+            }
+        }
+        return mString
     }
 
     override fun onClick(view: View?) {

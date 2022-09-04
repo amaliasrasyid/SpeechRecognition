@@ -127,7 +127,7 @@
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <argument
-            android:name="score_student"
+            android:name="correct_number"
             app:argType="integer"
             android:defaultValue="0" />
         <argument

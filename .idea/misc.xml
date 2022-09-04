@@ -7,15 +7,19 @@
         <entry key="app/src/main/res/drawable-xxxhdpi/card_input.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable-xxxhdpi/card_input_auth.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable-xxxhdpi/outline_card.xml" value="0.1675" />
+        <entry key="app/src/main/res/drawable-xxxhdpi/outline_card_grey.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/bg_gradient_blue_green.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/bg_notification.xml" value="0.16" />
         <entry key="app/src/main/res/drawable/bg_shape1.xml" value="0.262" />
         <entry key="app/src/main/res/drawable/bg_shape2.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/bg_shape3.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/bg_shape4.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/bg_shape5.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/bg_shape_button_blue.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_shape_corner_top_blue.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/bg_splash.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/card_input.xml" value="0.1495" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/ic_empty.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_file_audio.xml" value="0.173" />
         <entry key="app/src/main/res/drawable/ic_image_file.xml" value="0.173" />
@@ -23,6 +27,7 @@
         <entry key="app/src/main/res/drawable/ic_notifications.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/img_pick_image.xml" value="0.1675" />
+        <entry key="app/src/main/res/drawable/outline_card.xml" value="0.2235" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.13689936536718042" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_home_teacher.xml" value="0.20008550662676358" />
@@ -44,21 +49,21 @@
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.14175724637681159" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.11922030825022666" />
         <entry key="app/src/main/res/layout/fragment_guess.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_guess_q.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_guess_q.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_letters.xml" value="0.1885766092475068" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_material_study.xml" value="0.17965367965367965" />
-        <entry key="app/src/main/res/layout/fragment_matery.xml" value="0.17999144933732364" />
+        <entry key="app/src/main/res/layout/fragment_matery.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pair.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_play.xml" value="0.214992927864215" />
         <entry key="app/src/main/res/layout/fragment_play_guess.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_play_match.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_question.xml" value="0.1554192229038855" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_result.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_result.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_score.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_students.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_study.xml" value="0.33" />
@@ -69,7 +74,7 @@
         <entry key="app/src/main/res/layout/fragment_vowel.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_vowel_sentence.xml" value="0.15" />
         <entry key="app/src/main/res/layout/item_list_data.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/item_list_dmatery.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_list_dmatery.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_list_matery.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_list_matery_score.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_list_menu.xml" value="0.18" />
