@@ -31,141 +31,141 @@
         app:layout_constraintTop_toTopOf="@+id/btn_back" />
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_belajar_huruf"
-        style="@style/CardViewStyleMenu"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="36dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/card_belajar_vokal"
-        app:layout_constraintEnd_toStartOf="@+id/card_belajar_konsonan"
-        app:layout_constraintStart_toStartOf="@+id/gd_home_v"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dimen_32">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_alphabet" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8"
-                android:fontFamily="@font/abhayalibre_semibold"
-                android:text="Huruf A-Z"
-                android:textAlignment="center"
-                android:textSize="@dimen/font_size_15" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_belajar_konsonan"
-        style="@style/CardViewStyleMenu"
-        android:layout_width="130dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/card_belajar_huruf"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/card_belajar_huruf"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dimen_32">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="60dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_block_alphabet" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8"
-                android:fontFamily="@font/abhayalibre_semibold"
-                android:text="Huruf Konsonan"
-                android:textAlignment="center"
-                android:textSize="@dimen/font_size_15" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_belajar_vokal"
-        style="@style/CardViewStyleMenu"
+    <GridLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/card_belajar_huruf"
-        app:layout_constraintStart_toStartOf="@+id/card_belajar_huruf"
-        app:layout_constraintTop_toBottomOf="@+id/card_belajar_huruf">
-        <LinearLayout
+        android:columnCount="2"
+        android:foregroundGravity="center_horizontal"
+        android:rowCount="2"
+        android:layout_marginTop="@dimen/dimen_32"
+        android:useDefaultMargins="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/barrier4"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_belajar_huruf"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dimen_32">
+            android:layout_marginTop="@dimen/dimen_24">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_vowel" />
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_24">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8"
-                android:fontFamily="@font/abhayalibre_semibold"
-                android:text="Huruf Vokal"
-                android:textAlignment="center"
-                android:textSize="@dimen/font_size_15" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="@dimen/dimen_32"
+                    android:src="@drawable/ic_alphabet" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_belajar_membaca"
-        style="@style/CardViewStyleMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/card_belajar_konsonan"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/card_belajar_konsonan"
-        app:layout_constraintTop_toTopOf="@+id/card_belajar_vokal">
-        <LinearLayout
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:fontFamily="@font/abhayalibre_semibold"
+                    android:text="Huruf A-Z"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_size_15" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_belajar_konsonan"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dimen_32">
+            android:layout_marginTop="@dimen/dimen_24">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_block_alphabet" />
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_24">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8"
-                android:fontFamily="@font/abhayalibre_semibold"
-                android:text="Membaca"
-                android:textAlignment="center"
-                android:textSize="@dimen/font_size_15" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_block_alphabet" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:fontFamily="@font/abhayalibre_semibold"
+                    android:text="Mengenal Huruf Konsonan"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_size_15" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_belajar_vokal"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:layout_marginRight="20dp">
+
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_24">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_vowel" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:fontFamily="@font/abhayalibre_semibold"
+                    android:text="Mengenal Huruf Vokal"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_size_15" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_belajar_membaca"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32">
+
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_24">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_block_alphabet" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:fontFamily="@font/abhayalibre_semibold"
+                    android:text="Membaca"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_size_15" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </GridLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

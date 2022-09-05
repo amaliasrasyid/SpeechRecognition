@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable-xxxhdpi/card_input.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable-xxxhdpi/card_input_auth.xml" value="0.1675" />
@@ -32,6 +33,7 @@
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_home_teacher.xml" value="0.20008550662676358" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_pair_play.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_teacher.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_upload_guess_q.xml" value="0.22" />
@@ -44,7 +46,7 @@
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.21" />
         <entry key="app/src/main/res/layout/empty_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_category_score.xml" value="0.11922030825022666" />
+        <entry key="app/src/main/res/layout/fragment_category_score.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_choose_login.xml" value="0.17" />
         <entry key="app/src/main/res/layout/fragment_consonant.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.14175724637681159" />
@@ -67,7 +69,7 @@
         <entry key="app/src/main/res/layout/fragment_result.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_score.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_students.xml" value="0.21" />
-        <entry key="app/src/main/res/layout/fragment_study.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_study.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_upload_guess_q.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_upload_matery.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_vocab_test.xml" value="0.2116289012398461" />

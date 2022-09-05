@@ -21,52 +21,61 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.main.ui.profile.UserProfileActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity"
-            android:exported="false"
-            android:label="@string/title_activity_upload_lesson_qactivity"
-            android:theme="@style/Theme.SpeechRecognition"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".view.main.ui.teacher.TeacherActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.wisnu.speechrecognition.view.auth.AuthActivity"
-            android:exported="false"
-            android:label="@string/title_activity_auth"
-            android:theme="@style/Theme.SpeechRecognition"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".view.main.ui.student.MainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.SpeechRecognition"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".view.splash.SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.SpeechRecognition"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
+            android:name=".view.main.ui.student.play.pair.PairPlayActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.main.ui.profile.UserProfileActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.ui.teacher.kelolasoal.guessQ.upload.UploadGuessQActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/title_activity_upload_lesson_qactivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SpeechRecognition" />
+        <activity
+            android:name=".view.main.ui.teacher.TeacherActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wisnu.speechrecognition.view.auth.AuthActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/title_activity_auth"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SpeechRecognition" />
+        <activity
+            android:name=".view.main.ui.student.MainActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/title_activity_main2"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SpeechRecognition" />
+        <activity
+            android:name=".view.splash.SplashActivity"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SpeechRecognition">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 

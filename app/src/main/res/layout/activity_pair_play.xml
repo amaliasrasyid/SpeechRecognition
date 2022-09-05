@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.main.ui.student.play.pair.PairPlayActivity">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:text="Pair the word and its image!"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <GridView-->
+    <!--        android:id="@+id/gridview"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginStart="@dimen/dimen_16"-->
+    <!--        android:layout_marginEnd="@dimen/dimen_16"-->
+    <!--        android:layout_marginBottom="@dimen/dimen_16"-->
+    <!--        android:horizontalSpacing="100dp"-->
+    <!--        android:numColumns="2"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/seekBar2"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView9"-->
+    <!--        tools:listitem="@layout/item_list_matery"/>-->
+
+
+    <ImageView
+        android:id="@+id/img_tes1"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="#000000"
+        android:scaleType="fitCenter"
+        android:layout_margin="@dimen/dimen_16"
+        android:src="@drawable/ic_medal"
+        app:layout_constraintEnd_toStartOf="@+id/point1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+    <TextView
+        android:id="@+id/tv_test2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16"
+        android:text="ORANG"
+        android:textSize="@dimen/font_size_24"
+        app:layout_constraintBottom_toBottomOf="@+id/img_test2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/point2_tv"
+        app:layout_constraintTop_toBottomOf="@+id/img_tes1" />
+
+    <ImageButton
+        android:id="@+id/point2_tv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@null"
+        android:src="@drawable/bg_shape_button_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_test2"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/tv_test2" />
+
+    <ImageView
+        android:id="@+id/img_test2"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:layout_margin="@dimen/dimen_16"
+        android:src="@drawable/dummy_img_user"
+        app:layout_constraintEnd_toStartOf="@+id/point2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_tes1" />
+
+    <TextView
+        android:id="@+id/tv_test1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="MEDALI"
+        android:layout_margin="@dimen/dimen_16"
+        android:textSize="@dimen/font_size_24"
+        app:layout_constraintBottom_toBottomOf="@+id/img_tes1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/point1_tv"
+        app:layout_constraintTop_toTopOf="@+id/img_tes1" />
+
+    <ImageButton
+        android:id="@+id/point1_tv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@null"
+        android:src="@drawable/bg_shape_button_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_test1"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/tv_test1" />
+
+<!--    <com.wisnu.speechrecognition.view.main.ui.student.play.pair.DrawView-->
+<!--        android:id="@+id/drawView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <ImageButton
+        android:id="@+id/point2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@null"
+        android:src="@drawable/bg_shape_button_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/img_test2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toTopOf="@+id/img_test2" />
+
+    <ImageButton
+        android:id="@+id/point1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@null"
+        android:src="@drawable/bg_shape_button_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/img_tes1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toTopOf="@+id/img_tes1" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_48"
+        app:layout_constraintBottom_toBottomOf="@+id/drawView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <!--    <GridLayout-->
+    <!--        android:id="@+id/gridview"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginStart="@dimen/dimen_16"-->
+    <!--        android:layout_marginEnd="@dimen/dimen_16"-->
+    <!--        android:layout_marginBottom="@dimen/dimen_16"-->
+    <!--        android:columnCount="3"-->
+    <!--        android:rowCount="4"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/seekBar2"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView9"-->
+    <!--        app:layout_constraintVertical_bias="0.0">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="#000000"-->
+    <!--            android:src="@drawable/ic_medal" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="100dp"-->
+    <!--            android:layout_height="wrap_content" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="MEDALI"-->
+    <!--            android:textSize="@dimen/font_size_36" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="#000000"-->
+    <!--            android:src="@drawable/ic_medal" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="MEDALI"-->
+    <!--            android:textSize="@dimen/font_size_36" />-->
+    <!--    </GridLayout>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
