@@ -6,7 +6,7 @@ import androidx.core.content.edit
 import com.kontakanprojects.apptkslb.local_db.Login
 import com.wisnu.speechrecognition.local_db.User
 
-internal class UserPreference(context: Context) {
+class UserPreference(context: Context) {
     private var preferences: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
@@ -14,6 +14,7 @@ internal class UserPreference(context: Context) {
         private const val PREFS_NAME = "user_pref"
         private const val KEY_USER_ID = "user_id"
         private const val KEY_USER_NAME = "user_name"
+        private const val KEY_USER_EMAIL = "user_email"
         private const val KEY_USER_ROLE = "user_role"
         private const val KEY_USER_PASSWORD = "user_password"
         private const val KEY_USER_IMAGE = "user_image"
@@ -26,6 +27,7 @@ internal class UserPreference(context: Context) {
         preferences.edit {
             putInt(KEY_USER_ID, values.id ?: 0)
             putString(KEY_USER_NAME, values.nama)
+            putString(KEY_USER_EMAIL, values.email)
             putInt(KEY_USER_ROLE, values.role ?: 0)
             putString(KEY_USER_PASSWORD, values.password)
             putString(KEY_USER_IMAGE, values.gambar)
@@ -43,10 +45,10 @@ internal class UserPreference(context: Context) {
         return User(
             id = preferences.getInt(KEY_USER_ID, 0),
             nama = preferences.getString(KEY_USER_NAME, ""),
+            email = preferences.getString(KEY_USER_EMAIL, ""),
             role = preferences.getInt(KEY_USER_ROLE, 0),
             password = preferences.getString(KEY_USER_PASSWORD, ""),
             gambar = preferences.getString(KEY_USER_IMAGE, "")
-//            numberPhone = preferences.getString(KEY_USER_CONTACT, ""),
         )
     }
 
@@ -56,6 +58,7 @@ internal class UserPreference(context: Context) {
         preferences.edit {
             remove(KEY_USER_ID)
             remove(KEY_USER_NAME)
+            remove(KEY_USER_EMAIL)
             remove(KEY_USER_ROLE)
             remove(KEY_USER_PASSWORD)
             remove(KEY_USER_IMAGE)

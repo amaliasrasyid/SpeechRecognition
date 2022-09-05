@@ -1,12 +1,12 @@
 package com.wisnu.speechrecognition.network
 
-import com.wisnu.speechrecognition.model.login.LoginResponse
 import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
 import com.wisnu.speechrecognition.model.questions.QuestionPlayGuessResponse
 import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.model.student.StudentScoreResponse
 import com.wisnu.speechrecognition.model.student.StudentScoresResponse
 import com.wisnu.speechrecognition.model.student.StudentsResultResponse
+import com.wisnu.speechrecognition.model.user.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -25,11 +25,18 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("login")
-    fun login(@FieldMap params: HashMap<String,Any>): Call<LoginResponse>
+    fun login(@FieldMap params: HashMap<String,Any>): Call<UserResponse>
 
-    fun register()
+    @Multipart
+    @POST("user")
+    fun storeUser(
+        @Part image: MultipartBody.Part?,
+        @PartMap params: HashMap<String,RequestBody>
+    ): Call<UserResponse>
 
-    fun detailUser()
+    @FormUrlEncoded
+    @POST("user/{userId}")
+    fun detailUser(@Path("userId") userId: Int): Call<UserResponse>
 
     @GET("user/{roleId}")
     fun getStudents(@Path("roleId") roleId: Int): Call<StudentsResultResponse>

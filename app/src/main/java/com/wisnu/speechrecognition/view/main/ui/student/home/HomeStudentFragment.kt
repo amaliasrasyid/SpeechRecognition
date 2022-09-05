@@ -1,7 +1,10 @@
 package com.wisnu.speechrecognition.view.main.ui.student.home
 
+import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +18,7 @@ import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_IMAGE
 import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_GURU
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
+import com.wisnu.speechrecognition.view.main.ui.profile.UserProfileActivity
 
 class HomeStudentFragment : Fragment(), View.OnClickListener {
 
@@ -47,6 +51,7 @@ class HomeStudentFragment : Fragment(), View.OnClickListener {
             cardMenu1.setOnClickListener(this@HomeStudentFragment)
             cardMenu2.setOnClickListener(this@HomeStudentFragment)
             cardMenu3.setOnClickListener(this@HomeStudentFragment)
+            imgUser.setOnClickListener(this@HomeStudentFragment)
         }
 
         //passing data dg observer pattern (live data)
@@ -68,6 +73,10 @@ class HomeStudentFragment : Fragment(), View.OnClickListener {
                 cardMenu3 -> {
                     val toKategoriNilaiSiswa = HomeStudentFragmentDirections.actionNavigationHomeToCategoryScoreFragment()
                     findNavController().navigate(toKategoriNilaiSiswa)
+                }
+                imgUser ->  {
+                    Log.d(ContentValues.TAG,"gambar profil diklik")
+                    startActivity(Intent(requireActivity(), UserProfileActivity::class.java))
                 }
             }
         }

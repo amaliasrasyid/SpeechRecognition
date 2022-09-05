@@ -37,7 +37,7 @@
         <entry key="app/src/main/res/layout/activity_upload_guess_q.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_upload_lesson_q.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_upload_lesson_qactivity.xml" value="0.14" />
-        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.15" />
         <entry key="app/src/main/res/layout/card_menu.xml" value="0.18631006346328197" />
         <entry key="app/src/main/res/layout/content_home.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
@@ -45,6 +45,7 @@
         <entry key="app/src/main/res/layout/empty_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_category_score.xml" value="0.11922030825022666" />
+        <entry key="app/src/main/res/layout/fragment_choose_login.xml" value="0.17" />
         <entry key="app/src/main/res/layout/fragment_consonant.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.14175724637681159" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.11922030825022666" />
@@ -54,7 +55,7 @@
         <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_letters.xml" value="0.1885766092475068" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_material_study.xml" value="0.17965367965367965" />
         <entry key="app/src/main/res/layout/fragment_matery.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pair.xml" value="0.2116289012398461" />

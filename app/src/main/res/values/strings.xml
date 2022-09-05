@@ -65,4 +65,6 @@
         <item>Mengenal Huruf Vokal</item>
         <item>Membaca</item>
     </string-array>
+    <string name="log_out">Log Out</string>
+    <string name="message_log_out">Apakah anda yakin ingin logout?</string>
 </resources>

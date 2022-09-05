@@ -1,8 +1,8 @@
-package com.wisnu.speechrecognition.model.login
+package com.wisnu.speechrecognition.model.user
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class UserResponse(
 
 	@field:SerializedName("code")
 	val code: Int? = null,

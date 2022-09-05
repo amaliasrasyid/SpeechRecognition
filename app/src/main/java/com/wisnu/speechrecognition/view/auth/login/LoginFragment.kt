@@ -52,6 +52,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun prepareView() {
+        val roleId = LoginFragmentArgs.fromBundle(arguments as Bundle).role
         with(binding) {
             edtUsername.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -96,7 +97,11 @@ class LoginFragment : Fragment() {
                 }
             })
             tvForgotPassword.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+            }
+            tvRegister.setOnClickListener{
+                val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment(roleId)
+                findNavController().navigate(toRegister)
             }
             btnLogin.setOnClickListener {
                 val email = edtUsername.text.toString().trim()
@@ -124,7 +129,9 @@ class LoginFragment : Fragment() {
                                                     id = result.data?.id,
                                                     nama = result.data?.nama,
                                                     role = role,
-                                                    gambar = result.data?.gambar
+                                                    gambar = result.data?.gambar,
+                                                    email = result.data?.email,
+                                                    password = result.data?.password
                                                 )
                                             )
                                             setLogin(Login(loginValid))
@@ -162,9 +169,6 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
-
-
         override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

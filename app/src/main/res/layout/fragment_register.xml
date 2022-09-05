@@ -111,12 +111,11 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_register"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:layout_marginTop="@dimen/dimen_32"
-            android:text="Login"
+            android:text="Register"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,12 +127,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_32"
             android:layout_marginEnd="@dimen/dimen_8"
-            app:layout_constraintEnd_toStartOf="@+id/placeholder_tv_login_3"
+            app:layout_constraintEnd_toStartOf="@+id/tv_back_to_login"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
         <TextView
-            android:id="@+id/placeholder_tv_login_3"
+            android:id="@+id/tv_back_to_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="sudah punya akun, silahkan login"
@@ -147,10 +146,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_8"
-            app:layout_constraintBottom_toBottomOf="@+id/placeholder_tv_login_3"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_back_to_login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/placeholder_tv_login_3"
-            app:layout_constraintTop_toTopOf="@+id/placeholder_tv_login_3" />
+            app:layout_constraintStart_toEndOf="@+id/tv_back_to_login"
+            app:layout_constraintTop_toTopOf="@+id/tv_back_to_login" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

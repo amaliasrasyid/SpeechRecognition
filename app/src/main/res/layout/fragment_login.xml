@@ -119,17 +119,18 @@
             android:layout_marginEnd="@dimen/dimen_8"
             app:layout_constraintEnd_toStartOf="@+id/placeholder_tv_login_3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_register" />
 
         <TextView
             android:id="@+id/placeholder_tv_login_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="Atau Login Dengan"
             app:layout_constraintBottom_toBottomOf="@+id/dv_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/dv_login" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_register" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/dv_login_2"
@@ -204,6 +205,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:text="Pengguna baru? Daftar Sekarang"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="#0D6CC6"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login"
+            app:layout_constraintStart_toStartOf="@+id/btn_login"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
