@@ -72,8 +72,8 @@
             android:defaultValue="0" />
     </fragment>
     <fragment
-        android:id="@+id/uploadLessonQFragment"
-        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQFragment"
+        android:id="@+id/uploadLessonQActivity"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity"
         android:label="Fragment_upload_lesson_q"
         tools:layout="@layout/activity_upload_lesson_q" >
         <argument

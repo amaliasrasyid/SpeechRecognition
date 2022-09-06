@@ -14,6 +14,7 @@ import retrofit2.Response
 
 class MateryViewModel : ViewModel() {
     private var _materialStudy = MutableLiveData<MateryStudyResponse>()
+    private var _crudMaterialStudy = MutableLiveData<MateryStudyResponse>()
     private val TAG = MateryViewModel::class.java.simpleName
     private val RESPONSE_CLASS = MateryStudyResponse::class.java
     private val RESPONSE_CLASS_QUESTION = QuestionStudyResponse::class.java
@@ -23,27 +24,27 @@ class MateryViewModel : ViewModel() {
         return _materialStudy
     }
 
-    fun delete(materyId: Int):LiveData<MateryStudyResponse>{
-        deleteMatery(materyId)
-        return _materialStudy
+    fun delete(materyId: Int): LiveData<MateryStudyResponse>{
+        _crudMaterialStudy = deleteMatery(materyId)
+        return _crudMaterialStudy
     }
 
     fun store(params: HashMap<String,Any>):LiveData<MateryStudyResponse>{
-        storeMatery(params)
-        return _materialStudy
+        _crudMaterialStudy = storeMatery(params)
+        return _crudMaterialStudy
     }
 
-    private fun storeMatery(params: HashMap<String, Any>) {
+    private fun storeMatery(params: HashMap<String, Any>): MutableLiveData<MateryStudyResponse> {
         val client = ApiConfig.getApiService().storeMateryStudy(params)
         val gson = Gson()
         client.enqueue(object : Callback<MateryStudyResponse> {
             override fun onResponse(call: Call<MateryStudyResponse>, response: Response<MateryStudyResponse>) {
                 if (response.isSuccessful) {
                     val result = response.body()
-                    _materialStudy.postValue(result!!)
+                    _crudMaterialStudy .postValue(result!!)
                 } else {
                     val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
-                    _materialStudy.postValue(errResult)
+                    _crudMaterialStudy .postValue(errResult)
                     Log.e(TAG, "onFailure: $errResult")
                 }
             }
@@ -52,19 +53,20 @@ class MateryViewModel : ViewModel() {
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         });
+        return _crudMaterialStudy
     }
 
-    private fun deleteMatery(materyId: Int) {
+    private fun deleteMatery(materyId: Int): MutableLiveData<MateryStudyResponse> {
         val client = ApiConfig.getApiService().deleteMateryStudy(materyId)
         val gson = Gson()
         client.enqueue(object : Callback<MateryStudyResponse> {
             override fun onResponse(call: Call<MateryStudyResponse>, response: Response<MateryStudyResponse>) {
                 if (response.isSuccessful) {
                     val result = response.body()
-                    _materialStudy.postValue(result!!)
+                    _crudMaterialStudy .postValue(result!!)
                 } else {
                     val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
-                    _materialStudy.postValue(errResult)
+                    _crudMaterialStudy .postValue(errResult)
                     Log.e(TAG, "onFailure: $errResult")
                 }
             }
@@ -73,6 +75,7 @@ class MateryViewModel : ViewModel() {
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         });
+        return _crudMaterialStudy
     }
 
     fun getMaterialStudy(materyType: Int): MutableLiveData<MateryStudyResponse>{

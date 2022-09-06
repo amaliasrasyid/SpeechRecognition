@@ -16,6 +16,7 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private var startPoint: PointF? = null
     private var endPoint: PointF? = null
     private var isDrawing = false
+//    private var coordinateImage:Line()
 
     init{
         paint = Paint()
@@ -35,33 +36,47 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when{
-            event!!.action == MotionEvent.ACTION_DOWN -> {//A pressed gesture has started, the motion contains the initial starting location.
+    fun addSourcePoint(x1: Float, y1: Float){
+        lines.add(Line(x1,y1))
+    }
 
-                lines.add(Line(event.x,event.y))
-                isDrawing = true
-                return true
-            }
-            event!!.action == MotionEvent.ACTION_MOVE && lines.size > 0  -> {//A change has happened during a press gesture;press gesture is moving
-                val currentLine = lines.get(lines.size - 1) //ambil line paling terbaru (stack teratas)
-                currentLine.stopX = event.x
-                currentLine.stopY = event.y
-                invalidate()
-                return true
-            }
-            event!!.action == MotionEvent.ACTION_UP && lines.size > 0 -> { //contains the final release location
-                val currentLine = lines.get(lines.size - 1) //ambil line paling terbaru (stack teratas)
-                currentLine.stopX = event.x
-                currentLine.stopY = event.y
-                invalidate()
-                return true
-            }
-            else -> {
-                return false
-            }
+    fun addDestinationPoint(x2: Float, y2: Float){
+        val currentLine: Line
+        if(lines.size > 0){
+            currentLine = lines.get(lines.size - 1)
+            currentLine.stopX = x2
+            currentLine.stopY = y2
+            invalidate()
         }
     }
+
+//    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//        when{
+//            event!!.action == MotionEvent.ACTION_DOWN -> {//A pressed gesture has started, the motion contains the initial starting location.
+//
+//                lines.add(Line(event.x,event.y))
+//                isDrawing = true
+//                return true
+//            }
+//            event!!.action == MotionEvent.ACTION_MOVE && lines.size > 0  -> {//A change has happened during a press gesture;press gesture is moving
+//                val currentLine = lines.get(lines.size - 1) //ambil line paling terbaru (stack teratas)
+//                currentLine.stopX = event.x
+//                currentLine.stopY = event.y
+//                invalidate()
+//                return true
+//            }
+//            event!!.action == MotionEvent.ACTION_UP && lines.size > 0 -> { //contains the final release location
+//                val currentLine = lines.get(lines.size - 1) //ambil line paling terbaru (stack teratas)
+//                currentLine.stopX = event.x
+//                currentLine.stopY = event.y
+//                invalidate()
+//                return true
+//            }
+//            else -> {
+//                return false
+//            }
+//        }
+//    }
 }
 
 class Line(startX: Float,startY: Float) {

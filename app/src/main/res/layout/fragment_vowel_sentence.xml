@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:src="@drawable/ic_back2"
+            android:padding="@dimen/dimen_8"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,27 +56,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_bg2" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2">
-            <include
-                android:id="@+id/layout_empty"
-                android:visibility="gone"
-                layout="@layout/empty_layout"/>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddVowelQ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_vowel_questions"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/dimen_8"
-                tools:listitem="@layout/item_list_dmatery" />
-        </LinearLayout>
+        <include
+            android:id="@+id/layout_empty"
+            layout="@layout/empty_layout"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_vowel_questions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_8"
+            tools:listitem="@layout/item_list_dmatery" />
+    </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fabAddVowelQ"

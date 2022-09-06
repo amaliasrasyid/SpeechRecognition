@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".view.main.ui.score.ScoreFragment">
 
-<include
-    android:id="@+id/score"
-    layout="@layout/item_score_result"/>
+    <include
+        android:id="@+id/score"
+        layout="@layout/item_score_result" />
 
 </LinearLayout>

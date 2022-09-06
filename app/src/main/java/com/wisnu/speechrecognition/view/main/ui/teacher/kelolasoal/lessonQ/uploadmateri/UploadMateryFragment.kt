@@ -78,7 +78,7 @@ class UploadMateryFragment : Fragment(), View.OnClickListener {
                         showMessage(
                             requireActivity(),
                             UtilsCode.TITLE_SUCESS,
-                            "Berhasil menyimpan nilai",
+                            response.message ?: "",
                             style = MotionToast.TOAST_SUCCESS
                         )
                         findNavController().navigateUp()
@@ -94,7 +94,6 @@ class UploadMateryFragment : Fragment(), View.OnClickListener {
                     showMessage(
                         requireActivity(),
                         UtilsCode.TITLE_ERROR,
-                        "nilai gagal disimpan",
                         style = MotionToast.TOAST_ERROR
                     )
                 }

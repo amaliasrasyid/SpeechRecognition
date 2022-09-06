@@ -11,7 +11,6 @@
 
     <include
         android:id="@+id/layout_question"
-        android:visibility="gone"
         layout="@layout/item_question"/>
     <include
         android:id="@+id/layout_empty"

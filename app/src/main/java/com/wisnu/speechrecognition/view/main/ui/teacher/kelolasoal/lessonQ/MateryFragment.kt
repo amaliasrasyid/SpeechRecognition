@@ -164,6 +164,7 @@ class MateryFragment : Fragment() {
                             response.message ?: "",
                             style = MotionToast.TOAST_SUCCESS
                         )
+                        Log.d(TAG,"message success delete ${response.message}")
                     }
                 } else {
                     showMessage(
@@ -208,6 +209,5 @@ class MateryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("MateryFragment","onresume")
-        observeMaterialStudy(tipeMateri)
     }
 }

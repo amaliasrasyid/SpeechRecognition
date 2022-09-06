@@ -15,6 +15,7 @@ import retrofit2.Response
 
 class GuessQViewModel : ViewModel() {
     private var _questions = MutableLiveData<QuestionPlayGuessResponse>()
+    private var _crudQuestions = MutableLiveData<QuestionPlayGuessResponse>()
     private val TAG = GuessQViewModel::class.java.simpleName
     private val RESPONSE_CLASS = QuestionPlayGuessResponse::class.java
     
@@ -26,26 +27,26 @@ class GuessQViewModel : ViewModel() {
     fun store(audio: MultipartBody.Part?,
                params: HashMap<String,RequestBody>
     ): LiveData<QuestionPlayGuessResponse>{
-        storeGuessQ(audio,params)
-        return _questions
+        _crudQuestions = storeGuessQ(audio,params)
+        return _crudQuestions
     }
     
     fun delete(idGuessQ: Int): LiveData<QuestionPlayGuessResponse>{
-        deleteGuessQ(idGuessQ)
-        return _questions
+        _crudQuestions = deleteGuessQ(idGuessQ)
+        return _crudQuestions
     }
 
-    private fun deleteGuessQ(idGuessQ: Int){
+    private fun deleteGuessQ(idGuessQ: Int): MutableLiveData<QuestionPlayGuessResponse>{
         val client = ApiConfig.getApiService().deleteQuestionGuess(idGuessQ)
         val gson = Gson()
         client.enqueue(object : Callback<QuestionPlayGuessResponse> {
             override fun onResponse(call: Call<QuestionPlayGuessResponse>, response: Response<QuestionPlayGuessResponse>) {
                 if (response.isSuccessful) {
                     val result = response.body()
-                    _questions.postValue(result!!)
+                    _crudQuestions.postValue(result!!)
                 } else {
                     val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
-                    _questions.postValue(errResult)
+                    _crudQuestions.postValue(errResult)
                     Log.e(TAG, "onFailure: $errResult")
                 }
             }
@@ -54,7 +55,33 @@ class GuessQViewModel : ViewModel() {
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
+        return _crudQuestions
     }
+
+    private fun storeGuessQ(
+        audio: MultipartBody.Part?,
+        params: HashMap<String, RequestBody>): MutableLiveData<QuestionPlayGuessResponse> {
+        val client = ApiConfig.getApiService().storeGuessQ(audio,params)
+        val gson = Gson()
+        client.enqueue(object : Callback<QuestionPlayGuessResponse> {
+            override fun onResponse(call: Call<QuestionPlayGuessResponse>, response: Response<QuestionPlayGuessResponse>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    _crudQuestions.postValue(result!!)
+                } else {
+                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
+                    _crudQuestions.postValue(errResult)
+                    Log.e(TAG, "onFailure: $errResult")
+                }
+            }
+
+            override fun onFailure(call: Call<QuestionPlayGuessResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        });
+        return _crudQuestions
+    }
+
 
     private fun getGuessQ(): MutableLiveData<QuestionPlayGuessResponse> {
         val client = ApiConfig.getApiService().getQuestionsGuess()
@@ -78,26 +105,6 @@ class GuessQViewModel : ViewModel() {
         return _questions
     }
 
-    private fun storeGuessQ(audio: MultipartBody.Part?, params: HashMap<String, RequestBody>) {
-        val client = ApiConfig.getApiService().storeGuessQ(audio,params)
-        val gson = Gson()
-        client.enqueue(object : Callback<QuestionPlayGuessResponse> {
-            override fun onResponse(call: Call<QuestionPlayGuessResponse>, response: Response<QuestionPlayGuessResponse>) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    _questions.postValue(result!!)
-                } else {
-                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
-                    _questions.postValue(errResult)
-                    Log.e(TAG, "onFailure: $errResult")
-                }
-            }
-
-            override fun onFailure(call: Call<QuestionPlayGuessResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        });
-    }
 
 
 }
