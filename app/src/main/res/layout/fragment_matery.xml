@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,29 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="313dp"
         android:background="@drawable/bg_top_blue"
-        app:layout_constraintBottom_toTopOf="@id/guideline_bg"/>
+        app:layout_constraintBottom_toTopOf="@id/guideline_bg" />
 
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:padding="@dimen/dimen_8"
         android:src="@drawable/ic_back2"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_material_study"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="18sp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_search"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Daftar Materi Huruf Vokal" />
 
@@ -44,17 +44,16 @@
         android:background="@null"
         android:src="@drawable/ic_search"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_material_study"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="242dp"
         android:background="@drawable/bg_bottom_blue"
-        app:layout_constraintTop_toBottomOf="@id/guideline_bg2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bg2" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -116,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_bg"
@@ -131,5 +130,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.78" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload
+package com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.uploadpairq
 
 import android.Manifest
 import android.app.Activity
@@ -16,16 +16,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import com.wisnu.speechrecognition.databinding.ActivityUploadGuessQBinding
-import com.wisnu.speechrecognition.local_db.QuestionPlayGuess
+import com.wisnu.speechrecognition.databinding.ActivityUploadPairQBinding
+import com.wisnu.speechrecognition.local_db.PairWordQClass
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.network.UploadRequestBody
-import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
 import com.wisnu.speechrecognition.utils.createPartFromString
 import com.wisnu.speechrecognition.utils.showMessage
+import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.PairQViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -33,70 +33,50 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import www.sanju.motiontoast.MotionToast
 import java.io.File
 
-class UploadGuessQActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var binding: ActivityUploadGuessQBinding
+class UploadPairQActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityUploadPairQBinding
 
     private var mediaPlayer: MediaPlayer? = null
-    private val TAG = UploadGuessQActivity::class.simpleName
-
-    private var params = HashMap<String, RequestBody>()
     private var audioPath: String? = null
-    private var id_soal: Int = 0
-    private var type = 0
-
     private var isAudioExist = false
+    private var id_soal: Int = 0
 
-    private val viewModel by viewModels<UploadGuessQViewModel>()
+    private var pairWQ: PairWordQClass? = null
+    private val viewModel by viewModels<PairQViewModel>()
 
-
-
+    private val TAG = UploadPairQActivity::class.simpleName
+    
     companion object {
         const val TYPE = "type"
-        const val EXTRA_DATA_QUESTION = "extra_data_question"
+        const val REQUEST_EDIT = 40
+        const val EXTRA_DATA_PAIRQ= "extra_data_pairq"
         private const val REQUEST_CODE_PERMISSIONS = 111
         private const val REQUEST_CODE_SELECT_AUDIO = 444
-        const val REQUEST_ADD = 30
-        const val REQUEST_EDIT = 40
         private const val AUDIO = 200
-        private const val MUST_SET_OPSI = "Kolom inputan pernyataan opsi %s tidak boleh kosong!"
-        private const val MUST_SET_KEY_OPSI = "Opsi kunci jawaban tidak boleh kosong!"
-        private const val MUST_PICK_AUDIO = "Audio soal harus dipilih, tidak boleh kosong!"
+        private const val MUST_PICK_AUDIO = "audio soal harus ditambahkan, tidak boleh kosong!"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        binding = ActivityUploadGuessQBinding.inflate(layoutInflater)
+        binding = ActivityUploadPairQBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        prepareView()
+        prepareView()    
     }
 
     private fun prepareView() {
-        with(binding) {
-            btnSimpan.setOnClickListener(this@UploadGuessQActivity)
-            btnBack.setOnClickListener(this@UploadGuessQActivity)
-            pickAudio.setOnClickListener(this@UploadGuessQActivity)
-            btnReselectAudio.setOnClickListener(this@UploadGuessQActivity)
-            audioPreviewUpload.setOnClickListener(this@UploadGuessQActivity)
-
+        with(binding){
+            btnSimpan.setOnClickListener(this@UploadPairQActivity)
+            btnBack.setOnClickListener(this@UploadPairQActivity)
+            pickAudio.setOnClickListener(this@UploadPairQActivity)
+            btnReselectAudio.setOnClickListener(this@UploadPairQActivity)
+            audioPreviewUpload.setOnClickListener(this@UploadPairQActivity)
 
             //cek store atau update layout
             if (intent.extras != null) {
-                type = intent.getIntExtra(TYPE, 0)
-                val question = intent.getParcelableExtra<QuestionPlayGuess>(EXTRA_DATA_QUESTION)
+                val question = intent.getParcelableExtra<PairWordQClass>(EXTRA_DATA_PAIRQ)
+                id_soal = question?.id ?: 0
                 if (question != null) {
-                    id_soal = question.id ?: 0
-                    when (question.kunciJawaban) { // kunci jawaban
-                        1 -> rbOpsi1.isChecked = true
-                        2 -> rbOpsi2.isChecked = true
-                        3 -> rbOpsi3.isChecked = true
-                    }
-
-                    edtOpsi1.setText(question.opsi1)
-                    edtOpsi2.setText(question.opsi2)
-                    edtOpsi3.setText(question.opsi3)
-
                     //audio
                     audioPreviewUpload.visibility = View.VISIBLE
                     btnReselectAudio.visibility = View.VISIBLE
@@ -110,12 +90,12 @@ class UploadGuessQActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+
     }
 
     override fun onClick(view: View?) {
         with(binding) {
             when (view) {
-                btnSimpan -> saveGuessQ()
                 pickAudio -> selectAudio()
                 btnReselectAudio -> {
                     isAudioExist = false
@@ -132,118 +112,65 @@ class UploadGuessQActivity : AppCompatActivity(), View.OnClickListener {
                     //play audio
                     mediaPlayer?.start()
                 }
+                btnSimpan -> savePairQ()
                 btnBack -> finish()
                 else -> {}
             }
         }
+
     }
 
-    private fun saveGuessQ() {
-        with(binding) {
-
-            val opsi1 = edtOpsi1.text.toString().trim()
-            val opsi2 = edtOpsi2.text.toString().trim()
-            val opsi3 = edtOpsi3.text.toString().trim()
-
-            when {
+    private fun savePairQ(){
+        with(binding){
+            when{
                 !isAudioExist -> { //todo: rentan error, notif mana request yg store n update
                     showMessage(
-                        this@UploadGuessQActivity,
+                        this@UploadPairQActivity,
                         title = TITLE_WARNING,
                         message = MUST_PICK_AUDIO,
                         style = MotionToast.TOAST_WARNING
                     )
                     return@with
                 }
-                opsi1.isEmpty() -> {
-                    showMessage(
-                        this@UploadGuessQActivity,
-                        title = TITLE_WARNING,
-                        message = String.format(MUST_SET_OPSI, "1"),
-                        style = MotionToast.TOAST_WARNING
-                    )
-                    return@with
-                }
-                opsi2.isEmpty() -> {
-                    showMessage(
-                        this@UploadGuessQActivity,
-                        title = TITLE_WARNING,
-                        message = String.format(MUST_SET_OPSI, "2"),
-                        style = MotionToast.TOAST_WARNING
-                    )
-                    return@with
-                }
-                opsi3.isEmpty() -> {
-                    showMessage(
-                        this@UploadGuessQActivity,
-                        title = TITLE_WARNING,
-                        message = String.format(MUST_SET_OPSI, "3"),
-                        style = MotionToast.TOAST_WARNING
-                    )
-                    return@with
-                }
-                !rbOpsi1.isChecked && !rbOpsi2.isChecked &&
-                        !rbOpsi3.isChecked -> {
-                    showMessage(
-                        this@UploadGuessQActivity,
-                        title = TITLE_WARNING,
-                        message = MUST_SET_KEY_OPSI,
-                        style = MotionToast.TOAST_WARNING
-                    )
-                    return@with
-                }
                 else -> {
                     loader(true)
-                    var kunciJawaban = 0
-                    when {
-                        rbOpsi1.isChecked -> kunciJawaban = 1
-                        rbOpsi2.isChecked -> kunciJawaban = 2
-                        rbOpsi3.isChecked -> kunciJawaban = 3
-                    }
-                    params["id"] = createPartFromString(id_soal.toString())
-                    params["opsi1"] = createPartFromString(opsi1)
-                    params["opsi2"] = createPartFromString(opsi2)
-                    params["opsi3"] = createPartFromString(opsi3)
-                    params["kunci_jawaban"] = createPartFromString(kunciJawaban.toString())
+                    val id = createPartFromString(id_soal.toString())
                     if(isAudioExist && audioPath == null){
-                        storeGuessQ(reqFileAudioEmpty(), params)
+                        storePairQ(id,reqFileAudioEmpty())
                     }else{
-                        storeGuessQ(reqFileAudio(), params)
+                        storePairQ(id,reqFileAudio())
                     }
-
                 }
             }
         }
+
     }
 
-    private fun storeGuessQ(
-        bodyAudio: MultipartBody.Part,
-        params: HashMap<String, RequestBody>,
-    ) {
-        viewModel.store(bodyAudio, params).observe(this, { response ->
+    private fun storePairQ(id: RequestBody, bodyAudio: MultipartBody.Part) {
+        viewModel.store(id,bodyAudio).observe(this, { response ->
             loader(false)
             if (response.data != null) {
                 if (response.code == 200) {
                     showMessage(
-                        this@UploadGuessQActivity,
-                        UtilsCode.TITLE_SUCESS,
+                        this@UploadPairQActivity,
+                        TITLE_SUCESS,
                         "Berhasil menyimpan soal",
                         style = MotionToast.TOAST_SUCCESS
                     )
                     finish()
                 } else {
                     showMessage(
-                        this@UploadGuessQActivity,
+                        this@UploadPairQActivity,
                         TITLE_ERROR,
                         response.message ?: "",
                         style = MotionToast.TOAST_ERROR
                     )
                 }
-            } else {
+            }else {
                 showMessage(
-                    this@UploadGuessQActivity,
+                    this@UploadPairQActivity,
                     TITLE_ERROR,
-                    "soal gagal disimpan",
+                    response.message ?: "",
                     style = MotionToast.TOAST_ERROR
                 )
             }
@@ -260,6 +187,18 @@ class UploadGuessQActivity : AppCompatActivity(), View.OnClickListener {
             putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         }
         resultLauncherVoice.launch(Intent.createChooser(intent, "Pilih 1 Audio"))
+    }
+
+    private fun prepareMediaPlayer(urlAudio: String) {
+        try {
+            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer?.setDataSource(urlAudio) // URL music file
+            mediaPlayer?.prepare()
+            isAudioExist = true
+        } catch (e: Exception) {
+            Log.e(TAG, "prepareMediaPlayer: ${e.message}")
+            isAudioExist = false
+        }
     }
 
     private fun getFilePath(type: Int, uri: Uri): String {
@@ -285,17 +224,6 @@ class UploadGuessQActivity : AppCompatActivity(), View.OnClickListener {
         return filePath
     }
 
-    private fun prepareMediaPlayer(urlAudio: String) {
-        try {
-            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
-            mediaPlayer?.setDataSource(urlAudio) // URL music file
-            mediaPlayer?.prepare()
-            isAudioExist = true
-        } catch (e: Exception) {
-            Log.e(TAG, "prepareMediaPlayer: ${e.message}")
-            isAudioExist = false
-        }
-    }
 
     private fun releaseAudio() {
         mediaPlayer?.release()

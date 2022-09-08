@@ -151,7 +151,6 @@
             app:layout_constraintStart_toEndOf="@+id/tv_back_to_login"
             app:layout_constraintTop_toTopOf="@+id/tv_back_to_login" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -177,4 +176,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="100dp" />
+
+    <ProgressBar
+        android:id="@+id/pb_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

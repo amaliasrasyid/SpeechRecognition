@@ -358,6 +358,7 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
         }
         loader(false)
     }
+
     private fun reqFileImage(): MultipartBody.Part {
         val fileImage = File(imagePath!!)
         val reqFileImage =

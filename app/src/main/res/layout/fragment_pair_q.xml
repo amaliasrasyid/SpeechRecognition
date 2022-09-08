@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".view.main.ui.teacher.kelolasoal.lessonQ.VowelSentenceFragment">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.main.ui.teacher.kelolasoal.pairQ.PairQFragment">
 
     <View
         android:layout_width="match_parent"
@@ -17,25 +17,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:padding="@dimen/dimen_8"
         android:src="@drawable/ic_back2"
+        android:padding="@dimen/dimen_8"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_material_study"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
-        android:textColor="@color/white"
         android:textSize="18sp"
-        android:textAlignment="center"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Daftar Soal Huruf Vokal" />
+        android:text="Daftar Soal Temukan Pasangan" />
 
     <ImageButton
         android:id="@+id/btn_search"
@@ -43,8 +43,10 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:src="@drawable/ic_search"
+        android:padding="@dimen/dimen_8"
+        android:layout_marginEnd="@dimen/dimen_8"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/tv_material_study"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -61,7 +63,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/fabAddVowelQ"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddPairQ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2">
@@ -72,20 +74,20 @@
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_vowel_questions"
+            android:id="@+id/rv_pairq"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/dimen_8"
-            tools:listitem="@layout/item_list_dmatery" />
+            tools:listitem="@layout/item_list_pairq" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fabAddVowelQ"
+        android:id="@+id/fabAddPairQ"
         style="@style/CustomFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:text="Tambah Soal"
+        android:text="Tambah soal"
         android:textAllCaps="true"
         android:textSize="16sp"
         app:icon="@drawable/ic_plus"
@@ -99,7 +101,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_bg"
@@ -132,12 +133,4 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.78" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

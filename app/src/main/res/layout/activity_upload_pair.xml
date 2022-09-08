@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQFragment">
+    tools:context=".view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,13 +15,13 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ic_back2"
-            android:padding="@dimen/dimen_8"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/dimen_16"
             android:layout_marginBottom="@dimen/dimen_16"
+            android:background="@null"
+            android:padding="@dimen/dimen_8"
+            android:src="@drawable/ic_back2"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,11 +30,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_4"
-            android:layout_marginEnd="@dimen/dimen_8"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1"
-            android:text="Form Tambah Materi Soal Belajar"
+            android:text="Form Tambah Soal Temukan Pasangan"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_back"
@@ -54,37 +54,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2">
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_teks_jawaban"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/placeholder_tv_login_2">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_teks_jawaban"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Materi"
                     android:background="@drawable/bg_shape1"
-                    android:padding="@dimen/dimen_16"
-                    android:layout_margin="@dimen/dimen_16"
+                    android:hint="Kalimat Teks (jawaban)"
                     android:imeOptions="actionNext"
                     android:inputType="text" />
-
-            <LinearLayout
-                android:id="@+id/layout_parent_kalimat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_16"
-                android:layout_marginTop="@dimen/dimen_16"
-                android:layout_marginEnd="@dimen/dimen_16"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/edt_kalimat_vokal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/card_input"
-                    android:hint="Kalimat Vokal (jawaban)"
-                    android:padding="@dimen/dimen_8"
-                    android:visibility="gone" />
-            </LinearLayout>
-
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_view"
@@ -96,24 +84,74 @@
                 android:text="Tambah Kalimat"
                 android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/tv_gambar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:paddingStart="@dimen/dimen_16"
+                android:paddingEnd="@dimen/dimen_16"
+                android:text="Gambar"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:id="@+id/pick_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_16"
+                android:background="@drawable/outline_card"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    android:src="@drawable/ic_image_file" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:text="Pilih Gambar"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reselect_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_marginEnd="@dimen/dimen_16"
+                android:backgroundTint="#588CB8"
+                android:text="Hapus Gambar"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imgPreviewUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_margin="@dimen/dimen_16"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                tools:src="@drawable/img_example_test" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_simpan"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/dimen_16"
-                android:layout_marginEnd="@dimen/dimen_16"
                 android:layout_marginBottom="@dimen/dimen_16"
                 android:backgroundTint="#0089FF"
-                android:padding="@dimen/dimen_16"
                 android:text="Simpan" />
 
         </LinearLayout>
 
-
         <ProgressBar
-            android:id="@+id/pb_matery"
+            android:id="@+id/pb_loader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

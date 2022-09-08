@@ -28,8 +28,8 @@ class AuthViewModel: ViewModel() {
         return _auth
     }
 
-    fun register(image: MultipartBody.Part, params: HashMap<String, RequestBody>): LiveData<UserResponse>{
-        storeUser(image,params)
+    fun register(params: HashMap<String, RequestBody>): LiveData<UserResponse>{
+        storeUser(params = params)
         return _auth
     }
 
@@ -62,7 +62,7 @@ class AuthViewModel: ViewModel() {
         return _auth
     }
 
-    private fun storeUser(image: MultipartBody.Part, params: HashMap<String, RequestBody>) {
+    private fun storeUser(image: MultipartBody.Part? = null, params: HashMap<String, RequestBody>) {
         val client = ApiConfig.getApiService().storeUser(image,params)
         val gson = Gson()
         client.enqueue(object : Callback<UserResponse> {

@@ -1,6 +1,8 @@
 package com.wisnu.speechrecognition.view.main.ui.student
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,11 @@ class ResultFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
+
+    companion object{
+        const val QUESTION_TYPE = 1
+        const val PAIR_TYPE = 2
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,14 +40,23 @@ class ResultFragment : Fragment(), View.OnClickListener {
         val args = ResultFragmentArgs.fromBundle(arguments as Bundle)
         val correctNumber = args.correctNumber
         val totalQ = args.totalQuestion
+        val type = args.type
         val userName = UserPreference(requireContext()).getUser().nama
         val score = ((correctNumber.toDouble()/totalQ) * 100).toInt()
         var conclusion = resultConclusion(score)
 
         with(binding) {
-            tvName.text = userName
-            tvScore.text = "Kamu menjawab ${correctNumber} soal dengan benar dari total ${totalQ} soal"
+//            tvName.text = userName
             tvResultConclusion.text = conclusion
+            when (type){
+                QUESTION_TYPE -> {
+                    tvScore.text = "Kamu menjawab ${correctNumber} soal dengan benar dari total ${totalQ} soal"
+                }
+                PAIR_TYPE -> {
+                    tvScore.text = "Kamu memasangkan pasangan dengan benar sebanyak ${correctNumber} dari total ${totalQ} pasangan"
+                }
+                else -> Log.d(TAG,"tipe data yg dikirim tidak diketahui")
+            }
             when (score){
                 in 0..55 -> {
                     imgFail.visibility = View.VISIBLE
@@ -51,7 +67,6 @@ class ResultFragment : Fragment(), View.OnClickListener {
                     imgFail.visibility = View.GONE
                 }
             }
-
             btnFinish.setOnClickListener(this@ResultFragment)
             btnClose.setOnClickListener(this@ResultFragment)
         }

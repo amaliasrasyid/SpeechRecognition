@@ -20,6 +20,7 @@ import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.question.QuestionFragment
+import com.wisnu.speechrecognition.view.main.ui.student.ResultFragment.Companion.QUESTION_TYPE
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.GuessQViewModel
 import www.sanju.motiontoast.MotionToast
 
@@ -110,7 +111,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
 
             //prepare timer,seek bar and score
 //            var currentProgress = (indexProgress.toDouble()/listSoal.size)*100
-            seekBar.setOnTouchListener { view, motionEvent -> false  }
+            seekBar.setOnTouchListener { view, motionEvent -> true }
             seekBar.max = 0
             seekBar.max = listSoal.size
             seekBar.progress = indexProgress
@@ -148,6 +149,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
             val toResult = GuessFragmentDirections.actionGuessFragmentToResultFragment().apply {
                 totalQuestion = listSoal.size
                 correctNumber = score
+                type = QUESTION_TYPE
             }
             findNavController().navigate(toResult)
         }
@@ -170,7 +172,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
                     showMessage(
                         requireActivity(),
                         "Waktu Habis",
-                        "Segeralah menjawab pertanyaan sebelum timer soal habis",
+                        "Sayang sekali kesempatanmu untuk menjawab habis",
                         MotionToast.TOAST_WARNING
                     )
                     checkAnswer(0)

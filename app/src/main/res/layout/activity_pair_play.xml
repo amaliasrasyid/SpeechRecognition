@@ -76,6 +76,7 @@
         android:scaleType="fitCenter"
         android:layout_margin="@dimen/dimen_16"
         android:src="@drawable/dummy_img_user"
+        android:contentDescription="orang"
         app:layout_constraintEnd_toStartOf="@+id/point2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_tes1" />
@@ -106,6 +107,7 @@
         android:id="@+id/drawView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="medali"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -9,10 +9,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentRegisterBinding
+import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
+import com.wisnu.speechrecognition.utils.createPartFromString
+import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import com.wisnu.speechrecognition.view.auth.login.LoginFragment
 import com.wisnu.speechrecognition.view.auth.login.LoginFragmentArgs
+import okhttp3.RequestBody
+import www.sanju.motiontoast.MotionToast
 
 class RegisterFragment : Fragment() {
 
@@ -110,6 +118,7 @@ class RegisterFragment : Fragment() {
             })
 
             btnRegister.setOnClickListener{
+                loader(true)
                 val fullName = edtFullname.text.toString().trim()
                 val email = edtUsername.text.toString().trim()
                 val password = edtPassword.text.toString().trim()
@@ -119,25 +128,60 @@ class RegisterFragment : Fragment() {
                     email.isEmpty() -> tiUsername.error = USERNAME_NOT_NULL
                     password.isEmpty() -> tiPassword.error = PASSWORD_NOT_NULL
                     else -> {
-                        val params = HashMap<String,Any>()
-                        params.put("nama",fullName)
-                        params.put("email",email)
-                        params.put("password",password)
-                        params.put("role",roleId ?: 3) //Defaultnya buat ke siswa biar ndak error (??is it good practice)
-                        params.put("gambar","")
+                        val params = HashMap<String,RequestBody>()
+                        params.put("id", createPartFromString((0).toString()))
+                        params.put("nama", createPartFromString(fullName.toString()))
+                        params.put("email", createPartFromString(email.toString()))
+                        params.put("password", createPartFromString(password.toString()))
+                        params.put("role", createPartFromString((roleId).toString())) //Defaultnya buat ke siswa biar ndak error (??is it good practice)
                         register(params)
                     }
                 }
             }
             tvBackToLogin.setOnClickListener{
-                val toLogin = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(args.role)
-                findNavController().navigate(toLogin)
+                findNavController().navigateUp()
             }
         }
     }
 
-    private fun register(params: HashMap<String, Any>) {
+    private fun register(params: HashMap<String, RequestBody>) {
+        viewModel.register(params = params).observe(requireActivity()) { response ->
+            loader(false)
+            if (response.data != null) {
+                if (response.code == 200) {
+                    showMessage(
+                        requireActivity(),
+                        TITLE_SUCESS,
+                        response.message ?: "",
+                        style = MotionToast.TOAST_SUCCESS
+                    )
+                    findNavController().navigateUp()
+                } else {
+                    showMessage(
+                        requireActivity(),
+                        TITLE_ERROR,
+                        response.message ?: "",
+                        style = MotionToast.TOAST_ERROR
+                    )
+                }
+            } else {
+                showMessage(
+                    requireActivity(),
+                    TITLE_ERROR,
+                    style = MotionToast.TOAST_ERROR
+                )
+            }
+        }
+    }
 
+    private fun loader(state: Boolean) {
+        with(binding) {
+            if (state) {
+                pbLoader.visibility = android.view.View.VISIBLE
+            } else {
+                pbLoader.visibility = android.view.View.GONE
+            }
+        }
     }
 
     override fun onDestroyView() {

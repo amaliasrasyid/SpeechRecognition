@@ -144,12 +144,14 @@
 
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView2"
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="73dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
             android:layout_marginEnd="@dimen/dimen_16"
             app:cardElevation="@dimen/dimen_8"
+            app:cardBackgroundColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3">
 
@@ -166,13 +168,23 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/materialCardView3"
+            app:layout_constraintStart_toStartOf="@+id/materialCardView2"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView3"
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="73dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="21dp"
             app:cardElevation="@dimen/dimen_8"
-            android:layout_marginStart="@dimen/dimen_16"
+            app:cardBackgroundColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/placeholder_tv_login_3">
 

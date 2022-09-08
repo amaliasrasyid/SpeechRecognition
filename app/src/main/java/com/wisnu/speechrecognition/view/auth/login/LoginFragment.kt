@@ -4,12 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
 import com.kontakanprojects.apptkslb.local_db.Login
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentLoginBinding
@@ -24,15 +30,19 @@ import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
 import www.sanju.motiontoast.MotionToast
 
-class LoginFragment : Fragment() {
+
+class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AuthViewModel>()
     private val loginValid = true
+    private lateinit var googleApiClient :GoogleApiClient
 
+    private val TAG = LoginFragment::class.java.simpleName
 
     companion object {
+        private const val SIGN_IN = 100
         private const val USERNAME_NOT_NULL = "Username tidak boleh kosong!"
         private const val PASSWORD_NOT_NULL = "Password tidak boleh kosong!"
         private const val MIN_COUNTER_LENGTH_PASS = "Minimal 5 karakter password"
@@ -48,11 +58,24 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+//        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+        googleApiClient = GoogleApiClient.Builder(
+            requireContext())
+            .enableAutoManage(requireActivity(),this)
+            .addApi(Auth.GOOGLE_SIGN_IN_API,gso).build()
+        binding.signInButton.setOnClickListener{
+            val intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
+            startActivityForResult(intent,SIGN_IN)
+        }
         prepareView()
     }
 
     private fun prepareView() {
         val roleId = LoginFragmentArgs.fromBundle(arguments as Bundle).role
+        // Build a GoogleSignInClient with the options specified by gso.
         with(binding) {
             edtUsername.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -100,7 +123,9 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
             }
             tvRegister.setOnClickListener{
-                val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment(roleId)
+                val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment().apply {
+                    role = roleId
+                }
                 findNavController().navigate(toRegister)
             }
             btnLogin.setOnClickListener {
@@ -169,8 +194,38 @@ class LoginFragment : Fragment() {
             }
         }
     }
-        override fun onDestroyView() {
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == SIGN_IN){
+            val mGoogleSignInApi = Auth.GoogleSignInApi.getSignInResultFromIntent(data!!)
+            if(mGoogleSignInApi!!.isSuccess){
+                Log.d("login fragment",mGoogleSignInApi.toString())
+                val role = LoginFragmentArgs.fromBundle(arguments as Bundle).role
+                when(role){
+                    ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
+                    ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+                }
+            }else{
+                Toast.makeText(requireContext(),"sign in with google failed",Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        googleApiClient.stopAutoManage(requireActivity())
+        googleApiClient.disconnect()
+    }
+
+
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+        TODO("Not yet implemented")
+        Log.d(TAG,"connection failed sign in api google ${p0.toString()}")
     }
 }

@@ -1,7 +1,9 @@
 package com.wisnu.speechrecognition.network
 
 import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
+import com.wisnu.speechrecognition.model.questions.PairResponse
 import com.wisnu.speechrecognition.model.questions.QuestionPlayGuessResponse
+import com.wisnu.speechrecognition.model.questions.QuestionPlayPairWordResponse
 import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.model.student.StudentScoreResponse
 import com.wisnu.speechrecognition.model.student.StudentScoresResponse
@@ -30,7 +32,7 @@ interface ApiService {
     @Multipart
     @POST("user")
     fun storeUser(
-        @Part image: MultipartBody.Part?,
+        @Part image: MultipartBody.Part? = null,
         @PartMap params: HashMap<String,RequestBody>
     ): Call<UserResponse>
 
@@ -86,8 +88,28 @@ interface ApiService {
 
     // ROUTE-PAIRQ
     @GET("pairwordq")
-    fun getQuestionsPairWords(): Call<Any>
+    fun getQuestionsPairWords(): Call<QuestionPlayPairWordResponse>
 
+    @Multipart
+    @POST("pairwordq")
+    fun storeQuestionPairW(
+        @Part("id") id: RequestBody,
+        @Part sound: MultipartBody.Part?
+    ):Call<QuestionPlayPairWordResponse>
+
+    @DELETE("pairword/{id}")
+    fun deleteQuestionPairW(@Path("id") idPairW: Int): Call<QuestionPlayPairWordResponse>
+
+    //ROUTE-PAIR
+    @Multipart
+    @POST("pair")
+    fun storePair(
+        @Part sound: MultipartBody.Part?,
+        @PartMap params: HashMap<String,RequestBody>
+    ):Call<PairResponse>
+
+    @DELETE("pair/{id}")
+    fun deletePairItem(@Path("id") idPairItem: Int): Call<PairResponse>
 
     //ROUTE-STUDENT SCORE
     @FormUrlEncoded

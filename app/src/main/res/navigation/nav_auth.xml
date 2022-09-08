@@ -26,7 +26,8 @@
         tools:layout="@layout/fragment_register" >
         <argument
             android:name="role"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="3" />
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"

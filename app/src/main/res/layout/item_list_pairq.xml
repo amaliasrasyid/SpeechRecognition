@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_shape3"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="@dimen/dimen_16"
+    android:layout_marginLeft="@dimen/dimen_16"
+    android:layout_marginRight="@dimen/dimen_16"
+    android:layout_marginTop="@dimen/dimen_16"
+    android:layout_marginBottom="@dimen/dimen_16">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_4"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Soal Ke 1" />
+
+        <ImageButton
+            android:id="@+id/btn_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8"
+            android:background="@null"
+            android:padding="@dimen/dimen_8"
+            android:src="@drawable/ic_down"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <ImageButton
+            android:id="@+id/btn_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8"
+            android:background="@null"
+            android:padding="@dimen/dimen_8"
+            android:src="@drawable/ic_up"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="@+id/btn_show"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            tools:layout_editor_absoluteY="50dp" />
+
+        <TextView
+            android:id="@+id/tv_text_pair"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="Data pasangan kata dan gambar soal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <ImageButton
+            android:id="@+id/btn_add_pair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryColor"
+            android:src="@drawable/ic_plus"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_text_pair"
+            app:layout_constraintEnd_toEndOf="@+id/btn_show"
+            app:layout_constraintStart_toStartOf="@+id/btn_show"
+            app:layout_constraintTop_toTopOf="@+id/tv_text_pair" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pair"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/btn_show"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_pair"
+            tools:listitem="@layout/item_list_pair" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

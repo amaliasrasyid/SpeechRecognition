@@ -96,13 +96,9 @@ class CategoryFragment : Fragment(), View.OnClickListener {
                 cardBermainTebakKata-> findNavController().navigate(R.id.action_categoryFragment_to_guessQFragment)
 
                 cardBermainTemukanPasangan-> {
-//                    val toVocabReading =
-//                        CategoryFragmentDirections.actionCategoryFragmentToGuessQFragment()
-//                            .apply {
-//                                tipeMateri = TIPE_MEMBACA
-//                                namaTipe = "Membaca Kosakata"
-//                            }
-//                    findNavController().navigate(toVocabReading)
+                    val toVocabReading =
+                        CategoryFragmentDirections.actionCategoryFragmentToPairQFragment()
+                    findNavController().navigate(toVocabReading)
                 }
             }
 

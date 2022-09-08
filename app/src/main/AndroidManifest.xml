@@ -21,13 +21,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.main.ui.teacher.kelolasoal.pairQ.uploadpairq.UploadPairQActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.ui.teacher.kelolasoal.pairQ.uploadpair.UploadPairActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.main.ui.student.play.pair.PairPlayActivity"
             android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
+
+
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
         <activity
             android:name=".view.main.ui.profile.UserProfileActivity"

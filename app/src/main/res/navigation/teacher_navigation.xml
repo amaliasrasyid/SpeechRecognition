@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_categoryFragment_to_guessQFragment"
             app:destination="@id/guessQFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_pairQFragment"
+            app:destination="@id/pairQFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryScoreFragment2"
@@ -161,5 +164,15 @@
         android:name="com.wisnu.speechrecognition.view.main.ui.profile.UserProfileActivity"
         android:label="activity_user_profile"
         tools:layout="@layout/activity_user_profile" />
+    <fragment
+        android:id="@+id/pairQFragment"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.PairQFragment"
+        android:label="fragment_pair_q"
+        tools:layout="@layout/fragment_pair_q" />
+    <activity
+        android:id="@+id/uploadPairQActivity"
+        android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.uploadpair.UploadPairActivity"
+        android:label="activity_upload_pair_qactivity"
+        tools:layout="@layout/activity_upload_pair" />
 
 </navigation>

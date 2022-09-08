@@ -89,7 +89,11 @@
         android:id="@+id/pairFragment"
         android:name="com.wisnu.speechrecognition.view.main.ui.student.play.pair.PairFragment"
         android:label="fragment_pair"
-        tools:layout="@layout/fragment_pair" />
+        tools:layout="@layout/fragment_pair" >
+        <action
+            android:id="@+id/action_pairFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
     <fragment
         android:id="@+id/ScoreFragment"
         android:name="com.wisnu.speechrecognition.view.main.ui.score.ScoreFragment"
@@ -138,5 +142,9 @@
             android:id="@+id/action_resultFragment_to_playFragment2"
             app:destination="@id/playFragment"
             app:popUpTo="@id/playFragment" />
+        <argument
+            android:name="type"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

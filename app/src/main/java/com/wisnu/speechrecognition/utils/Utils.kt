@@ -96,19 +96,12 @@ fun showMessage(
     }
 }
 
-private fun miliSecondToTimer(milliSeconds: Long): String {
+fun miliSecondToTimer(milliSeconds: Long): String {
     var timerString = ""
     var secondString = ""
 
-    val hours: Int = ((milliSeconds / (1000 * 60 * 60)).toInt())
     val minutes: Int = (milliSeconds % (1000 * 60 * 60)).toInt() / (1000 * 60)
     val seconds: Int = ((milliSeconds % (1000 * 60 * 60) % (1000 * 60) / 1000).toInt())
-
-    if (hours > 0) {
-        timerString = "$hours:"
-    } else {
-        timerString = "0"
-    }
 
     if (seconds < 10) {
         secondString = "0$seconds"
@@ -116,7 +109,7 @@ private fun miliSecondToTimer(milliSeconds: Long): String {
         secondString = "" + seconds
     }
 
-    timerString = "$timerString$minutes:$secondString"
+    timerString = "$minutes:$secondString"
     return timerString
 }
 

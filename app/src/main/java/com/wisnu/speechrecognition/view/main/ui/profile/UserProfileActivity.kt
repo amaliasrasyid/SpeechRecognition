@@ -147,6 +147,7 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
                 pickImage -> selectImage()
                 btnLogOut -> showAlertDialog()
                 btnUpdateProfile -> {
+                    loader(true)
                     val fullName = edtFullname.text.toString().trim()
                     val email = edtUsername.text.toString().trim()
                     val password = edtPassword.text.toString().trim()

@@ -1,38 +1,36 @@
 package com.wisnu.speechrecognition.view.main.ui.student.play.pair
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PointF
+import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
+private var paint: Paint? = null
+var lines : ArrayList<Line> = ArrayList();
 class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
 : View(context, attrs, defStyleAttr) {
-    private var paint: Paint? = null
-    var lines : ArrayList<Line> = ArrayList();
-    private var startPoint: PointF? = null
-    private var endPoint: PointF? = null
-    private var isDrawing = false
-//    private var coordinateImage:Line()
+
+    private var isRedraw = false
 
     init{
         paint = Paint()
         paint!!.color = Color.RED
         paint!!.strokeWidth = 10f
         paint!!.isAntiAlias = true
+        invalidate() //force calling onDraw()
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         for(line in lines){
             canvas!!.drawLine(
-                line.startX, line.startY,
-                line.stopX, line.stopY,
+                line.startX-20, line.startY-560,
+                line.stopX-20, line.stopY-560,
                 paint!!
             )
+            Log.d("OnDraw", line.toString())
         }
     }
 
@@ -41,13 +39,17 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     fun addDestinationPoint(x2: Float, y2: Float){
-        val currentLine: Line
-        if(lines.size > 0){
-            currentLine = lines.get(lines.size - 1)
+        if(lines.size > 0){//BUG: lines sebelumnya dissapear sebelum dpt set end pointnya
+            var currentLine = lines.get(lines.size - 1)
             currentLine.stopX = x2
             currentLine.stopY = y2
-            invalidate()
         }
+        invalidate()
+    }
+    
+    fun clearLines(){
+        lines.clear()
+        invalidate()//forcing onDraw called with empty lines
     }
 
 //    override fun onTouchEvent(event: MotionEvent?): Boolean {
