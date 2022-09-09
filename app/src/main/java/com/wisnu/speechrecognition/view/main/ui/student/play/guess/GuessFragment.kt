@@ -30,7 +30,6 @@ class GuessFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentGuessBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var guessQAdapter: GuessQAdapter
     private val listSoal: ArrayList<GuessQItem> = ArrayList()
     private var mediaPlayer: MediaPlayer? = null
 
@@ -42,13 +41,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
     private lateinit var countDownTimer: CountDownTimer
     private var timeLeft: Long = 60000 //1minute per question
 
-
     private val TAG = GuessFragment::class.simpleName
-
-    companion object {
-        fun newInstance() = GuessFragment()
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

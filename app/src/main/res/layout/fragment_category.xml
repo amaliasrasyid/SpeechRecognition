@@ -68,10 +68,10 @@
                 app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="170dp"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_32">
+                    android:padding="@dimen/dimen_24">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -99,10 +99,10 @@
                 app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="170dp"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_32">
+                    android:padding="@dimen/dimen_24">
 
                     <ImageView
                         android:layout_width="80dp"
@@ -130,10 +130,10 @@
                 android:background="#F8F8FA"
                 app:cardBackgroundColor="@color/white">
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="170dp"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_32">
+                    android:padding="@dimen/dimen_24">
 
                     <ImageView
                         android:layout_width="80dp"
@@ -161,10 +161,10 @@
                 android:background="#F8F8FA"
                 app:cardBackgroundColor="@color/white">
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="170dp"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_32">
+                    android:padding="@dimen/dimen_24">
 
                     <ImageView
                         android:layout_width="80dp"
@@ -224,10 +224,10 @@
                 app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="170dp"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_32">
+                    android:padding="@dimen/dimen_24">
 
                     <ImageView
                         android:layout_width="80dp"
@@ -240,7 +240,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_8"
                         android:fontFamily="@font/abhayalibre_semibold"
-                        android:text="Huruf A-Z"
+                        android:text="Tebak Kata"
                         android:textAlignment="center"
                         android:textSize="@dimen/font_size_15" />
                 </LinearLayout>
@@ -256,15 +256,16 @@
                 app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="170dp"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_32">
+                    android:padding="@dimen/dimen_24">
 
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:scaleType="fitXY"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_find_match" />
 
                     <TextView
@@ -272,7 +273,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_8"
                         android:fontFamily="@font/abhayalibre_semibold"
-                        android:text="Huruf Konsonan"
+                        android:text="Temukan Pasangan"
                         android:textAlignment="center"
                         android:textSize="@dimen/font_size_15" />
                 </LinearLayout>

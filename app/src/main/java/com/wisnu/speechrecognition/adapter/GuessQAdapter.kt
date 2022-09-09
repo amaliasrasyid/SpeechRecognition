@@ -10,7 +10,7 @@ import com.wisnu.speechrecognition.model.questions.GuessQItem
 class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.GuessQViewHolder>() {
     private val REQUEST_TYPE_ = 1
     private val ITEM_TYPE_MATERY = 2
-    private val listGuessQ= ArrayList<GuessQItem>()
+    private var listGuessQ= ArrayList<GuessQItem>()
 
     private val TAG = GuessQAdapter::class.simpleName
 
@@ -41,6 +41,14 @@ class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.GuessQViewHolder>() {
         Log.d(TAG, "setData: $listGuessQ")
     }
 
+    fun setFilteredList(filteredList: ArrayList<GuessQItem>) {
+        listGuessQ.clear()
+        listGuessQ = filteredList
+        notifyDataSetChanged()
+
+        Log.d(TAG, "filtered list: $filteredList")
+    }
+
     fun removeData(position: Int){
         listGuessQ.removeAt(position)
         notifyItemRemoved(position)
@@ -61,13 +69,21 @@ class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.GuessQViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(guessQItem: GuessQItem, position: Int) {
+            val textItem = getAllOption(guessQItem)
             with(binding) {
-                var positionItem = position + 1
-                tvNameMatery.text = "Soal-${positionItem}"
-                btnDelete.setOnClickListener{onItemBtnDeleteCallBack?.onDeleteClicked(bindingAdapterPosition,guessQItem)}
+                tvNameMatery.text = textItem
+                btnDelete.setOnClickListener{onItemBtnDeleteCallBack?.onDeleteClicked(position,guessQItem)}
                 btnEdit.setOnClickListener{onItemBtnEditCallBack?.onEditClicked(guessQItem)}
 
             }
+        }
+
+        private fun getAllOption(guessQItem: GuessQItem): String {
+            val options1 = guessQItem.opsi1
+            val options2 = guessQItem.opsi2
+            val options3 = guessQItem.opsi3
+
+            return "${options1}-${options2}-${options3}"
         }
 
     }

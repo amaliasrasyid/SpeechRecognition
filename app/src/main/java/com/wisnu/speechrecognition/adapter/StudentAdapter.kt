@@ -12,7 +12,7 @@ import com.wisnu.speechrecognition.network.ApiConfig
 
 class StudentAdapter : RecyclerView.Adapter<StudentAdapter.SiswaViewHolder>() {
 
-    private val listSiswa = ArrayList<StudentsResult>()
+    private var listSiswa = ArrayList<StudentsResult>()
     private var onItemClickCallBack: OnItemClickCallBack? = null
 
     private val TAG = StudentAdapter::class.simpleName
@@ -41,6 +41,13 @@ class StudentAdapter : RecyclerView.Adapter<StudentAdapter.SiswaViewHolder>() {
     }
 
     override fun getItemCount() = listSiswa.size
+
+    fun setFilteredList(filteredList: ArrayList<StudentsResult>) {
+        listSiswa = filteredList
+        notifyDataSetChanged()
+
+        Log.d(TAG, "filtered list: $filteredList")
+    }
 
     inner class SiswaViewHolder(private val binding: ItemListSiswaBinding) :
         RecyclerView.ViewHolder(binding.root) {

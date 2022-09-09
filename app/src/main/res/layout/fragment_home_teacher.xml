@@ -60,7 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_32"
         app:cardBackgroundColor="@null"
-        app:cardElevation="@dimen/dimen_24"
+        app:cardElevation="@dimen/dimen_16"
+        app:cardCornerRadius="@dimen/dimen_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gd_home_h">

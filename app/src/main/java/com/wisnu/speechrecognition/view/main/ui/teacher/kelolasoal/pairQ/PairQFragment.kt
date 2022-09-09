@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.PairQAdapter
@@ -25,11 +26,12 @@ import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.uploadp
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.uploadpairq.UploadPairQActivity.Companion.EXTRA_DATA_PAIRQ
 import www.sanju.motiontoast.MotionToast
 
-class PairQFragment : Fragment(), RvItemClickListener {
+class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextListener {
     private val viewModel by viewModels<PairQViewModel>()
     private var _binding: FragmentPairQBinding? = null
     private val binding get() = _binding!!
     private lateinit var pairQAdapter: PairQAdapter
+    private var listPairQ = ArrayList<PairWordQ>()
 
     private val TAG = PairQFragment::class.java.simpleName
 
@@ -66,6 +68,23 @@ class PairQFragment : Fragment(), RvItemClickListener {
                 setHasFixedSize(true)
                 this.adapter =pairQAdapter
             }
+            //search view
+            searchview.clearFocus()
+            searchview.setOnQueryTextListener(this@PairQFragment)
+            //hide back and title when searchview clicked
+            searchview.setOnSearchClickListener{
+                btnBack.visibility = View.GONE
+                tvMaterialStudy.visibility = View.GONE
+            }
+            //show back and title when searchview clicked
+            searchview.setOnCloseListener(object: SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    btnBack.visibility = View.VISIBLE
+                    tvMaterialStudy.visibility = View.VISIBLE
+                    return false //karna aku ingin fungsi close berjalan seperti biasa
+                }
+            })
+
             pairQAdapter.setOnItemClickCallBack(object : PairQAdapter.OnItemClickCallBack{
                 override fun onItemClicked(pairWordQ: PairWordQ) {
                     Log.d(TAG,"terklik tombol soal (parent")
@@ -120,6 +139,8 @@ class PairQFragment : Fragment(), RvItemClickListener {
                         if (response.code == 200) {
                             val result = response.data
                             pairQAdapter.setData(result)
+                            listPairQ.clear()
+                            listPairQ.addAll(result)
                         } else {
                             dataNotFound()
                         }
@@ -170,6 +191,35 @@ class PairQFragment : Fragment(), RvItemClickListener {
 
     }
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        filterList(newText)
+        return true
+    }
+
+    private fun filterList(text: String?) {
+        val filteredlist = ArrayList<PairWordQ>()
+
+        //filter berdasarkan pasangan2 yg dimiliki (kata)
+        for ((index,item) in listPairQ.withIndex()) {
+            val pairs = listPairQ.get(index).pairs
+            for (pair in pairs!!){
+                if(pair.kata!!.uppercase().contains(text!!.uppercase())){
+                    filteredlist.add(item)
+                    break//jika sudah ketemu sekali aja langsung stop untuk item pairQ itu
+                }
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(requireActivity(),"Tidak ada data ditemukan", Toast.LENGTH_SHORT).show()
+        } else {
+            pairQAdapter.setFilteredList(filteredlist)
+        }
+    }
+
     private fun dataNotFound() {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
@@ -187,10 +237,10 @@ class PairQFragment : Fragment(), RvItemClickListener {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         Log.d(TAG,"onresume")
+        Log.d("ListGuessQ",listPairQ.toString())
         observePairQ()
     }
 }

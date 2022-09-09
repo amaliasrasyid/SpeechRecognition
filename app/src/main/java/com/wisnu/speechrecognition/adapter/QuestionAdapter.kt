@@ -2,16 +2,13 @@ package com.wisnu.speechrecognition.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.databinding.ItemListDmateryBinding
-import com.wisnu.speechrecognition.databinding.ItemListMateryBinding
 import com.wisnu.speechrecognition.model.questions.Question
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
 
 class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.MateryViewHolder>() {
-    private val listMatery= ArrayList<Question>()
+    private var listQuestion= ArrayList<Question>()
 
     private val TAG = QuestionAdapter::class.simpleName
 
@@ -35,15 +32,15 @@ class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.MateryViewHolder>()
 
     fun setData(data: List<Question>?) {
         if (data == null) return
-        listMatery.clear()
-        listMatery.addAll(data)
+        listQuestion.clear()
+        listQuestion.addAll(data)
         notifyDataSetChanged()
 
-        Log.d(TAG, "setData: $listMatery")
+        Log.d(TAG, "setData: $listQuestion")
     }
 
     fun removeData(position: Int){
-        listMatery.removeAt(position)
+        listQuestion.removeAt(position)
         notifyItemRemoved(position)
     }
 
@@ -53,10 +50,17 @@ class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.MateryViewHolder>()
         return MateryViewHolder(binding)    }
 
     override fun onBindViewHolder(holder: MateryViewHolder, position: Int) {
-        holder.bind(listMatery[position])
+        holder.bind(listQuestion[position])
     }
 
-    override fun getItemCount() = listMatery.size
+    override fun getItemCount() = listQuestion.size
+
+    fun setFilteredList(filteredList: ArrayList<Question>) {
+        listQuestion = filteredList
+        notifyDataSetChanged()
+
+        Log.d(TAG, "filtered list: $filteredList")
+    }
 
     inner class MateryViewHolder(private val binding: ItemListDmateryBinding) :
         RecyclerView.ViewHolder(binding.root) {

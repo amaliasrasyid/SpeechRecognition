@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,11 +27,12 @@ import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.uploa
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.TYPE_VOWEL
 import www.sanju.motiontoast.MotionToast
 
-class VowelSentenceFragment : Fragment() {
+class VowelSentenceFragment : Fragment(), SearchView.OnQueryTextListener {
     private val viewModel by viewModels<QuestionViewModel>()
     private var _binding: FragmentVowelSentenceBinding? = null
     private val binding get() = _binding!!
     private lateinit var questionAdapter: QuestionAdapter
+    private val listQuestion = ArrayList<Question>()
 
     private var idMatery = 0
 
@@ -60,6 +63,24 @@ class VowelSentenceFragment : Fragment() {
                 setHasFixedSize(true)
                 this.adapter = questionAdapter
             }
+
+            //search view
+            searchview.clearFocus()
+            searchview.setOnQueryTextListener(this@VowelSentenceFragment)
+            //hide back and title when searchview clicked
+            searchview.setOnSearchClickListener{
+                btnBack.visibility = View.GONE
+                tvMaterialStudy.visibility = View.GONE
+            }
+            //show back and title when searchview clicked
+            searchview.setOnCloseListener(object: SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    btnBack.visibility = View.VISIBLE
+                    tvMaterialStudy.visibility = View.VISIBLE
+                    return false //karna aku ingin fungsi close berjalan seperti biasa
+                }
+            })
+
             questionAdapter.setOnItemBtnDeleteCallBack(object : QuestionAdapter.OnItemBtnDeleteClickCallBack {
                 override fun onDeleteClicked(position: Int,question: Question) {
                     questionAdapter.removeData(position)
@@ -91,6 +112,7 @@ class VowelSentenceFragment : Fragment() {
                     if (response.code == 200) {
                         val results = response.data
                         questionAdapter.setData(results)
+                        listQuestion.addAll(results)
                     } else {
                         dataNotFound()
                     }
@@ -149,6 +171,21 @@ class VowelSentenceFragment : Fragment() {
         startActivity(intent)
     }
 
+    private fun filterList(text: String?) {
+        val filteredlist = ArrayList<Question>()
+
+        for (item in listQuestion) {
+            if (item.teksJawaban.uppercase().contains(text!!.uppercase())) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(requireActivity(),"Tidak ada data ditemukan", Toast.LENGTH_SHORT).show()
+        } else {
+            questionAdapter.setFilteredList(filteredlist)
+        }
+    }
+
     private fun dataNotFound() {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
@@ -169,5 +206,14 @@ class VowelSentenceFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         observeQuestion(idMatery)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        filterList(newText)
+        return true
     }
 }

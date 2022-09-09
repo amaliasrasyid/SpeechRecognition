@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/abhayalibre_semibold"
-        android:text="@string/text_belajar"
+        android:text="Kategori Materi Belajar"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,8 @@
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_24">
+            android:layout_marginTop="@dimen/dimen_24"
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
                 android:layout_width="170dp"
@@ -79,7 +80,8 @@
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_24">
+            android:layout_marginTop="@dimen/dimen_24"
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
                 android:layout_width="170dp"
@@ -110,7 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_32"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="20dp"
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
                 android:layout_width="170dp"
@@ -140,7 +143,8 @@
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_32">
+            android:layout_marginTop="@dimen/dimen_32"
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
                 android:layout_width="170dp"

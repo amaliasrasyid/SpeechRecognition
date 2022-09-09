@@ -5,18 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.MaterialStudyScoreAdapter
 import com.wisnu.speechrecognition.databinding.FragmentMaterialStudyBinding
 import com.wisnu.speechrecognition.model.matery.MateryStudy
+import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
+import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_AZ
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_VOKAL
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_MEMBACA
+import www.sanju.motiontoast.MotionToast
+import java.util.*
+import kotlin.collections.ArrayList
 
-class MaterialStudyFragment : Fragment() {
+class MaterialStudyFragment : Fragment(), SearchView.OnQueryTextListener {
 
     companion object {
         fun newInstance() = MaterialStudyFragment()
@@ -27,6 +35,7 @@ class MaterialStudyFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var materyAdapter: MaterialStudyScoreAdapter
     private lateinit var args: MaterialStudyFragmentArgs
+    private var listMateryStudy = ArrayList<MateryStudy>()
 
 
     override fun onCreateView(
@@ -68,10 +77,26 @@ class MaterialStudyFragment : Fragment() {
                 setHasFixedSize(true)
                 this.adapter = materyAdapter
             }
+            //search view
+            searchview.clearFocus()
+            searchview.setOnQueryTextListener(this@MaterialStudyFragment)
+            //hide back and title when searchview clicked
+            searchview.setOnSearchClickListener{
+                btnBack.visibility = View.GONE
+                tvMaterialStudy.visibility = View.GONE
+            }
+            //show back and title when searchview clicked
+            searchview.setOnCloseListener(object: SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    btnBack.visibility = View.VISIBLE
+                    tvMaterialStudy.visibility = View.VISIBLE
+                    return false //karna aku ingin fungsi close berjalan seperti biasa
+                }
+            })
+
             val materyType = args.namaTipe
             tvMaterialStudy.text = materyType
             btnBack.setOnClickListener{findNavController().navigateUp()}
-
             materyAdapter.setOnItemClickCallBack(object : MaterialStudyScoreAdapter.OnItemClickCallBack {
                 override fun onItemClicked(materyStudy: MateryStudy) {
                     // move intent and send id chapter
@@ -96,6 +121,7 @@ class MaterialStudyFragment : Fragment() {
                         if (response.code == 200) {
                             val result = response.data
                             materyAdapter.setData(result)
+                            listMateryStudy.addAll(result)
                         } else {
                             dataNotFound()
                         }
@@ -117,5 +143,28 @@ class MaterialStudyFragment : Fragment() {
         }
     }
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        filterList(newText)
+        return true
+    }
+
+    private fun filterList(text: String?) {
+        val filteredlist = ArrayList<Any>()
+
+        for (item in listMateryStudy) {
+            if (item.teksMateri.uppercase().contains(text!!.uppercase())) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(requireActivity(),"Tidak ada data ditemukan", Toast.LENGTH_SHORT).show()
+        } else {
+            materyAdapter.setFilteredList(filteredlist)
+        }
+    }
 
 }

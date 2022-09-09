@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +35,7 @@ import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.uploa
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.TYPE
 import www.sanju.motiontoast.MotionToast
 
-class MateryFragment : Fragment() {
+class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val viewModel by viewModels<MateryViewModel>()
     private var _binding: FragmentMateryBinding? = null
@@ -42,13 +44,9 @@ class MateryFragment : Fragment() {
     private lateinit var args: MateryFragmentArgs
     private var tipeMateri = 0
 
+    private var listMatery = ArrayList<MateryStudy>()
+
     private val TAG = MateryFragment::class.java.simpleName
-
-
-    companion object {
-        fun newInstance() = MateryFragment()
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,6 +86,23 @@ class MateryFragment : Fragment() {
                 setHasFixedSize(true)
                 this.adapter = materyAdapter
             }
+            //search view
+            searchview.clearFocus()
+            searchview.setOnQueryTextListener(this@MateryFragment)
+            //hide back and title when searchview clicked
+            searchview.setOnSearchClickListener{
+                btnBack.visibility = View.GONE
+                tvMaterialStudy.visibility = View.GONE
+            }
+            //show back and title when searchview clicked
+            searchview.setOnCloseListener(object: SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    btnBack.visibility = View.VISIBLE
+                    tvMaterialStudy.visibility = View.VISIBLE
+                    return false //karna aku ingin fungsi close berjalan seperti biasa
+                }
+            })
+
             val materyType = args.namaTipe
             tvMaterialStudy.text = materyType
             btnBack.setOnClickListener{findNavController().navigateUp()}
@@ -107,7 +122,6 @@ class MateryFragment : Fragment() {
                                 putExtra(EXTRA_DATA_MATERY_ID,item.id)
                             }
                             startActivity(intent)
-
                         }
                     }
 
@@ -132,7 +146,6 @@ class MateryFragment : Fragment() {
                 findNavController().navigate(toUploadMatery)
             }
         }
-
     }
 
     private fun editMatery(materyStudy: MateryStudy) {
@@ -186,6 +199,7 @@ class MateryFragment : Fragment() {
                         if (response.code == 200) {
                             val result = response.data
                             materyAdapter.setData(result)
+                            listMatery.addAll(result)
                         } else {
                             dataNotFound()
                         }
@@ -199,6 +213,21 @@ class MateryFragment : Fragment() {
         }
     }
 
+    private fun filterList(text: String?) {
+        val filteredlist = ArrayList<MateryStudy>()
+
+        for (item in listMatery) {
+            if (item.teksMateri.uppercase().contains(text!!.uppercase())) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(requireActivity(),"Tidak ada data ditemukan", Toast.LENGTH_SHORT).show()
+        } else {
+            materyAdapter.setFilteredList(filteredlist)
+        }
+    }
+
     private fun dataNotFound() {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
@@ -209,5 +238,14 @@ class MateryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("MateryFragment","onresume")
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        filterList(newText)
+        return true
     }
 }

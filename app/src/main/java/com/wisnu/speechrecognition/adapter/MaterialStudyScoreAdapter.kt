@@ -17,9 +17,7 @@ import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Comp
 class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val ITEM_TYPE_SCORE = 1
     private val ITEM_TYPE_MATERY = 2
-    private val listStudentScore = ArrayList<StudentScore>()
-    private val listMateryStudy = ArrayList<MateryStudy>()
-    private val listData = ArrayList<Any>()
+    private var listData = ArrayList<Any>()
 
     private var isVokal = false
 
@@ -40,13 +38,18 @@ class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         Log.d(TAG, "setData: $listData")
     }
 
-    fun setDataMatery(MateryStudy: List<MateryStudy>?) {
-        if (MateryStudy == null) return
-        listMateryStudy.clear()
-        listMateryStudy.addAll(MateryStudy)
+    fun setFilteredListMatery(filteredList: ArrayList<Any>) {
+        listData = filteredList
         notifyDataSetChanged()
 
-        Log.d(TAG, "setData: $listMateryStudy")
+        Log.d(TAG, "filtered list: $filteredList")
+    }
+
+    fun setFilteredList(filteredList: ArrayList<Any>) {
+        listData = filteredList
+        notifyDataSetChanged()
+
+        Log.d(TAG, "filtered list: $filteredList")
     }
 
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {

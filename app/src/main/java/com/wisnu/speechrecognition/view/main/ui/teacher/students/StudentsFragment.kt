@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,11 +16,12 @@ import com.wisnu.speechrecognition.adapter.StudentAdapter
 import com.wisnu.speechrecognition.databinding.FragmentStudentsBinding
 import com.wisnu.speechrecognition.model.student.StudentsResult
 
-class StudentsFragment : Fragment() {
+class StudentsFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentStudentsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<StudentsViewModel>()
     private lateinit var studentsAdapter: StudentAdapter
+    private val listStudents = ArrayList<StudentsResult>()
 
     companion object {
         fun newInstance() = StudentsFragment()
@@ -45,6 +48,25 @@ class StudentsFragment : Fragment() {
                 setHasFixedSize(true)
                 this.adapter = studentsAdapter
             }
+
+            //search view
+            searchview.clearFocus()
+            searchview.setOnQueryTextListener(this@StudentsFragment)
+            //hide back and title when searchview clicked
+            searchview.setOnSearchClickListener{
+                btnBack.visibility = View.GONE
+                tvTitle.visibility = View.GONE
+            }
+            //show back and title when searchview clicked
+            searchview.setOnCloseListener(object: SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    btnBack.visibility = View.VISIBLE
+                    tvTitle.visibility = View.VISIBLE
+                    return false //karna aku ingin fungsi close berjalan seperti biasa
+                }
+            })
+
+
             btnBack.setOnClickListener{
                 findNavController().navigateUp()
             }
@@ -67,6 +89,7 @@ class StudentsFragment : Fragment() {
                         if (response.code == 200) {
                             val result = response.data
                             studentsAdapter.setData(result)
+                            listStudents.addAll(result)
                         } else {
                             dataNotFound()
                         }
@@ -80,6 +103,21 @@ class StudentsFragment : Fragment() {
         }
     }
 
+    private fun filterList(text: String?) {
+        val filteredlist = ArrayList<StudentsResult>()
+
+        for (item in listStudents) {
+            if (item.nama!!.uppercase().contains(text!!.uppercase())) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(requireActivity(),"Tidak ada data ditemukan", Toast.LENGTH_SHORT).show()
+        } else {
+            studentsAdapter.setFilteredList(filteredlist)
+        }
+    }
+
     private fun dataNotFound() {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
@@ -87,4 +125,12 @@ class StudentsFragment : Fragment() {
         }
     }
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        filterList(newText)
+        return true
+    }
 }

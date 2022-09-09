@@ -62,7 +62,7 @@ class PairAdapter(private val listPair: List<PairsItem>?) : RecyclerView.Adapter
 
         fun bind(pairsItem: PairsItem, position: Int) {
             with(binding) {
-                tvNamePair.text = pairsItem.kata
+                tvNamePair.text = pairsItem.kata!!.uppercase()
 
                 btnDelete.setOnClickListener{onItemBtnDeleteCallBack?.onDeleteClicked(position)}
                 btnEdit.setOnClickListener{onItemBtnEditCallBack?.onEditClicked(position)}

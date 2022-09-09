@@ -14,7 +14,7 @@ import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.RvItemC
 
 class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {
     private var viewPool = RecyclerView.RecycledViewPool()
-    private val listPairQ= ArrayList<PairWordQ>()
+    private var listPairQ= ArrayList<PairWordQ>()
     lateinit  var childAdapter: PairAdapter
 
     private val TAG = PairQAdapter::class.simpleName
@@ -48,6 +48,14 @@ class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {
         notifyDataSetChanged()
 
         Log.d(TAG, "setData: $listPairQ")
+    }
+
+    fun setFilteredList(filteredList: ArrayList<PairWordQ>) {
+        listPairQ.clear()
+        listPairQ = filteredList
+        notifyDataSetChanged()
+
+        Log.d(TAG, "filtered list: $filteredList")
     }
 
     fun removeData(position: Int){

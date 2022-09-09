@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/img_pick_image.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/outline_card.xml" value="0.2235" />
+        <entry key="app/src/main/res/drawable/search_view_bg.xml" value="0.1305" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.13689936536718042" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_home_teacher.xml" value="0.20008550662676358" />
@@ -55,16 +56,16 @@
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.14175724637681159" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.11922030825022666" />
         <entry key="app/src/main/res/layout/fragment_guess.xml" value="0.30854700854700856" />
-        <entry key="app/src/main/res/layout/fragment_guess_q.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_guess_q.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.2116289012398461" />
+        <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_letters.xml" value="0.1885766092475068" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_material_study.xml" value="0.17965367965367965" />
+        <entry key="app/src/main/res/layout/fragment_material_study.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_matery.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_pair.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_pair_q.xml" value="0.3762575452716298" />
+        <entry key="app/src/main/res/layout/fragment_pair_q.xml" value="0.34358288770053474" />
         <entry key="app/src/main/res/layout/fragment_play.xml" value="0.214992927864215" />
         <entry key="app/src/main/res/layout/fragment_play_guess.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_play_match.xml" value="0.22" />
@@ -79,7 +80,7 @@
         <entry key="app/src/main/res/layout/fragment_vocab_test.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/fragment_vocabulary.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_vowel.xml" value="0.2116289012398461" />
-        <entry key="app/src/main/res/layout/fragment_vowel_sentence.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_vowel_sentence.xml" value="0.1415969848632812" />
         <entry key="app/src/main/res/layout/item_list_data.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_list_dmatery.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_list_matery.xml" value="0.22" />

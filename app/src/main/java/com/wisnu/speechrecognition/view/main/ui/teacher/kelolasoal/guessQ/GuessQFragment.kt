@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.GuessQAdapter
@@ -27,11 +29,12 @@ import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.upload
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.MateryFragment
 import www.sanju.motiontoast.MotionToast
 
-class GuessQFragment : Fragment() {
+class GuessQFragment : Fragment(), SearchView.OnQueryTextListener {
     private val viewModel by viewModels<GuessQViewModel>()
     private var _binding: FragmentGuessQBinding? = null
     private val binding get() = _binding!!
     private lateinit var guessQAdapter: GuessQAdapter
+    private var listGuessQ = ArrayList<GuessQItem>()
 
     private val TAG = GuessQFragment::class.java.simpleName
 
@@ -57,6 +60,23 @@ class GuessQFragment : Fragment() {
                 setHasFixedSize(true)
                 this.adapter = guessQAdapter
             }
+            //search view
+            searchview.clearFocus()
+            searchview.setOnQueryTextListener(this@GuessQFragment)
+            //hide back and title when searchview clicked
+            searchview.setOnSearchClickListener{
+                btnBack.visibility = View.GONE
+                tvMaterialStudy.visibility = View.GONE
+            }
+            //show back and title when searchview clicked
+            searchview.setOnCloseListener(object: SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    btnBack.visibility = View.VISIBLE
+                    tvMaterialStudy.visibility = View.VISIBLE
+                    return false //karna aku ingin fungsi close berjalan seperti biasa
+                }
+            })
+
             guessQAdapter.setOnItemBtnDeleteCallBack(object : GuessQAdapter.OnItemBtnDeleteClickCallBack {
                 override fun onDeleteClicked(position: Int, question: GuessQItem) {
                     guessQAdapter.removeData(position)
@@ -101,6 +121,8 @@ class GuessQFragment : Fragment() {
                         if (response.code == 200) {
                             val result = response.data
                             guessQAdapter.setData(result)
+                            listGuessQ.clear()
+                            listGuessQ.addAll(result)
                         } else {
                             dataNotFound()
                         }
@@ -146,6 +168,38 @@ class GuessQFragment : Fragment() {
         }
     }
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        filterList(newText)
+        return true
+    }
+
+    private fun filterList(text: String?) {
+        val filteredlist = ArrayList<GuessQItem>()
+
+        for (item in listGuessQ) {
+            if (item.opsi1!!.uppercase().contains(text!!.uppercase())) {
+                filteredlist.add(item)
+            }else if (item.opsi2!!.uppercase().contains(text!!.uppercase())) {
+                filteredlist.add(item)
+            }else if (item.opsi3!!.uppercase().contains(text!!.uppercase())) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(requireActivity(),"Tidak ada data ditemukan", Toast.LENGTH_SHORT).show()
+        } else {
+            guessQAdapter.setFilteredList(filteredlist)
+        }
+    }
+
+    private fun find(list: List<Any>, view :View): Boolean {
+        return list.filter{it == view}.isNotEmpty()
+    }
+
     private fun dataNotFound() {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
@@ -156,6 +210,7 @@ class GuessQFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("GuessQFragment","onresume")
+        Log.d("ListGuessQ",listGuessQ.toString())
         observeGuessQ()
     }
 }
