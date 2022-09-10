@@ -87,11 +87,8 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
         with(binding) {
             edtUsername.addTextChangedListener(textWatcherUsername)
             edtPassword.addTextChangedListener(textWatcherPsw)
-            tvForgotPassword.setOnClickListener (this@LoginFragment)
             tvRegister.setOnClickListener(this@LoginFragment)
             btnLogin.setOnClickListener(this@LoginFragment)
-            cardGoogle.setOnClickListener(this@LoginFragment)
-            cardFb.setOnClickListener(this@LoginFragment)
         }
     }
     val textWatcherUsername = object : TextWatcher {
@@ -140,16 +137,6 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
     override fun onClick(view: View?) {
         with(binding){
             when(view){
-                cardGoogle -> {
-                    val intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
-                    startActivityForResult(intent,SIGN_IN)
-                    Log.d(TAG,"button google clicked")
-                    Toast.makeText(requireActivity(),"clicked",Toast.LENGTH_LONG).show()
-                }
-                cardFb -> {
-
-                }
-                tvForgotPassword -> findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
                 tvRegister -> {
                     val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment().apply {
                         role = roleId!!

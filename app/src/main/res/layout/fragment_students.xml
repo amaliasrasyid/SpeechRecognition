@@ -79,7 +79,8 @@
 
             <include
                 android:id="@+id/layout_empty"
-                layout="@layout/empty_layout"/>
+                layout="@layout/empty_layout"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <ProgressBar

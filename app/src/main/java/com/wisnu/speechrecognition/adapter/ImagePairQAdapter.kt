@@ -25,7 +25,7 @@ class ImagePairQAdapter(context: Context,
         }
         with(convertView){
             var image = listItem!!.findViewById<ImageView>(R.id.image)
-            var imgPoint = listItem!!.findViewById<ImageView>(R.id.img_point)
+            var imgPoint = listItem.findViewById<ImageView>(R.id.img_point)
 
             Glide.with(context)
                 .load(ApiConfig.URL_IMAGE +imgData?.gambar)
