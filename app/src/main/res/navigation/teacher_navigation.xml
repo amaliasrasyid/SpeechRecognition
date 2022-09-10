@@ -174,5 +174,10 @@
         android:name="com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.uploadpair.UploadPairActivity"
         android:label="activity_upload_pair_qactivity"
         tools:layout="@layout/activity_upload_pair" />
+    <activity
+        android:id="@+id/changePasswordActivity"
+        android:name="com.wisnu.speechrecognition.view.main.ui.profile.ChangePasswordActivity"
+        android:label="activity_change_password"
+        tools:layout="@layout/activity_change_password" />
 
 </navigation>

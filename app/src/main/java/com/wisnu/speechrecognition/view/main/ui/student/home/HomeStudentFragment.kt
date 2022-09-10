@@ -1,5 +1,6 @@
 package com.wisnu.speechrecognition.view.main.ui.student.home
 
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -18,6 +19,7 @@ import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_IMAGE
 import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_GURU
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
+import com.wisnu.speechrecognition.view.auth.AuthActivity
 import com.wisnu.speechrecognition.view.main.ui.profile.UserProfileActivity
 
 class HomeStudentFragment : Fragment(), View.OnClickListener {
@@ -52,6 +54,7 @@ class HomeStudentFragment : Fragment(), View.OnClickListener {
             cardMenu2.setOnClickListener(this@HomeStudentFragment)
             cardMenu3.setOnClickListener(this@HomeStudentFragment)
             imgUser.setOnClickListener(this@HomeStudentFragment)
+            btnLogOut.setOnClickListener(this@HomeStudentFragment)
         }
 
         //passing data dg observer pattern (live data)
@@ -64,6 +67,7 @@ class HomeStudentFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         with(binding){
             when(view){
+                btnLogOut -> showAlertDialog()
                 cardMenu1 -> {
                     findNavController().navigate(R.id.action_navigation_home_to_studyFragment)
                 }
@@ -80,5 +84,31 @@ class HomeStudentFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun showAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+        alertDialogBuilder.setTitle(getString(R.string.log_out))
+            .setMessage(getString(R.string.message_log_out))
+            .setCancelable(false)
+            .setPositiveButton("Ya") { _, _ ->
+                // clear all preferences
+                UserPreference(requireActivity()).apply {
+                    removeUser()
+                }
+                startActivity(Intent(requireActivity(), AuthActivity::class.java))
+            }
+            .setNegativeButton("Tidak") { dialog, i ->
+                dialog.cancel()
+            }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        prepareView()
     }
 }

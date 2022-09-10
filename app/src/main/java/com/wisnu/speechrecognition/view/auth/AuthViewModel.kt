@@ -38,6 +38,34 @@ class AuthViewModel: ViewModel() {
         return _auth
     }
 
+    fun updatePassword(params: HashMap<String, Any>): LiveData<UserResponse>{
+        updateUserPassword(params)
+        return _auth
+    }
+
+    private fun updateUserPassword(params: HashMap<String, Any>) {
+        val client = ApiConfig.getApiService().updateUserPassword(params)
+        val gson = Gson()
+        client.enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    _auth.postValue(result!!)
+                } else {
+                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
+                    val msg = response.message()
+                    Log.e(TAG, "onFailure: $errResult")
+                    Log.e(TAG, "onFailure: $msg")
+                    _auth.postValue(errResult)
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
     private fun getUserDetail(userId: Int): MutableLiveData<UserResponse> {
         val client = ApiConfig.getApiService().detailUser(userId)
         val gson = Gson()

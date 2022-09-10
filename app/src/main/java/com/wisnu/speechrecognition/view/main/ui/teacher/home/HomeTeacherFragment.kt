@@ -1,5 +1,6 @@
 package com.wisnu.speechrecognition.view.main.ui.teacher.home
 
+import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentHomeTeacherBinding
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.view.auth.AuthActivity
 import com.wisnu.speechrecognition.view.main.ui.profile.UserProfileActivity
 import com.wisnu.speechrecognition.view.main.ui.student.home.HomeStudentViewModel
 
@@ -54,8 +56,29 @@ class HomeTeacherFragment : Fragment() {
                 Log.d(TAG,"gambar profil diklik")
                 startActivity(Intent(requireActivity(),UserProfileActivity::class.java))
             }
+            btnLogOut.setOnClickListener{showAlertDialog()}
         }
     }
+    private fun showAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+        alertDialogBuilder.setTitle(getString(R.string.log_out))
+            .setMessage(getString(R.string.message_log_out))
+            .setCancelable(false)
+            .setPositiveButton("Ya") { _, _ ->
+                // clear all preferences
+                UserPreference(requireActivity()).apply {
+                    removeUser()
+                }
+                startActivity(Intent(requireActivity(), AuthActivity::class.java))
+            }
+            .setNegativeButton("Tidak") { dialog, i ->
+                dialog.cancel()
+            }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -43,6 +43,10 @@ interface ApiService {
     @GET("user/{roleId}")
     fun getStudents(@Path("roleId") roleId: Int): Call<StudentsResultResponse>
 
+    @FormUrlEncoded
+    @POST("user/change-password")
+    fun updateUserPassword(@FieldMap params: HashMap<String,Any>): Call<UserResponse>
+
     //ROUTE-DATA MATERY (MATERIAL STUDY)
     @FormUrlEncoded
     @POST("matery")

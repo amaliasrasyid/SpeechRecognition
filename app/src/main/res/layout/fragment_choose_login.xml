@@ -12,10 +12,9 @@
 
     <TextView
         android:id="@+id/textView8"
-        style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/almendra_bold"
         android:text="Login Sebagai"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -29,12 +28,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_8"
         android:layout_marginEnd="@dimen/dimen_8"
-        android:layout_marginTop="@dimen/dimen_24"
+        android:layout_marginTop="@dimen/dimen_48"
         android:background="@null"
-        android:src="@drawable/ic_fail"
+        android:src="@drawable/ic_as_teachers"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:fontFamily="@font/poppins_bold"
+        android:text="GURU"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_24"
+        app:layout_constraintEnd_toEndOf="@+id/btn_teacher"
+        app:layout_constraintStart_toStartOf="@+id/btn_teacher"
+        app:layout_constraintTop_toBottomOf="@+id/btn_teacher" />
 
     <ImageButton
         android:id="@+id/btn_student"
@@ -42,12 +54,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_8"
         android:layout_marginEnd="@dimen/dimen_8"
-        android:layout_marginTop="@dimen/dimen_24"
+        android:layout_marginTop="@dimen/dimen_48"
         android:background="@null"
-        android:src="@drawable/ic_medal"
+        android:src="@drawable/ic_as_students"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_teacher"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:fontFamily="@font/poppins_bold"
+        android:text="SISWA"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_24"
+        app:layout_constraintEnd_toEndOf="@+id/btn_student"
+        app:layout_constraintStart_toStartOf="@+id/btn_student"
+        app:layout_constraintTop_toBottomOf="@+id/btn_teacher" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"

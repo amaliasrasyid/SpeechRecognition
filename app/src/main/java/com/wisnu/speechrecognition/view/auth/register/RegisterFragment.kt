@@ -118,7 +118,6 @@ class RegisterFragment : Fragment() {
             })
 
             btnRegister.setOnClickListener{
-                loader(true)
                 val fullName = edtFullname.text.toString().trim()
                 val email = edtUsername.text.toString().trim()
                 val password = edtPassword.text.toString().trim()
@@ -128,6 +127,7 @@ class RegisterFragment : Fragment() {
                     email.isEmpty() -> tiUsername.error = USERNAME_NOT_NULL
                     password.isEmpty() -> tiPassword.error = PASSWORD_NOT_NULL
                     else -> {
+                        loader(true)
                         val params = HashMap<String,RequestBody>()
                         params.put("id", createPartFromString((0).toString()))
                         params.put("nama", createPartFromString(fullName.toString()))

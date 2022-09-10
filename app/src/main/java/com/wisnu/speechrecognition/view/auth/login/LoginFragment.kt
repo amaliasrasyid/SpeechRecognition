@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,15 +30,24 @@ import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
 import www.sanju.motiontoast.MotionToast
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.google.android.material.textfield.TextInputEditText
+import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 
 
-class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener {
+class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AuthViewModel>()
     private val loginValid = true
     private lateinit var googleApiClient :GoogleApiClient
+    private var roleId :Int  = 0
+
+    private lateinit var edtUsername :TextInputEditText
+    private lateinit var edtPassword :TextInputEditText
 
     private val TAG = LoginFragment::class.java.simpleName
 
@@ -65,107 +75,138 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener {
         googleApiClient = GoogleApiClient.Builder(
             requireContext())
             .enableAutoManage(requireActivity(),this)
-            .addApi(Auth.GOOGLE_SIGN_IN_API,gso).build()
-        binding.signInButton.setOnClickListener{
-            val intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
-            startActivityForResult(intent,SIGN_IN)
-        }
+            .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+            .build()
+
         prepareView()
     }
 
     private fun prepareView() {
-        val roleId = LoginFragmentArgs.fromBundle(arguments as Bundle).role
+        roleId = LoginFragmentArgs.fromBundle(arguments as Bundle).role
         // Build a GoogleSignInClient with the options specified by gso.
         with(binding) {
-            edtUsername.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
+            edtUsername.addTextChangedListener(textWatcherUsername)
+            edtPassword.addTextChangedListener(textWatcherPsw)
+            tvForgotPassword.setOnClickListener (this@LoginFragment)
+            tvRegister.setOnClickListener(this@LoginFragment)
+            btnLogin.setOnClickListener(this@LoginFragment)
+            cardGoogle.setOnClickListener(this@LoginFragment)
+            cardFb.setOnClickListener(this@LoginFragment)
+        }
+    }
+    val textWatcherUsername = object : TextWatcher {
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+        }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
 
-                override fun afterTextChanged(s: Editable?) {
-                    if (s?.length!! == 0) {
-                        binding.tiUsername.error = USERNAME_NOT_NULL
-                    } else {
-                        binding.tiUsername.error = null
-                    }
-                }
-            })
-            edtPassword.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    if (s?.length!! < 5) {
-                        binding.tiPassword.error = MIN_COUNTER_LENGTH_PASS
-                    } else if (s.isNullOrEmpty()) {
-                        binding.tiPassword.error = PASSWORD_NOT_NULL
-                    } else {
-                        binding.tiPassword.error = null
-                    }
-                }
-            })
-            tvForgotPassword.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        override fun afterTextChanged(s: Editable?) {
+            if (s?.length!! == 0) {
+                binding.tiUsername.error = USERNAME_NOT_NULL
+            } else {
+                binding.tiUsername.error = null
             }
-            tvRegister.setOnClickListener{
-                val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment().apply {
-                    role = roleId
-                }
-                findNavController().navigate(toRegister)
+        }
+    }
+    val textWatcherPsw = object : TextWatcher {
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            if (s?.length!! < 5) {
+                binding.tiPassword.error = MIN_COUNTER_LENGTH_PASS
+            } else if (s.isNullOrEmpty()) {
+                binding.tiPassword.error = PASSWORD_NOT_NULL
+            } else {
+                binding.tiPassword.error = null
             }
-            btnLogin.setOnClickListener {
-                val email = edtUsername.text.toString().trim()
-                val password = edtPassword.text.toString().trim()
+        }
+    }
 
-                when {
-                    email.isEmpty() -> tiUsername.error = USERNAME_NOT_NULL
-                    password.isEmpty() -> tiPassword.error = PASSWORD_NOT_NULL
-                    else -> {
-                        progressBar.visibility = View.VISIBLE
+    override fun onClick(view: View?) {
+        with(binding){
+            when(view){
+                cardGoogle -> {
+                    val intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
+                    startActivityForResult(intent,SIGN_IN)
+                    Log.d(TAG,"button google clicked")
+                    Toast.makeText(requireActivity(),"clicked",Toast.LENGTH_LONG).show()
+                }
+                cardFb -> {
 
-                        val params = HashMap<String, Any>()
-                        params["email"] = email
-                        params["password"] = password
+                }
+                tvForgotPassword -> findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+                tvRegister -> {
+                    val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment().apply {
+                        role = roleId!!
+                    }
+                    findNavController().navigate(toRegister)
+                }
+                btnLogin -> {
+                    val email = edtUsername.text.toString().trim()
+                    val password = edtPassword.text.toString().trim()
 
-                        viewModel.login(params).observe(viewLifecycleOwner, { result ->
-                            progressBar.visibility = View.GONE
-                            if (result != null) {
-                                if(result.data != null){
-                                    if (result.code == 200) {
-                                        val role = result.data?.role
-                                        UserPreference(requireContext()).apply {
-                                            setUser(
-                                                User(
-                                                    id = result.data?.id,
-                                                    nama = result.data?.nama,
-                                                    role = role,
-                                                    gambar = result.data?.gambar,
-                                                    email = result.data?.email,
-                                                    password = result.data?.password
+                    when {
+                        email.isEmpty() -> tiUsername.error = USERNAME_NOT_NULL
+                        password.isEmpty() -> tiPassword.error = PASSWORD_NOT_NULL
+                        else -> {
+                            loader(true)
+                            val params = HashMap<String, Any>()
+                            params["email"] = email
+                            params["password"] = password
+
+                            viewModel.login(params).observe(viewLifecycleOwner, { result ->
+                                progressBar.visibility = View.GONE
+                                if (result != null) {
+                                    if(result.data != null){
+                                        if (result.code == 200) {
+                                            val role = result.data?.role
+                                            UserPreference(requireContext()).apply {
+                                                setUser(
+                                                    User(
+                                                        id = result.data?.id,
+                                                        nama = result.data?.nama,
+                                                        role = role,
+                                                        gambar = result.data?.gambar,
+                                                        email = result.data?.email,
+                                                        password = result.data?.password
+                                                    )
                                                 )
-                                            )
-                                            setLogin(Login(loginValid))
-                                            when(role){
-                                                ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
-                                                ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+                                                setLogin(Login(loginValid))
+                                                showMessage(
+                                                    requireActivity(),
+                                                    TITLE_SUCESS,
+                                                    message = "berhasil login",
+                                                    style = MotionToast.TOAST_SUCCESS
+                                                )
+                                                when(role){
+                                                    ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
+                                                    ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+                                                }
                                             }
+                                        } else {
+                                            showMessage(
+                                                requireActivity(),
+                                                TITLE_ERROR,
+                                                message = result.message ?: "",
+                                                style = MotionToast.TOAST_ERROR
+                                            )
                                         }
-                                    } else {
+                                    }else{
                                         showMessage(
                                             requireActivity(),
                                             TITLE_ERROR,
@@ -177,20 +218,14 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener {
                                     showMessage(
                                         requireActivity(),
                                         TITLE_ERROR,
-                                        message = result.message ?: "",
                                         style = MotionToast.TOAST_ERROR
                                     )
                                 }
-                            }else{
-                                showMessage(
-                                    requireActivity(),
-                                    TITLE_ERROR,
-                                    style = MotionToast.TOAST_ERROR
-                                )
-                            }
-                        })
+                            })
+                        }
                     }
                 }
+                else -> {}
             }
         }
     }
@@ -206,18 +241,48 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener {
                     ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
                     ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
                 }
+//                UserPreference(requireContext()).apply {
+//                    setUser(
+//                        User(
+//                            id = result.data?.id,
+//                            nama = result.data?.nama,
+//                            role = role,
+//                            gambar = result.data?.gambar,
+//                            email = result.data?.email,
+//                            password = result.data?.password
+//                        )
+//                    )
+//                    setLogin(Login(loginValid))
             }else{
                 Toast.makeText(requireContext(),"sign in with google failed",Toast.LENGTH_LONG).show()
             }
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
     override fun onPause() {
         super.onPause()
         googleApiClient.stopAutoManage(requireActivity())
         googleApiClient.disconnect()
+
+        with(binding){
+            edtUsername.removeTextChangedListener(textWatcherUsername)
+            edtPassword.removeTextChangedListener(textWatcherPsw)
+        }
     }
 
+    private fun loader(state: Boolean) {
+        with(binding) {
+            if (state) {
+                progressBar.visibility = android.view.View.VISIBLE
+            } else {
+                progressBar.visibility = android.view.View.GONE
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

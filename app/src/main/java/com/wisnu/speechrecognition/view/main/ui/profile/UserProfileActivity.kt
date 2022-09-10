@@ -17,6 +17,7 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.ActivityUserProfileBinding
 import com.wisnu.speechrecognition.local_db.User
@@ -40,6 +41,7 @@ import java.io.File
 class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var binding: ActivityUserProfileBinding
     private val viewModel by viewModels<AuthViewModel>()
+    private lateinit var mGoogleSignInClient :GoogleSignInClient
 
     private lateinit var user: User
 
@@ -113,31 +115,9 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
                     }
                 }
             })
-            edtPassword.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    if (s?.length!! < 5) {
-                        binding.tiPassword.error = MIN_COUNTER_LENGTH_PASS
-                    } else if (s.isNullOrEmpty()) {
-                        binding.tiPassword.error = PASSWORD_NOT_NULL
-                    } else {
-                        binding.tiPassword.error = null
-                    }
-                }
-            })
             pickImage.setOnClickListener(this@UserProfileActivity)
             btnUpdateProfile.setOnClickListener(this@UserProfileActivity)
-            btnLogOut.setOnClickListener(this@UserProfileActivity)
+            btnEditPsw.setOnClickListener(this@UserProfileActivity)
         }
     }
 
@@ -145,13 +125,15 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
         with(binding){
             when(view){
                 pickImage -> selectImage()
-                btnLogOut -> showAlertDialog()
+                btnEditPsw -> {
+                    val intent = Intent (this@UserProfileActivity,ChangePasswordActivity::class.java)
+                    startActivity(intent)
+                }
                 btnUpdateProfile -> {
                     loader(true)
                     val fullName = edtFullname.text.toString().trim()
                     val email = edtUsername.text.toString().trim()
-                    val password = edtPassword.text.toString().trim()
-                    
+
                     when{
                         !isImageExist -> {
                             showMessage(
@@ -161,16 +143,17 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
                                 style = MotionToast.TOAST_WARNING
                             )
                             return@with
+                            loader(false)
                         }
-                        fullName.isEmpty() -> tiFullname.error = FULLNAME_NOT_NULL
+                        fullName.isEmpty() -> {
+                            tiFullname.error = FULLNAME_NOT_NULL
+                        }
                         email.isEmpty() -> tiUsername.error = USERNAME_NOT_NULL
-                        password.isEmpty() -> tiPassword.error = PASSWORD_NOT_NULL
                         else -> {
                             var params = HashMap<String, RequestBody>()
                             params.put("id", createPartFromString(user.id.toString()))
                             params.put("nama", createPartFromString(fullName))
                             params.put("email", createPartFromString(email))
-                            params.put("password", createPartFromString(password))
                             params.put("role", createPartFromString(user.role.toString()))
 
                             when{
@@ -193,7 +176,7 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
                     showMessage(
                         this@UserProfileActivity,
                         UtilsCode.TITLE_SUCESS,
-                        "Berhasil menyimpan soal",
+                        response.message ?: "",
                         style = MotionToast.TOAST_SUCCESS
                     )
                     val result = response.data
@@ -211,7 +194,7 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
                 showMessage(
                     this@UserProfileActivity,
                     UtilsCode.TITLE_ERROR,
-                    "soal belajar gagal disimpan",
+                    response.message ?: "",
                     style = MotionToast.TOAST_ERROR
                 )
             }
@@ -240,9 +223,9 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
                 .load(ApiConfig.URL_IMAGE + user.gambar)
                 .error(R.drawable.no_profile_images)
                 .into(imgProfile)
+            isImageExist = true
             edtFullname.setText(user.nama)
             edtUsername.setText(user.email)
-            edtPassword.setText(user.password)
         }
     }
 
@@ -296,36 +279,18 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
                         with(binding) {
                             imageUri = data?.data
                             imagePath = getPathImage(imageUri!!)
-                            imgProfile.setImageURI(imageUri)
+
+                            //circle imgview hanya bs load dg glide/picasso (?)
+                            Glide.with(this@UserProfileActivity)
+                                .load(imageUri)
+                                .error(R.drawable.no_profile_images)
+                                .into(imgProfile)
                             isImageExist = true
                         }
                     }
                 }
             }
         }
-
-    private fun showAlertDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(this@UserProfileActivity)
-        alertDialogBuilder.setTitle(getString(R.string.log_out))
-            .setMessage(getString(R.string.message_log_out))
-            .setCancelable(false)
-            .setPositiveButton("Ya") { _, _ ->
-                // clear all preferences
-                UserPreference(this@UserProfileActivity).apply {
-                    removeUser()
-                }
-
-                startActivity(Intent(this@UserProfileActivity, AuthActivity::class.java))
-                finish()
-            }
-            .setNegativeButton("Tidak") { dialog, i ->
-                dialog.cancel()
-            }
-
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
-    }
-
 
     // permission camera, write file, read file , and image
     private fun permission() {
