@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class StudentsViewModel : ViewModel() {
     private var _students = MutableLiveData<StudentsResultResponse>()
-    private val TAG = MaterialStudyViewModel::class.java.simpleName
+    private val TAG = StudentsViewModel::class.java.simpleName
     private val RESPONSE_CLASS = StudentsResultResponse::class.java
 
     fun students(): LiveData<StudentsResultResponse>{

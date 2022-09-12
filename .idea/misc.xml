@@ -62,7 +62,7 @@
         <entry key="app/src/main/res/layout/fragment_guess_q.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_letters.xml" value="0.1885766092475068" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_material_study.xml" value="0.1" />

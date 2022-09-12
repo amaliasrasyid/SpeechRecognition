@@ -118,6 +118,7 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
             pickImage.setOnClickListener(this@UserProfileActivity)
             btnUpdateProfile.setOnClickListener(this@UserProfileActivity)
             btnEditPsw.setOnClickListener(this@UserProfileActivity)
+            btnBack.setOnClickListener(this@UserProfileActivity)
         }
     }
 
@@ -125,6 +126,7 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
         with(binding){
             when(view){
                 pickImage -> selectImage()
+                btnBack -> finish()
                 btnEditPsw -> {
                     val intent = Intent (this@UserProfileActivity,ChangePasswordActivity::class.java)
                     startActivity(intent)
