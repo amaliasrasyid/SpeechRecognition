@@ -32,7 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/img_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_32"
@@ -47,9 +47,9 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="00:00"
                 android:textColor="#F80000"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintBottom_toBottomOf="@+id/img_alarm"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                app:layout_constraintTop_toTopOf="@+id/img_alarm" />
 
             <ImageButton
                 android:id="@+id/btn_sound"
@@ -58,13 +58,13 @@
                 android:background="@null"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_sound_small"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintBottom_toBottomOf="@+id/img_alarm"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toEndOf="@+id/tv_timer"
-                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                app:layout_constraintTop_toTopOf="@+id/img_alarm" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/img_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_32"
@@ -81,8 +81,8 @@
                 android:text="Benar\n0"
                 android:textAlignment="center"
                 android:textColor="#F80000"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
-                app:layout_constraintTop_toTopOf="@+id/imageView6" />
+                app:layout_constraintStart_toEndOf="@+id/img_right"
+                app:layout_constraintTop_toTopOf="@+id/img_right" />
 
             <com.wisnu.speechrecognition.view.main.ui.student.play.pair.DrawView
                 android:id="@+id/drawView"

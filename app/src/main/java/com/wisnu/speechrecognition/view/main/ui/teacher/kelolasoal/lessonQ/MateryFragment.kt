@@ -60,7 +60,7 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
         super.onViewCreated(view, savedInstanceState)
         args = MateryFragmentArgs.fromBundle(arguments as Bundle)
         tipeMateri = args.tipeMateri
-        prepareView(tipeMateri)
+        prepareView(tipeMateri) //KENAPA INI DATA LIST TERUPDATE PADAHAL TIDAK ADA NOTIFY DATA SAAT TAMBAH DI FRAGMENT SATUNYA
     }
 
     private fun prepareView(tipeMateri: Int) {
@@ -200,6 +200,8 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
                             val result = response.data
                             materyAdapter.setData(result)
                             listMatery.addAll(result)
+
+                            dataNotFound(false)
                         } else {
                             dataNotFound()
                         }
@@ -228,10 +230,14 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    private fun dataNotFound() {
+    private fun dataNotFound(state :Boolean = true) {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
-            layoutEmpty.visibility = View.VISIBLE
+            if(state){
+                layoutEmpty.visibility = View.VISIBLE
+            }else{
+                layoutEmpty.visibility = View.GONE
+            }
         }
     }
 

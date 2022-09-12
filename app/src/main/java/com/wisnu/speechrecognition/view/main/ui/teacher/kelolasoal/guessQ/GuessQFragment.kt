@@ -123,6 +123,8 @@ class GuessQFragment : Fragment(), SearchView.OnQueryTextListener {
                             guessQAdapter.setData(result)
                             listGuessQ.clear()
                             listGuessQ.addAll(result)
+
+                            dataNotFound(false)
                         } else {
                             dataNotFound()
                         }
@@ -200,10 +202,14 @@ class GuessQFragment : Fragment(), SearchView.OnQueryTextListener {
         return list.filter{it == view}.isNotEmpty()
     }
 
-    private fun dataNotFound() {
+    private fun dataNotFound(state :Boolean = true) {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
-            layoutEmpty.visibility = View.VISIBLE
+            if(state){
+                layoutEmpty.visibility = View.VISIBLE
+            }else{
+                layoutEmpty.visibility = View.GONE
+            }
         }
     }
 

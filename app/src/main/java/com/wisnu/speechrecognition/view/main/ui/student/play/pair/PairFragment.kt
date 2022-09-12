@@ -286,6 +286,7 @@ class PairFragment : Fragment() {
                 },500)
             }else{
                 loader(true)
+                reset()
                 val toResult = PairFragmentDirections.actionPairFragmentToResultFragment().apply {
                     totalQuestion = countTotalPairs
                     correctNumber = score
@@ -367,14 +368,20 @@ class PairFragment : Fragment() {
     private fun dataNotFound() {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
-            layoutEmpty.visibility = android.view.View.VISIBLE
+            layoutEmpty.visibility = View.VISIBLE
+            imgAlarm.visibility = View.GONE
+            tvTimer.visibility = View.GONE
+            btnSound.visibility = View.GONE
+            imgRight.visibility = View.GONE
+            imgRight.visibility = View.GONE
+            tvCorrectValue.visibility = View.GONE
         }
     }
 
     private fun loader(state: Boolean) {
         with(binding) {
             if (state) {
-                pbLoader.visibility = android.view.View.VISIBLE
+                pbLoader.visibility = View.VISIBLE
             } else {
                 pbLoader.visibility = android.view.View.GONE
             }

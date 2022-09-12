@@ -12,9 +12,9 @@ class ApiConfig {
         //  url
 //        const val URL = "http://192.168.1.7:8000" // local  WIFI HOME
 //        const val URL = "http://192.168.100.215:8000" // local WIFI KANTOR
-        const val URL = "https://speechrecognition.rproject-dev.com" //RELEASE
-        const val URL_IMAGE = "$URL/images/"
-        const val URL_SOUNDS = "$URL/sounds/"
+        const val URL = "https://tonenyahudi.com" //RELEASE
+        const val URL_IMAGE = "$URL/app-api/public/images/"
+        const val URL_SOUNDS = "$URL/app-api/public/sounds/"
 //        const val URL = "http://10.0.2.2:3000" // local emulator
 
         private const val ENDPOINT = "$URL/api/"

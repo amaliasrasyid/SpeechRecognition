@@ -228,18 +228,6 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
                     ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
                     ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
                 }
-//                UserPreference(requireContext()).apply {
-//                    setUser(
-//                        User(
-//                            id = result.data?.id,
-//                            nama = result.data?.nama,
-//                            role = role,
-//                            gambar = result.data?.gambar,
-//                            email = result.data?.email,
-//                            password = result.data?.password
-//                        )
-//                    )
-//                    setLogin(Login(loginValid))
             }else{
                 Toast.makeText(requireContext(),"sign in with google failed",Toast.LENGTH_LONG).show()
             }

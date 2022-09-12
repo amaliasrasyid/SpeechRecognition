@@ -99,7 +99,8 @@
         tools:layout="@layout/fragment_matery" >
         <action
             android:id="@+id/action_materyFragment_to_uploadMateryFragment"
-            app:destination="@id/uploadMateryFragment" />
+            app:destination="@id/uploadMateryFragment"
+            app:popUpTo="@id/materyFragment" />
         <action
             android:id="@+id/action_materyFragment_to_vowelSentenceFragment"
             app:destination="@id/vowelSentenceFragment" />

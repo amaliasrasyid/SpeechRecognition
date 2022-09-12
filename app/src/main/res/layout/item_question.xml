@@ -9,10 +9,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/bg_test_speech"/>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,6 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:background="@null"
                 android:src="@drawable/ic_nextq"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/img_question"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="@+id/img_question" />
@@ -70,9 +67,10 @@
             <ImageView
                 android:id="@+id/img_question"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_marginTop="@dimen/dimen_24"
-                android:src="@drawable/img_example_test"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_not_found"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.559"
                 app:layout_constraintStart_toStartOf="parent"

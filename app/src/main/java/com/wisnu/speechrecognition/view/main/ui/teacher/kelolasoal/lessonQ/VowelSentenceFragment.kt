@@ -113,6 +113,7 @@ class VowelSentenceFragment : Fragment(), SearchView.OnQueryTextListener {
                         val results = response.data
                         questionAdapter.setData(results)
                         listQuestion.addAll(results)
+                        dataNotFound(false)
                     } else {
                         dataNotFound()
                     }
@@ -186,10 +187,14 @@ class VowelSentenceFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    private fun dataNotFound() {
+    private fun dataNotFound(state :Boolean = true) {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
-            layoutEmpty.visibility = View.VISIBLE
+            if(state){
+                layoutEmpty.visibility = View.VISIBLE
+            }else{
+                layoutEmpty.visibility = View.GONE
+            }
         }
     }
     

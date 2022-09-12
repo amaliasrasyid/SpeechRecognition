@@ -141,6 +141,8 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
                             pairQAdapter.setData(result)
                             listPairQ.clear()
                             listPairQ.addAll(result)
+
+                            dataNotFound(false)
                         } else {
                             dataNotFound()
                         }
@@ -220,10 +222,14 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
         }
     }
 
-    private fun dataNotFound() {
+    private fun dataNotFound(state :Boolean = true) {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
-            layoutEmpty.visibility = View.VISIBLE
+            if(state){
+                layoutEmpty.visibility = View.VISIBLE
+            }else{
+                layoutEmpty.visibility = View.GONE
+            }
         }
     }
 

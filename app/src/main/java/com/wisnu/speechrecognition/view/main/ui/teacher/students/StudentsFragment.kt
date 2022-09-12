@@ -90,6 +90,8 @@ class StudentsFragment : Fragment(), SearchView.OnQueryTextListener {
                             val result = response.data
                             studentsAdapter.setData(result)
                             listStudents.addAll(result)
+
+                            dataNotFound(false)
                         } else {
                             dataNotFound()
                         }
@@ -118,10 +120,14 @@ class StudentsFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    private fun dataNotFound() {
+    private fun dataNotFound(state :Boolean = true) {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
-            layoutEmpty.visibility = View.VISIBLE
+            if(state){
+                layoutEmpty.visibility = View.VISIBLE
+            }else{
+                layoutEmpty.visibility = View.GONE
+            }
         }
     }
 

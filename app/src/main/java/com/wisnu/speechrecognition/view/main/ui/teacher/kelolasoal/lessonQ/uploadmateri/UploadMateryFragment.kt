@@ -49,6 +49,7 @@ class UploadMateryFragment : Fragment(), View.OnClickListener {
     private fun prepareView(tipeMateri: Int) {
         with(binding){
             btnSimpan.setOnClickListener(this@UploadMateryFragment)
+            btnBack.setOnClickListener(this@UploadMateryFragment)
 
             if(idMateri != 0){
                 edtTeksJawaban.setText(teksMateri ?: "")
@@ -60,6 +61,8 @@ class UploadMateryFragment : Fragment(), View.OnClickListener {
         with(binding){
             when(view){
                 btnSimpan -> storeMatery()
+                btnBack -> findNavController().navigateUp()
+                else -> {}
             }
         }
     }
