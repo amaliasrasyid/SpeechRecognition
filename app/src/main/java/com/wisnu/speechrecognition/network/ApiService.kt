@@ -40,8 +40,8 @@ interface ApiService {
     @POST("user/{userId}")
     fun detailUser(@Path("userId") userId: Int): Call<UserResponse>
 
-    @GET("user/{roleId}")
-    fun getStudents(@Path("roleId") roleId: Int): Call<StudentsResultResponse>
+    @GET("user/students")
+    fun getStudents(): Call<StudentsResultResponse>
 
     @FormUrlEncoded
     @POST("user/change-password")

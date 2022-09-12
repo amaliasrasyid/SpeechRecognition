@@ -24,7 +24,7 @@ class StudentsViewModel : ViewModel() {
     }
 
     private fun getStudents(): MutableLiveData<StudentsResultResponse> {
-        val client = ApiConfig.getApiService().getStudents(ROLE_SISWA)
+        val client = ApiConfig.getApiService().getStudents()
         val gson = Gson()
         client.enqueue(object : Callback<StudentsResultResponse> {
             override fun onResponse(call: Call<StudentsResultResponse>, response: Response<StudentsResultResponse>) {
