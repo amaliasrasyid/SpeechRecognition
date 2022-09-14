@@ -41,6 +41,10 @@ class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {
         this.onItemBtnDeleteCallBack = onItemBtnDeleteCallBack
     }
 
+    fun getData(position: Int): PairWordQ {
+        return listPairQ.get(position)
+    }
+
     fun setData(data: List<PairWordQ>?) {
         if (data == null) return
         listPairQ.clear()
@@ -84,7 +88,6 @@ class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {
             setRecycledViewPool(viewPool)
         }
         holder.bind(item,position)
-
     }
 
     override fun getItemCount() = listPairQ.size
@@ -117,6 +120,9 @@ class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {
                     //show no data n add button
                     tvTextPair.text = "Belum ada data pasangan soal, silahkan tambah"
                     tvTextPair.setTextColor(Color.RED)
+                }else{
+                    tvTextPair.text = "Data pasangan kata dan gambar soal"
+                    tvTextPair.setTextColor(Color.BLACK)
                 }
 
                 itemView.setOnClickListener{onItemClickCallBack?.onItemClicked(pairWordQ)}
@@ -133,7 +139,8 @@ class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {
                     override fun onEditClicked(childPosition: Int) {
                         val clickedPair = pairWordQ.pairs!!.get(childPosition)
                         rvItemClickListener?.onChildItemEditClick(bindingAdapterPosition,childPosition,clickedPair)
-                        Log.d("clicked pair-edit",clickedPair.toString())
+                        Log.d(TAG,"clicked pair-edit: ${clickedPair.toString()}")
+                        Log.d(TAG,"position: ${bindingAdapterPosition}, child position: ${childPosition}")
                     }
 
                 })
@@ -142,23 +149,6 @@ class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {
 
     }
 
-    inner class SwipeGesture: ItemTouchHelper.SimpleCallback(
-        0,
-        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
-
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            return true
-        }
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            TODO("Not yet implemented")
-        }
-
-    }
     //interface listener add pair (not pair Question)
     interface  OnAddButtonClickCallBack{
         fun onAddButtonClicked(pairWordQ: PairWordQ)

@@ -73,6 +73,9 @@
             android:name="id_siswa"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_categoryScoreFragment2_to_resultFragment2"
+            app:destination="@id/resultFragment2" />
     </fragment>
     <fragment
         android:id="@+id/uploadLessonQActivity"
@@ -180,5 +183,26 @@
         android:name="com.wisnu.speechrecognition.view.main.ui.profile.ChangePasswordActivity"
         android:label="activity_change_password"
         tools:layout="@layout/activity_change_password" />
+    <fragment
+        android:id="@+id/resultFragment2"
+        android:name="com.wisnu.speechrecognition.view.main.ui.student.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <argument android:name="id_siswa"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="type"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="total_question"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <argument
+            android:name="correct_number"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>

@@ -15,24 +15,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.MateryAdapter
 import com.wisnu.speechrecognition.databinding.FragmentMateryBinding
-import com.wisnu.speechrecognition.local_db.QuestionStudyClass
 import com.wisnu.speechrecognition.model.matery.MateryStudy
-import com.wisnu.speechrecognition.model.questions.Question
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.showMessage
-import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_AZ
 import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_VOKAL
 import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_MEMBACA
-import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.EXTRA_DATA_MATERY_ID
-import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.EXTRA_DATA_QUESTION
-import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.REQUEST_ADD
-import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.REQUEST_EDIT
-import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.lessonQ.upload.UploadLessonQActivity.Companion.TYPE
 import www.sanju.motiontoast.MotionToast
 
 class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -53,11 +45,13 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMateryBinding.inflate(inflater, container, false)
+        Log.d(TAG,"oncreateview")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG,"onviewcreated")
         args = MateryFragmentArgs.fromBundle(arguments as Bundle)
         tipeMateri = args.tipeMateri
         prepareView(tipeMateri) //KENAPA INI DATA LIST TERUPDATE PADAHAL TIDAK ADA NOTIFY DATA SAAT TAMBAH DI FRAGMENT SATUNYA
@@ -130,7 +124,7 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
             materyAdapter.setOnItemBtnDeleteCallBack(object : MateryAdapter.OnItemBtnDeleteClickCallBack {
                 override fun onDeleteClicked(position: Int,materyStudy: MateryStudy) {
                     materyAdapter.removeData(position)
-                    deleteMatery(position,materyStudy.id)
+                    deleteMatery(materyStudy.id)
                     Log.d(ContentValues.TAG,"posisi item-${position}")
                 }
             })
@@ -157,7 +151,7 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
         findNavController().navigate(toUploadMatery)
     }
 
-    private fun deleteMatery(position: Int, materyId: Int) {
+    private fun deleteMatery(materyId: Int) {
         with(binding){
             viewModel.delete(materyId).observe(viewLifecycleOwner, { response ->
                 pbMatery.visibility = View.GONE
@@ -199,6 +193,7 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
                         if (response.code == 200) {
                             val result = response.data
                             materyAdapter.setData(result)
+                            listMatery.clear()
                             listMatery.addAll(result)
 
                             dataNotFound(false)
@@ -244,6 +239,7 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onResume() {
         super.onResume()
         Log.d("MateryFragment","onresume")
+//        TODO: KENAPA data terupdate (create & delete) seolah dipanggil saat resume padahal tidak ada
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

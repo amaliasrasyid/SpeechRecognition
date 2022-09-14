@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:iconifiedByDefault="true"
         app:searchIcon="@drawable/ic_search"
-        app:queryHint="Cari disini.." />
+        app:queryHint="Cari disini kata pasangannya.." />
 
     <View
         android:layout_width="match_parent"

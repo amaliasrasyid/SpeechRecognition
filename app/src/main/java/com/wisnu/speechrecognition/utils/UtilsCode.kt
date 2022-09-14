@@ -3,6 +3,14 @@ package com.wisnu.speechrecognition.utils
 import com.wisnu.speechrecognition.R
 
 object UtilsCode {
+    const val TIPE_HURUF_AZ = 1
+    const val TIPE_HURUF_KONSONAN = 2
+    const val TIPE_HURUF_VOKAL = 3
+    const val TIPE_MEMBACA = 4
+    const val TIPE_BERMAIN_TEBAK_KATA = 5
+    const val TIPE_BERMAIN_TEMUKAN_PASANGAN = 6
+
+
     const val MODE_NIGHT = 1
     const val MODE_LIGHT = 0
     const val UNDEFINIED_MODE = -1

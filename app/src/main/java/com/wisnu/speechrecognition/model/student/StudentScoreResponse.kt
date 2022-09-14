@@ -22,8 +22,11 @@ data class Data(
 	@field:SerializedName("soal")
 	val soal: String? = null,
 
+	@field:SerializedName("game_type")
+	val gameType: Int? = null,
+
 	@field:SerializedName("nilai")
-	val nilai: String? = null,
+	val nilai: Int? = null,
 
 	@field:SerializedName("id")
 	val id: Int? = null

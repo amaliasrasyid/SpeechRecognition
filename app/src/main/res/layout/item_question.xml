@@ -8,6 +8,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:background="@drawable/bg_test_speech"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +32,7 @@
                 android:id="@+id/btn_speaker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_24"
                 android:background="@null"
                 android:src="@drawable/ic_sound"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.GuessQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentGuessQBinding
@@ -109,6 +110,7 @@ class GuessQFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
                 startActivity(intent)
             }
+            btnBack.setOnClickListener{ findNavController().navigateUp() }
         }
     }
 

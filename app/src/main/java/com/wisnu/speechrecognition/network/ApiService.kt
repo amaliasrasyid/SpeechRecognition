@@ -101,7 +101,7 @@ interface ApiService {
         @Part sound: MultipartBody.Part?
     ):Call<QuestionPlayPairWordResponse>
 
-    @DELETE("pairword/{id}")
+    @DELETE("pairwordq/{id}")
     fun deleteQuestionPairW(@Path("id") idPairW: Int): Call<QuestionPlayPairWordResponse>
 
     //ROUTE-PAIR
@@ -125,5 +125,11 @@ interface ApiService {
         @Path("tipe_materi") materyType: Int,
         @Path("id_siswa") studentId: Int,
     ): Call<StudentScoresResponse>
+
+    @GET("student-score/game/{tipe_materi}/{id_siswa}")
+    fun studentGameScore(
+        @Path("tipe_materi") materyType: Int,
+        @Path("id_siswa") studentId: Int,
+    ): Call<StudentScoreResponse>
 
 }

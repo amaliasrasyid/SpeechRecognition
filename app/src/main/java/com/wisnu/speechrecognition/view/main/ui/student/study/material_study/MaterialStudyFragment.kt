@@ -26,9 +26,6 @@ import kotlin.collections.ArrayList
 
 class MaterialStudyFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    companion object {
-        fun newInstance() = MaterialStudyFragment()
-    }
 
     private val viewModel by viewModels<MaterialStudyViewModel>()
     private var _binding: FragmentMaterialStudyBinding? = null

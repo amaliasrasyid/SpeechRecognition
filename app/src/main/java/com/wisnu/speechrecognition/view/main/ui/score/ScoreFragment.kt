@@ -117,6 +117,9 @@ class ScoreFragment : Fragment(), SearchView.OnQueryTextListener {
                             val result = response.data
                             materyStudyScoreAdapter.setVokal(isVocal)
                             materyStudyScoreAdapter.setData(result)
+                            if(tipeMateri == TIPE_HURUF_AZ || tipeMateri == TIPE_HURUF_KONSONAN) materyStudyScoreAdapter.setLetter(true)
+
+                            //for filter
                             listScore.addAll(result)
                         } else {
                             dataNotFound()
@@ -140,6 +143,8 @@ class ScoreFragment : Fragment(), SearchView.OnQueryTextListener {
                         if (response.code == 200) {
                             val result = response.data
                             materyStudyScoreAdapter.setData(result)
+
+                            //for filter
                             listMateryStudy.addAll(result)
                         } else {
                             dataNotFound()

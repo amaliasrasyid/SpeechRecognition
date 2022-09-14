@@ -79,7 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_16"
-            android:text="Data pasangan kata dan gambar soal"
+            tools:text="Data pasangan kata dan gambar soal"
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/textView"

@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="@dimen/dimen_32"
-    android:paddingTop="@dimen/dimen_16"
-    android:paddingEnd="@dimen/dimen_32"
-    android:paddingBottom="@dimen/dimen_16"
+    android:fillViewport="true"
     tools:context=".view.main.ui.teacher.home.HomeTeacherFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dimen_32"
+        android:paddingTop="@dimen/dimen_16"
+        android:paddingEnd="@dimen/dimen_32"
+        android:paddingBottom="@dimen/dimen_16">
+
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_user"
@@ -198,4 +205,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="50dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

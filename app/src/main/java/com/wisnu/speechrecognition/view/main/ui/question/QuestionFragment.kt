@@ -28,13 +28,10 @@ import com.wisnu.speechrecognition.model.questions.Question
 import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_IMAGE
 import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_SOUNDS
 import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.*
 import com.wisnu.speechrecognition.utils.UtilsCode.REQUEST_CODE_AUDIO_RECORD
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
-import com.wisnu.speechrecognition.utils.countRightWrongWord
-import com.wisnu.speechrecognition.utils.findSimilarity
-import com.wisnu.speechrecognition.utils.getLevenshteinDistance
-import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_AZ
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_VOKAL
@@ -427,6 +424,7 @@ class QuestionFragment : Fragment(), View.OnClickListener {
         //db server
         val studentScore = hashMapOf<String,Any>()
         studentScore["id_siswa"] = siswa
+        studentScore["id_tipe_game"] = 0
         studentScore["id_soal"] = listSoal[index].id
         studentScore["nilai"] = score
         viewModel.storeScore(studentScore).observe(viewLifecycleOwner, { response ->

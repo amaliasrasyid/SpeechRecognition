@@ -3,6 +3,7 @@ package com.wisnu.speechrecognition.view.main.ui.student.play.pair
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -11,8 +12,9 @@ private var paint: Paint? = null
 var lines : ArrayList<Line> = ArrayList();
 class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
 : View(context, attrs, defStyleAttr) {
-
+    private val TAG = DrawView::class.java.simpleName
     private var isRedraw = false
+    private var densityDpi = 0
 
     init{
         paint = Paint()
@@ -25,12 +27,32 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         for(line in lines){
+            var screenAdjust = 0f
+            when(densityDpi){
+                in 1..120 -> screenAdjust = densityDpi.toFloat()/ 320f //ldpi
+                in 160..213 -> screenAdjust = densityDpi.toFloat()/ 320f //mdpi
+                in 213..240 -> screenAdjust = densityDpi.toFloat()/ 320f //hdpi
+                in 240..320 -> screenAdjust = densityDpi.toFloat()/ 320f //xhdpi
+                in 480..640 -> screenAdjust = densityDpi.toFloat()/ 320f //xxxhdpi
+                in 320..480 -> screenAdjust = densityDpi.toFloat()/ 320f  //xxhdpi
+            }
+            val settingStartY = -410 * screenAdjust
+            val settingStopY = -410 * screenAdjust
+
+            val startX = line.startX-20
+            val stopX = line.stopX-20
+            val startY = line.startY + settingStartY
+            val stopY = line.stopY + settingStopY
+
             canvas!!.drawLine(
-                line.startX-20, line.startY-560,
-                line.stopX-20, line.stopY-560,
+                startX, startY,
+                stopX, stopY,
                 paint!!
             )
-            Log.d("OnDraw", line.toString())
+            Log.d(TAG,"line position ${startX},${startY},${stopX},${stopY}")
+            Log.d(TAG,"density dpi= ${densityDpi}")
+            Log.d(TAG,"screen adjust= ${screenAdjust}")
+            Log.d(TAG, line.toString())
         }
     }
 
@@ -50,6 +72,10 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     fun clearLines(){
         lines.clear()
         invalidate()//forcing onDraw called with empty lines
+    }
+    
+    fun setDensitiyDpi(densityDpi: Int){
+        this.densityDpi = densityDpi
     }
 
 //    override fun onTouchEvent(event: MotionEvent?): Boolean {

@@ -51,6 +51,7 @@ class AuthViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     val result = response.body()
                     _auth.postValue(result!!)
+                    Log.d(TAG,result.toString())
                 } else {
                     val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
                     val msg = response.message()

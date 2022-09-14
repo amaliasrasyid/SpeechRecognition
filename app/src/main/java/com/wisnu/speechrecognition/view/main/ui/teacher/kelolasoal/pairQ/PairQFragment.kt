@@ -10,7 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.adapter.PairQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentPairQBinding
 import com.wisnu.speechrecognition.local_db.Pair
@@ -33,8 +37,9 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
     private lateinit var pairQAdapter: PairQAdapter
     private var listPairQ = ArrayList<PairWordQ>()
 
-    private val TAG = PairQFragment::class.java.simpleName
+    private var isSearching = false
 
+    private val TAG = PairQFragment::class.java.simpleName
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +58,27 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
         with(binding){
             observePairQ()
             initRecyclerView()
+            ItemTouchHelper(object: SimpleCallback(0, LEFT){
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val deletedPosition = viewHolder.bindingAdapterPosition
+                    val deletedItem = pairQAdapter.getData(deletedPosition)
+                    deletePairQ(deletedItem.id!!)
+                }
+
+            }).attachToRecyclerView(binding.rvPairq)
             fabAddPairQ.setOnClickListener{
                 val intent = Intent(requireActivity(), UploadPairQActivity::class.java)
                 startActivity(intent)
             }
+            btnBack.setOnClickListener{ findNavController().navigateUp() }
         }
     }
 
@@ -75,12 +97,14 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
             searchview.setOnSearchClickListener{
                 btnBack.visibility = View.GONE
                 tvMaterialStudy.visibility = View.GONE
+                isSearching = true
             }
             //show back and title when searchview clicked
             searchview.setOnCloseListener(object: SearchView.OnCloseListener{
                 override fun onClose(): Boolean {
                     btnBack.visibility = View.VISIBLE
                     tvMaterialStudy.visibility = View.VISIBLE
+                    isSearching = false
                     return false //karna aku ingin fungsi close berjalan seperti biasa
                 }
             })
@@ -190,7 +214,36 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
     }
 
     private fun deletePairQ(id: Int){
-
+        with(binding) {
+            viewModel.delete(id).observe(viewLifecycleOwner) { response ->
+                loader(false)
+                if (response != null) {
+                    if (response.code == 404) {
+                        showMessage(
+                            requireActivity(),
+                            UtilsCode.TITLE_ERROR,
+                            response.message ?: "",
+                            style = MotionToast.TOAST_ERROR
+                        )
+                        observePairQ()//ulang data kembali jika gagal hapus di server
+                    } else {
+                        showMessage(
+                            requireActivity(),
+                            UtilsCode.TITLE_SUCESS,
+                            response.message ?: "",
+                            style = MotionToast.TOAST_SUCCESS
+                        )
+                        observePairQ()
+                    }
+                }else{
+                    showMessage(
+                        requireActivity(),
+                        UtilsCode.TITLE_ERROR,
+                        style = MotionToast.TOAST_ERROR
+                    )
+                }
+            }
+        }
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -247,7 +300,9 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
         super.onResume()
         Log.d(TAG,"onresume")
         Log.d("ListGuessQ",listPairQ.toString())
-        observePairQ()
+        if(!isSearching){
+            observePairQ()
+        }
     }
 }
 

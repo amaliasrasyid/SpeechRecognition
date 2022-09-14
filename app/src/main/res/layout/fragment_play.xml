@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:src="@drawable/ic_back2"
+            android:padding="@dimen/dimen_8"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/gd_home_v"
             app:layout_constraintStart_toStartOf="parent"

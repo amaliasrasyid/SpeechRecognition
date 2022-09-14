@@ -18,8 +18,14 @@ import com.wisnu.speechrecognition.model.questions.GuessQItem
 import com.wisnu.speechrecognition.model.questions.Question
 import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.network.ApiConfig
+import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.UtilsCode.TIPE_BERMAIN_TEBAK_KATA
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.question.QuestionFragment
+import com.wisnu.speechrecognition.view.main.ui.score.ScoreViewModel
 import com.wisnu.speechrecognition.view.main.ui.student.ResultFragment.Companion.QUESTION_TYPE
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.GuessQViewModel
 import www.sanju.motiontoast.MotionToast
@@ -61,6 +67,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
             cardOpsi1.setOnClickListener(this@GuessFragment)
             cardOpsi2.setOnClickListener(this@GuessFragment)
             cardOpsi3.setOnClickListener(this@GuessFragment)
+            btnSound.setOnClickListener(this@GuessFragment)
             loader(true)
             observeGuessQ()
         }
@@ -122,6 +129,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
                 cardOpsi1 -> checkAnswer(1)
                 cardOpsi2 -> checkAnswer(2)
                 cardOpsi3 -> checkAnswer(3)
+                btnSound -> playAudioVoice()
             }
         }
     }
@@ -138,15 +146,18 @@ class GuessFragment : Fragment(), View.OnClickListener {
             ++indexProgress
             prepareQuestions()
         }else{
-            //TODO: buka tampilan result fragment
-            val toResult = GuessFragmentDirections.actionGuessFragmentToResultFragment().apply {
-                totalQuestion = listSoal.size
-                correctNumber = score
-                type = QUESTION_TYPE
-            }
-            findNavController().navigate(toResult)
+            moveToResult()
         }
 
+    }
+
+    private fun moveToResult(){
+        val toResult = GuessFragmentDirections.actionGuessFragmentToResultFragment().apply {
+            totalQuestion = listSoal.size
+            correctNumber = score
+            type = QUESTION_TYPE
+        }
+        findNavController().navigate(toResult)
     }
 
     private fun cancelTimer() {
@@ -207,6 +218,10 @@ class GuessFragment : Fragment(), View.OnClickListener {
         with(binding) {
             val layoutEmpty = layoutEmpty.root
             layoutEmpty.visibility = View.VISIBLE
+            cardOpsi1.visibility = View.INVISIBLE
+            cardOpsi2.visibility = View.INVISIBLE
+            cardOpsi3.visibility = View.INVISIBLE
+            seekBar.visibility = View.INVISIBLE
         }
     }
 

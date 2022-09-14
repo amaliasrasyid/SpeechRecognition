@@ -89,6 +89,7 @@ class StudentsFragment : Fragment(), SearchView.OnQueryTextListener {
                         if (response.code == 200) {
                             val result = response.data
                             studentsAdapter.setData(result)
+                            listStudents.clear()
                             listStudents.addAll(result)
 
                             dataNotFound(false)

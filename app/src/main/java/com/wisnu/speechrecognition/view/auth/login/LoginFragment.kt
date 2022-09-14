@@ -30,10 +30,8 @@ import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
 import www.sanju.motiontoast.MotionToast
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.android.material.textfield.TextInputEditText
-import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.model.user.UserResponse
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 
 
@@ -68,16 +66,6 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-//        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
-        googleApiClient = GoogleApiClient.Builder(
-            requireContext())
-            .enableAutoManage(requireActivity(),this)
-            .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
-            .build()
-
         prepareView()
     }
 
@@ -155,60 +143,7 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
                             val params = HashMap<String, Any>()
                             params["email"] = email
                             params["password"] = password
-
-                            viewModel.login(params).observe(viewLifecycleOwner, { result ->
-                                progressBar.visibility = View.GONE
-                                if (result != null) {
-                                    if(result.data != null){
-                                        if (result.code == 200) {
-                                            val role = result.data?.role
-                                            UserPreference(requireContext()).apply {
-                                                setUser(
-                                                    User(
-                                                        id = result.data?.id,
-                                                        nama = result.data?.nama,
-                                                        role = role,
-                                                        gambar = result.data?.gambar,
-                                                        email = result.data?.email,
-                                                        password = result.data?.password
-                                                    )
-                                                )
-                                                setLogin(Login(loginValid))
-                                                showMessage(
-                                                    requireActivity(),
-                                                    TITLE_SUCESS,
-                                                    message = "berhasil login",
-                                                    style = MotionToast.TOAST_SUCCESS
-                                                )
-                                                when(role){
-                                                    ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
-                                                    ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
-                                                }
-                                            }
-                                        } else {
-                                            showMessage(
-                                                requireActivity(),
-                                                TITLE_ERROR,
-                                                message = result.message ?: "",
-                                                style = MotionToast.TOAST_ERROR
-                                            )
-                                        }
-                                    }else{
-                                        showMessage(
-                                            requireActivity(),
-                                            TITLE_ERROR,
-                                            message = result.message ?: "",
-                                            style = MotionToast.TOAST_ERROR
-                                        )
-                                    }
-                                }else{
-                                    showMessage(
-                                        requireActivity(),
-                                        TITLE_ERROR,
-                                        style = MotionToast.TOAST_ERROR
-                                    )
-                                }
-                            })
+                            login(params)
                         }
                     }
                 }
@@ -217,21 +152,68 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == SIGN_IN){
-            val mGoogleSignInApi = Auth.GoogleSignInApi.getSignInResultFromIntent(data!!)
-            if(mGoogleSignInApi!!.isSuccess){
-                Log.d("login fragment",mGoogleSignInApi.toString())
-                val role = LoginFragmentArgs.fromBundle(arguments as Bundle).role
-                when(role){
-                    ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
-                    ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+    private fun login(params: HashMap<String, Any>) {
+        //TODO: message return multiple times (berdasarkan jmlh klik button) cause tiap klik tambah observer lain tanpa menghapus observer sebelumnya (terus terpanggil)
+        val hasObserver = viewModel.login(params).hasObservers()
+        Log.d(TAG,"state observer view model = ${hasObserver}")
+        viewModel.login(params).observe(viewLifecycleOwner, { result ->
+            loader(false)
+            if (result != null) {
+                if(result.data != null){
+                    if (result.code == 200) {
+                        val role = result.data?.role
+                        UserPreference(requireContext()).apply {
+                            setUser(
+                                User(
+                                    id = result.data?.id,
+                                    nama = result.data?.nama,
+                                    role = role,
+                                    gambar = result.data?.gambar,
+                                    email = result.data?.email,
+                                    password = result.data?.password
+                                )
+                            )
+                            setLogin(Login(loginValid))
+                            showMessage(
+                                requireActivity(),
+                                TITLE_SUCESS,
+                                message = "berhasil login",
+                                style = MotionToast.TOAST_SUCCESS
+                            )
+                            Log.d(TAG,result?.message ?: "")
+                            when(role){
+                                ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
+                                ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+                            }
+                        }
+                    } else {
+                        showMessage(
+                            requireActivity(),
+                            TITLE_ERROR,
+                            message =  result.message ?: "",
+                            style = MotionToast.TOAST_ERROR
+                        )
+                        Log.d(TAG,result?.message ?: "")
+                    }
+                }else{
+                    showMessage(
+                        requireActivity(),
+                        TITLE_ERROR,
+                        message = result.message ?: "",
+                        style = MotionToast.TOAST_ERROR
+                    )
+                    Log.d(TAG,result?.message ?: "")
                 }
             }else{
-                Toast.makeText(requireContext(),"sign in with google failed",Toast.LENGTH_LONG).show()
+                showMessage(
+                    requireActivity(),
+                    TITLE_ERROR,
+                    style = MotionToast.TOAST_ERROR
+                )
+                Log.d(TAG,result?.message ?: "")
             }
-        }
+        })
+        if(hasObserver) viewModel.login(params).removeObservers(this)
     }
 
     override fun onStart() {
@@ -240,9 +222,6 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
 
     override fun onPause() {
         super.onPause()
-        googleApiClient.stopAutoManage(requireActivity())
-        googleApiClient.disconnect()
-
         with(binding){
             edtUsername.removeTextChangedListener(textWatcherUsername)
             edtPassword.removeTextChangedListener(textWatcherPsw)
@@ -263,6 +242,7 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
         super.onDestroyView()
         _binding = null
     }
+
 
     override fun onConnectionFailed(p0: ConnectionResult) {
         TODO("Not yet implemented")

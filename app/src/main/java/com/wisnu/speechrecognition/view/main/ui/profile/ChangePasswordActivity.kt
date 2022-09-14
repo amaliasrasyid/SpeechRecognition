@@ -14,6 +14,7 @@ import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
+import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import www.sanju.motiontoast.MotionToast
@@ -132,6 +133,17 @@ class ChangePasswordActivity : AppCompatActivity(), View.OnClickListener {
             val confirmPsw = edtConfirPsw.text.toString().trim()
 
             val userId = UserPreference(this@ChangePasswordActivity).getUser().id
+
+            if(newPsw != confirmPsw){
+                showMessage(
+                    this@ChangePasswordActivity,
+                    TITLE_WARNING,
+                    "kata sandi baru dan konfirmasi kata sandi harus sama",
+                    style = MotionToast.TOAST_WARNING
+                )
+                loader(false)
+                return@with
+            }
 
             var params = HashMap<String, Any>()
             params.put("user_id",userId!!)

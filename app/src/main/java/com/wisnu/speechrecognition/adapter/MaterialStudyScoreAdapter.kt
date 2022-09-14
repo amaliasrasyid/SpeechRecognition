@@ -20,9 +20,13 @@ class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     private var listData = ArrayList<Any>()
 
     private var isVokal = false
+    private var isLetter = false
 
    fun setVokal(boolean: Boolean){
         isVokal = boolean
+    }
+    fun setLetter(boolean: Boolean){
+        isLetter = boolean
     }
 
     private var onItemClickCallBack: OnItemClickCallBack? = null
@@ -102,12 +106,16 @@ class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
         fun bind(studentScore: StudentScore) {
             with(binding) {
-                if(isVokal){
-                    tvNameMateryVokal.text = studentScore.kalimatVokal //KHUSUS VOKAL
-                }else{
-                    tvNameMateryVokal.text = studentScore.namaMateri
+                when{
+                    isVokal -> tvNameMateryVokal.text = studentScore.kalimatVokal!!.uppercase() //KHUSUS VOKAL
+                    isLetter -> {
+                        tvNameMateryVokal.visibility = View.GONE
+                        tvNameMateryLetters.visibility = View.VISIBLE
+
+                        tvNameMateryLetters.text = studentScore.namaMateri!!.uppercase()
+                    }
+                    else -> tvResultScore.text = "${studentScore.nilai}/100"
                 }
-                tvResultScore.text = "${studentScore.nilai}/100"
             }
         }
     }
