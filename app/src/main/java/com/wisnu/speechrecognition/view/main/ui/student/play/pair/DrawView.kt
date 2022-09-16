@@ -38,9 +38,11 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             }
             val settingStartY = -410 * screenAdjust
             val settingStopY = -410 * screenAdjust
+            val settingStartX = -20 * screenAdjust
+            val settingStopX = -20 * screenAdjust
 
-            val startX = line.startX-20
-            val stopX = line.stopX-20
+            val startX = line.startX + settingStartX
+            val stopX = line.stopX + settingStopX
             val startY = line.startY + settingStartY
             val stopY = line.stopY + settingStopY
 

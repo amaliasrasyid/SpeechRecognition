@@ -13,6 +13,7 @@ import com.wisnu.speechrecognition.databinding.FragmentCategoryScoreBinding
 import com.wisnu.speechrecognition.databinding.FragmentStudyBinding
 import com.wisnu.speechrecognition.local_db.User
 import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_ADMIN
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_GURU
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
 import com.wisnu.speechrecognition.utils.UtilsCode.TIPE_BERMAIN_TEBAK_KATA
@@ -62,7 +63,7 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
         }
         preference = UserPreference(requireActivity()).getUser()
         when(preference.role){
-            ROLE_GURU -> id_siswa = CategoryScoreFragmentArgs.fromBundle(arguments as Bundle).idSiswa
+            ROLE_ADMIN -> id_siswa = CategoryScoreFragmentArgs.fromBundle(arguments as Bundle).idSiswa
             ROLE_SISWA -> id_siswa = preference.id!!
         }
 
@@ -75,7 +76,7 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
                 findNavController().navigateUp()
             }
             when(preference.role){
-                ROLE_GURU -> {
+                ROLE_ADMIN -> {
                     id_siswa = CategoryScoreFragmentArgs.fromBundle(arguments as Bundle).idSiswa
                     when(view){
                         cardBelajarHuruf -> {

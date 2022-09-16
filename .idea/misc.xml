@@ -40,8 +40,8 @@
         <entry key="app/src/main/res/layout/activity_pair_play.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_teacher.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_upload_guess_q.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_upload_lesson_q.xml" value="0.20388349514563106" />
+        <entry key="app/src/main/res/layout/activity_upload_guess_q.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_upload_lesson_q.xml" value="0.13" />
         <entry key="app/src/main/res/layout/activity_upload_lesson_qactivity.xml" value="0.14" />
         <entry key="app/src/main/res/layout/activity_upload_pair.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_upload_pair_q.xml" value="0.18" />
@@ -64,10 +64,10 @@
         <entry key="app/src/main/res/layout/fragment_home_student.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_teacher.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_letters.xml" value="0.1885766092475068" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1638655462184874" />
         <entry key="app/src/main/res/layout/fragment_material_study.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_matery.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_pair.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_pair.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pair_q.xml" value="0.34358288770053474" />
         <entry key="app/src/main/res/layout/fragment_play.xml" value="0.214992927864215" />
         <entry key="app/src/main/res/layout/fragment_play_guess.xml" value="0.1" />
@@ -77,7 +77,7 @@
         <entry key="app/src/main/res/layout/fragment_result.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_score.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_students.xml" value="0.21" />
-        <entry key="app/src/main/res/layout/fragment_study.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_study.xml" value="0.21212121212121213" />
         <entry key="app/src/main/res/layout/fragment_upload_guess_q.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_upload_matery.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_vocab_test.xml" value="0.2116289012398461" />
@@ -108,5 +108,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

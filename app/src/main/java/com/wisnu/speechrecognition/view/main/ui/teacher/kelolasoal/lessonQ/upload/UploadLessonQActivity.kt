@@ -93,7 +93,6 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
     private fun prepareView() {
         loader(true) //Kasih notif klu sdg cek apa data ada
         with(binding){
-            btnAddView.setOnClickListener(this@UploadLessonQActivity)
             btnBack.setOnClickListener(this@UploadLessonQActivity)
             btnSimpan.setOnClickListener(this@UploadLessonQActivity)
             pickImage.setOnClickListener(this@UploadLessonQActivity)
@@ -170,15 +169,6 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
         val mimeTypes = arrayOf("audio/wav", "audio/m4a", "audio/mp3","audio/amr")
 //        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
         val intent = Intent(Intent.ACTION_PICK,MediaStore.Audio.Media.EXTERNAL_CONTENT_URI).apply {
-            type = "audio/*"
-            putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        }
-        resultLauncherVoice.launch(Intent.createChooser(intent, "Pilih 1 Audio"))
-    }
-
-    private fun selectAudioWithRecorder() {
-        val mimeTypes = arrayOf("audio/wav", "audio/m4a", "audio/mp3","audio/amr")
-        val intent = Intent(Intent.ACTION_PICK).apply {
             type = "audio/*"
             putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         }

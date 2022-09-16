@@ -47,7 +47,7 @@ class QuestionFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding!!
     private lateinit var viewModel: QuestionViewModel
 
-    private var mediaPlayer = MediaPlayer()
+    private var mediaPlayer: MediaPlayer? = null
 
     private val listSoal: ArrayList<Question> = ArrayList()
     private val listSoalTerjawab: HashMap<Int, StudentScore> = HashMap()
@@ -105,7 +105,34 @@ class QuestionFragment : Fragment(), View.OnClickListener {
         binding.layoutQuestion.tvTitle.text = title
 
         //siapkan data soal
-        getQuestions(materyId)
+        when(materyType){
+            TIPE_HURUF_AZ -> getQuestionsByType(TIPE_HURUF_AZ)
+            TIPE_HURUF_KONSONAN -> getQuestionsByType(TIPE_HURUF_KONSONAN)
+            TIPE_HURUF_VOKAL, TIPE_MEMBACA -> getQuestions(materyId)
+        }
+
+    }
+
+    private fun getQuestionsByType(materyTypeId: Int) {
+        viewModel.questionsByType(materyTypeId).observe(viewLifecycleOwner) { response ->
+            binding.progresbar.visibility = View.GONE
+            if (response.data != null) {
+                if (!response.data.isEmpty()) {
+                    if (response.code == 200) {
+                        val results = response.data
+                        listSoal.addAll(results)
+                        showLayout()
+                        prepareQuestions()
+                    } else {
+                        dataNotFound()
+                    }
+                } else {
+                    dataNotFound()
+                }
+            } else {
+                dataNotFound()
+            }
+        }
     }
 
     private fun getQuestions(materyId: Int) {
@@ -154,13 +181,15 @@ class QuestionFragment : Fragment(), View.OnClickListener {
                 .error(R.drawable.img_not_found) //TODO: GANTI NANTI
                 .into(imageView)
 
-            //Prepare Voice
+            //Prepare Audio
+            mediaPlayer = MediaPlayer()
             val urlAudio = URL_SOUNDS + soal.suara
             prepareMediaPlayer(urlAudio)
+            playAudioVoice()
 
             //prepare text
             with(binding.layoutQuestion) {
-                answerText = soal.teksJawaban
+                answerText = soal.teksJawaban.lowercase()
                 tvKalimatTest.text = "Kalimat: ${answerText}"
             }
             with(binding.layoutVocabQuestion) {
@@ -191,7 +220,7 @@ class QuestionFragment : Fragment(), View.OnClickListener {
                     tvVoiceResult.text = "Yang disebut : ..."
                     tvCorrectResult.text = "Benar Huruf: ..."
                     tvWrongResult.text = "Salah Huruf: ..."
-                    tvDistanceResult.text = "Hasil Rumus: ..}"
+                    tvDistanceResult.text = "Hasil Rumus: ..."
                     tvResultScore.text = ""
                     tvMessageResultScore.text = "-"
                 }
@@ -251,7 +280,6 @@ class QuestionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun prevQuestion() {
-//        if(index != )
         prepareQuestions()
     }
 
@@ -333,14 +361,19 @@ class QuestionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun playAudioVoice() {
-        mediaPlayer.start()
+        mediaPlayer?.start()
+    }
+
+    private fun releaseAudio() {
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     private fun prepareMediaPlayer(urlAudio: String) {
         try {
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-            mediaPlayer.setDataSource(urlAudio) // URL music file
-            mediaPlayer.prepare()
+            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer?.setDataSource(urlAudio) // URL music file
+            mediaPlayer?.prepare()
         } catch (e: Exception) {
             Log.e(TAG, "prepareMediaPlayer: ${e.message}")
         }
@@ -383,6 +416,8 @@ class QuestionFragment : Fragment(), View.OnClickListener {
             tvResultScore.text = score.toString()
             tvMessageResultScore.text = kesimpulanHasil(score)
         }
+        releaseAudio() //lepas audio lama
+
         //simpan atau update nilai skornya
         storeOrUpdate(score)
     }

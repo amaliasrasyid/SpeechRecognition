@@ -130,6 +130,9 @@ class PairFragment : Fragment() {
                 lvImg.adapter = imgAdapter
                 lvText.adapter = textAdapter
 
+                lvImg.isScrollContainer = false
+                lvText.isScrollContainer = false
+
                 imgAdapter.setOnImageClickCallback(object: ImagePairQAdapter.OnImageClickCallback{
                     override fun onImageClicked(img: ImageView, imgPoint: ImageView) {
                         if(selectedImage != img){

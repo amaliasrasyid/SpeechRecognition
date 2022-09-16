@@ -25,6 +25,11 @@ class QuestionViewModel : ViewModel() {
         return _questions
     }
 
+    fun questionsByType(materyTypeId: Int): LiveData<QuestionStudyResponse>{
+        _questions = getQuestionsStudyByType(materyTypeId)
+        return _questions
+    }
+
     fun storeScore(params: HashMap<String,Any>): LiveData<StudentScoreResponse>{
         storeStudentScore(params)
         return _score
@@ -100,4 +105,27 @@ class QuestionViewModel : ViewModel() {
         })
         return _questions
     }
+
+    fun getQuestionsStudyByType(materyTypeId: Int): MutableLiveData<QuestionStudyResponse>{
+        val client = ApiConfig.getApiService().getQuestionsStudyByType(materyTypeId)
+        val gson = Gson()
+        client.enqueue(object : Callback<QuestionStudyResponse> {
+            override fun onResponse(call: Call<QuestionStudyResponse>, response: Response<QuestionStudyResponse>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    _questions.postValue(result!!)
+                } else {
+                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS)
+                    _questions.postValue(errResult)
+                    Log.e(TAG, "onFailure: $errResult")
+                }
+            }
+
+            override fun onFailure(call: Call<QuestionStudyResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+        return _questions
+    }
+
 }

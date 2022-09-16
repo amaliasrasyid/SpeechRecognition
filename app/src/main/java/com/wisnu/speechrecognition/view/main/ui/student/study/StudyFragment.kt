@@ -55,22 +55,16 @@ class StudyFragment : Fragment(), View.OnClickListener {
             }
             when (view) {
                 cardBelajarHuruf -> {
-                    val toLetters =
-                        StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment()
-                            .apply {
-                                tipeMateri = TIPE_HURUF_AZ
-                                namaTipe = "Huruf A-Z"
-                            }
-                    findNavController().navigate(toLetters)
+                    val toQuestion = StudyFragmentDirections.actionStudyFragmentToQuestionFragment().apply {
+                        tipeMateriBelajar = TIPE_HURUF_AZ
+                    }
+                    findNavController().navigate(toQuestion)
                 }
                 cardBelajarKonsonan -> {
-                    val toConsonant =
-                        StudyFragmentDirections.actionStudyFragmentToMaterialStudyFragment()
-                            .apply {
-                                tipeMateri = TIPE_HURUF_KONSONAN
-                                namaTipe = "Huruf Konsonan"
-                            }
-                    findNavController().navigate(toConsonant)
+                    val toQuestion = StudyFragmentDirections.actionStudyFragmentToQuestionFragment().apply {
+                        tipeMateriBelajar = TIPE_HURUF_KONSONAN
+                    }
+                    findNavController().navigate(toQuestion)
                 }
                 cardBelajarVokal -> {
                     val toVowel =

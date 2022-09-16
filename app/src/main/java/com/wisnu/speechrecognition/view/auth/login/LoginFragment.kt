@@ -1,6 +1,7 @@
 package com.wisnu.speechrecognition.view.auth.login
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -32,6 +33,7 @@ import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
 import www.sanju.motiontoast.MotionToast
 import com.google.android.material.textfield.TextInputEditText
 import com.wisnu.speechrecognition.model.user.UserResponse
+import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_ADMIN
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 
 
@@ -41,7 +43,6 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
     private val binding get() = _binding!!
     private val viewModel by viewModels<AuthViewModel>()
     private val loginValid = true
-    private lateinit var googleApiClient :GoogleApiClient
     private var roleId :Int  = 0
 
     private lateinit var edtUsername :TextInputEditText
@@ -71,6 +72,7 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
 
     private fun prepareView() {
         roleId = LoginFragmentArgs.fromBundle(arguments as Bundle).role
+        binding.tvRegister.visibility = if(roleId != ROLE_SISWA) View.GONE else View.VISIBLE
         // Build a GoogleSignInClient with the options specified by gso.
         with(binding) {
             edtUsername.addTextChangedListener(textWatcherUsername)
@@ -182,8 +184,9 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
                             )
                             Log.d(TAG,result?.message ?: "")
                             when(role){
-                                ROLE_GURU -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
+                                ROLE_ADMIN -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
                                 ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
+                                ROLE_GURU -> Toast.makeText(requireActivity(),"hak akses untuk guru tidak diizinkan masuk ke aplikasi",Toast.LENGTH_SHORT).show()
                             }
                         }
                     } else {

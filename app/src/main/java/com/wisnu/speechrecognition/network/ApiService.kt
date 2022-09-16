@@ -63,6 +63,9 @@ interface ApiService {
     @GET("lessonq/{materyId}")
     fun getQuestionsStudy(@Path("materyId") materyId: Int): Call<QuestionStudyResponse>
 
+    @GET("lessonq/tipe/{materyTypeId}")
+    fun getQuestionsStudyByType(@Path("materyTypeId") materyId: Int): Call<QuestionStudyResponse>
+
     @Multipart
     @POST("lessonq")
     fun storeQuestionStudy(

@@ -42,9 +42,9 @@ class HomeTeacherFragment : Fragment() {
         val user = UserPreference(requireContext()).getUser()
         with(binding){
             tvName.text = user.nama
-            com.bumptech.glide.Glide.with(requireContext())
-                .load(com.wisnu.speechrecognition.network.ApiConfig.URL_IMAGE +user.gambar)
-                .error(com.wisnu.speechrecognition.R.drawable.no_profile_images)
+            Glide.with(requireContext())
+                .load(ApiConfig.URL_IMAGE +user.gambar)
+                .error(R.drawable.no_profile_images)
                 .into(imgUser)
             menuQuestions.setOnClickListener{
                 findNavController().navigate(R.id.action_homeTeacherFragment_to_categoryFragment)
@@ -59,6 +59,7 @@ class HomeTeacherFragment : Fragment() {
             btnLogOut.setOnClickListener{showAlertDialog()}
         }
     }
+
     private fun showAlertDialog() {
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         alertDialogBuilder.setTitle(getString(R.string.log_out))
@@ -77,6 +78,18 @@ class HomeTeacherFragment : Fragment() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val user = UserPreference(requireContext()).getUser()
+        with(binding){
+            tvName.text = user.nama
+            Glide.with(requireContext())
+                .load(ApiConfig.URL_IMAGE +user.gambar)
+                .error(R.drawable.no_profile_images)
+                .into(imgUser)
+        }
     }
 
     override fun onDestroyView() {

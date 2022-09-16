@@ -1,206 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.main.ui.student.play.pair.PairFragment">
 
-    <FrameLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_test_speech"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:fontFamily="@font/abhayalibre_semibold"
+            android:text="Temukan\nPasangannya"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_size_36"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_test_speech"/>
+            android:id="@+id/img_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:src="@drawable/ic_alarm"
+            app:layout_constraintEnd_toStartOf="@+id/tv_timer"
+            app:layout_constraintTop_toBottomOf="@+id/barrier2" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="00:00"
+            android:textColor="#F80000"
+            app:layout_constraintBottom_toBottomOf="@+id/img_alarm"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@+id/img_alarm" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_4"
-                android:fontFamily="@font/abhayalibre_semibold"
-                android:text="Temukan\nPasangannya"
-                android:textAlignment="center"
-                android:textSize="@dimen/font_size_36"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/btn_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_sound_small"
+            app:layout_constraintBottom_toBottomOf="@+id/img_alarm"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/tv_timer"
+            app:layout_constraintTop_toTopOf="@+id/img_alarm" />
 
-            <ImageView
-                android:id="@+id/img_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_32"
-                android:src="@drawable/ic_alarm"
-                app:layout_constraintEnd_toStartOf="@+id/tv_timer"
-                app:layout_constraintTop_toBottomOf="@+id/barrier2" />
+        <ImageView
+            android:id="@+id/img_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:src="@drawable/ic_checklist"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/barrier2" />
 
-            <TextView
-                android:id="@+id/tv_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:text="00:00"
-                android:textColor="#F80000"
-                app:layout_constraintBottom_toBottomOf="@+id/img_alarm"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="@+id/img_alarm" />
+        <TextView
+            android:id="@+id/tv_correct_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_4"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Benar\n0"
+            android:textAlignment="center"
+            android:textColor="#F80000"
+            app:layout_constraintStart_toEndOf="@+id/img_right"
+            app:layout_constraintTop_toTopOf="@+id/img_right" />
 
-            <ImageButton
-                android:id="@+id/btn_sound"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@null"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_sound_small"
-                app:layout_constraintBottom_toBottomOf="@+id/img_alarm"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toEndOf="@+id/tv_timer"
-                app:layout_constraintTop_toTopOf="@+id/img_alarm" />
+        <com.wisnu.speechrecognition.view.main.ui.student.play.pair.DrawView
+            android:id="@+id/drawView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/lv_img"
+            app:layout_constraintEnd_toEndOf="@id/lv_text"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/lv_img"
+            app:layout_constraintTop_toTopOf="@+id/lv_img"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/img_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_32"
-                android:src="@drawable/ic_checklist"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/barrier2" />
+        <ListView
+            android:id="@+id/lv_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline12"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lv_text"
+            tools:lvitem="@layout/item_lv_img_pair" />
 
-            <TextView
-                android:id="@+id/tv_correct_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_4"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Benar\n0"
-                android:textAlignment="center"
-                android:textColor="#F80000"
-                app:layout_constraintStart_toEndOf="@+id/img_right"
-                app:layout_constraintTop_toTopOf="@+id/img_right" />
+        <ListView
+            android:id="@+id/lv_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/dimen_24"
+            android:layout_marginBottom="@dimen/dimen_32"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/seekBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline13"
+            app:layout_constraintTop_toBottomOf="@+id/tv_correct_value"
+            app:layout_constraintVertical_bias="0.0"
+            tools:lvitem="@layout/item_lv_text_pair" />
 
-            <com.wisnu.speechrecognition.view.main.ui.student.play.pair.DrawView
-                android:id="@+id/drawView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/lv_img"
-                app:layout_constraintEnd_toEndOf="@id/lv_text"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/lv_img"
-                app:layout_constraintTop_toTopOf="@+id/lv_img"
-                app:layout_constraintVertical_bias="0.0" />
+        <include
+            android:id="@+id/layout_empty"
+            layout="@layout/empty_layout"
+            android:visibility="gone" />
 
-            <ListView
-                android:id="@+id/lv_img"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/dimen_24"
-                android:layout_marginTop="@dimen/dimen_32"
-                android:layout_marginBottom="@dimen/dimen_32"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/seekBar"
-                app:layout_constraintEnd_toStartOf="@+id/guideline12"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_sound"
-                app:layout_constraintVertical_bias="0.0"
-                tools:lvitem="@layout/item_lv_img_pair" />
+        <ProgressBar
+            android:id="@+id/pb_loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0.36" />
 
-            <ListView
-                android:id="@+id/lv_text"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/dimen_32"
-                android:layout_marginEnd="@dimen/dimen_24"
-                android:layout_marginBottom="@dimen/dimen_32"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/seekBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline13"
-                app:layout_constraintTop_toBottomOf="@+id/btn_sound"
-                tools:lvitem="@layout/item_lv_text_pair" />
+        <SeekBar
+            android:id="@+id/seekBar"
+            style="@style/Widget.AppCompat.SeekBar"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:max="10"
+            android:progress="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/lv_text"
+            app:layout_constraintStart_toStartOf="@+id/lv_img"
+            app:layout_constraintTop_toBottomOf="@id/lv_img"
+            app:layout_constraintVertical_bias="0.85"
+            app:trackColor="@color/white" />
 
-            <include
-                android:id="@+id/layout_empty"
-                layout="@layout/empty_layout"
-                android:visibility="gone" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="118dp" />
 
-            <ProgressBar
-                android:id="@+id/pb_loader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                app:layout_constraintVertical_bias="0.36" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="124dp" />
 
-            <SeekBar
-                android:id="@+id/seekBar"
-                style="@style/Widget.AppCompat.SeekBar"
-                android:layout_width="0dp"
-                android:layout_height="10dp"
-                android:max="10"
-                android:progress="1"
-                app:layout_constraintBottom_toBottomOf="@+id/guideline15"
-                app:layout_constraintEnd_toEndOf="@+id/lv_text"
-                app:layout_constraintStart_toStartOf="@+id/lv_img"
-                app:trackColor="@color/white" />
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="textView2" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="118dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="124dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="textView2" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline15"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintGuide_end="95dp" />-->
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.6" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_end="95dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
-
-
-
-</ScrollView>
+</FrameLayout>

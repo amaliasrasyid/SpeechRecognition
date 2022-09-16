@@ -33,6 +33,9 @@
             android:name="kategori_menu"
             app:argType="integer"
             android:defaultValue="1" />
+        <action
+            android:id="@+id/action_studyFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"

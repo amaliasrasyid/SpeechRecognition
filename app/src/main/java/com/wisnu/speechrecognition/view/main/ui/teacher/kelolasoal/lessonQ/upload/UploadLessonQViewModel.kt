@@ -54,7 +54,6 @@ class UploadLessonQViewModel: ViewModel() {
         return _lessonQ
     }
 
-
     private fun storeOrUpdateLessonQ(
         image: MultipartBody.Part?,
         audio: MultipartBody.Part?,
