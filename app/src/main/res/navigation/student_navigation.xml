@@ -86,7 +86,8 @@
         tools:layout="@layout/fragment_guess" >
         <action
             android:id="@+id/action_guessFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/playFragment" />
     </fragment>
     <fragment
         android:id="@+id/pairFragment"
@@ -95,7 +96,8 @@
         tools:layout="@layout/fragment_pair" >
         <action
             android:id="@+id/action_pairFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/playFragment" />
     </fragment>
     <fragment
         android:id="@+id/ScoreFragment"

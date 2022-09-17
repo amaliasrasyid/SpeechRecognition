@@ -22,6 +22,7 @@ import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_GURU
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
 import com.wisnu.speechrecognition.view.auth.AuthActivity
 import com.wisnu.speechrecognition.view.main.ui.profile.UserProfileActivity
+import com.wisnu.speechrecognition.view.main.ui.profile.UserProfileActivity.Companion.TYPE
 
 class HomeStudentFragment : Fragment(), View.OnClickListener {
 

@@ -1,5 +1,6 @@
 package com.wisnu.speechrecognition.view.main.ui.student.play.pair
 
+import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -32,6 +33,7 @@ import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.PairQViewModel
 import com.wisnu.speechrecognition.utils.miliSecondToTimer
 import com.wisnu.speechrecognition.view.main.ui.score.ScoreViewModel
+import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.student.ResultFragment.Companion.PAIR_TYPE
 import www.sanju.motiontoast.MotionToast
 
@@ -67,6 +69,7 @@ class PairFragment : Fragment() {
     private lateinit var textAdapter: TextPairQAdapter
 
     private val viewModel by viewModels<PairQViewModel>()
+    private lateinit var mainActivity :MainActivity
 
     private val TAG = PairFragment::class.java.simpleName
 
@@ -79,6 +82,7 @@ class PairFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = activity as MainActivity
 
         binding = FragmentPairBinding.inflate(inflater, container, false)
         return binding.root
@@ -385,14 +389,18 @@ class PairFragment : Fragment() {
         cancelTimer()
     }
 
-    private fun releaseAudio() {
+    private fun releaseAudio(emptyMediaPlayer: Boolean = true) {
         mediaPlayer?.release()
-        mediaPlayer = null
+        if(emptyMediaPlayer)mediaPlayer = null
     }
 
     private fun prepareMediaPlayer(urlAudio: String) {
+        val attribute = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+            .build()
         try {
-            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer?.setAudioAttributes(attribute)
             mediaPlayer?.setDataSource(urlAudio) // URL music file
             mediaPlayer?.prepare()
         } catch (e: Exception) {
@@ -424,5 +432,16 @@ class PairFragment : Fragment() {
                 pbLoader.visibility = android.view.View.GONE
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mainActivity.mediaPlayer.pause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        releaseAudio(emptyMediaPlayer = false)
+        mainActivity.mediaPlayer.start()
     }
 }

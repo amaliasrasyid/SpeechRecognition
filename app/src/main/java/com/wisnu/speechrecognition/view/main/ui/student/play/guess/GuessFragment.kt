@@ -1,31 +1,27 @@
 package com.wisnu.speechrecognition.view.main.ui.student.play.guess
 
-import android.media.AudioManager
+import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.wisnu.speechrecognition.adapter.GuessQAdapter
+import com.google.android.material.card.MaterialCardView
+import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentGuessBinding
 import com.wisnu.speechrecognition.model.questions.GuessQItem
-import com.wisnu.speechrecognition.model.questions.Question
-import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.network.ApiConfig
-import com.wisnu.speechrecognition.session.UserPreference
-import com.wisnu.speechrecognition.utils.UtilsCode
-import com.wisnu.speechrecognition.utils.UtilsCode.TIPE_BERMAIN_TEBAK_KATA
-import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
-import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 import com.wisnu.speechrecognition.utils.showMessage
-import com.wisnu.speechrecognition.view.main.ui.question.QuestionFragment
-import com.wisnu.speechrecognition.view.main.ui.score.ScoreViewModel
+import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.student.ResultFragment.Companion.QUESTION_TYPE
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.guessQ.GuessQViewModel
 import www.sanju.motiontoast.MotionToast
@@ -47,12 +43,21 @@ class GuessFragment : Fragment(), View.OnClickListener {
     private lateinit var countDownTimer: CountDownTimer
     private var timeLeft: Long = 60000 //1minute per question
 
+    private lateinit var mainActivity : MainActivity
+
     private val TAG = GuessFragment::class.simpleName
+
+    companion object{
+        private const val COLOR_RIGHT = 1
+        private const val COLOR_WRONG = 2
+        private const val COLOR_DEFAULT = 3
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = activity as MainActivity
         _binding = FragmentGuessBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -98,6 +103,9 @@ class GuessFragment : Fragment(), View.OnClickListener {
 
     private fun prepareQuestions() {
         with(binding){
+            // set default view (kembalikan view seperti semula)
+            defaultOptionsView()
+
             question = listSoal.get(index)
             //prepare audio
             mediaPlayer = MediaPlayer()
@@ -109,9 +117,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
             tvOpsi2.text = question.opsi2
             tvOpsi3.text = question.opsi3
 
-            //prepare timer,seek bar and score
-//            var currentProgress = (indexProgress.toDouble()/listSoal.size)*100
-            seekBar.setOnTouchListener { view, motionEvent -> true }
+            //prepare timer,seek bar and score seekBar.setOnTouchListener { view, motionEvent -> true }
             seekBar.max = 0
             seekBar.max = listSoal.size
             seekBar.progress = indexProgress
@@ -123,6 +129,20 @@ class GuessFragment : Fragment(), View.OnClickListener {
             startTimer()
         }
     }
+
+    private fun defaultOptionsView() {
+        with(binding) {
+            val options = ArrayList<MaterialCardView>()
+            options.add(cardOpsi1)
+            options.add(cardOpsi2)
+            options.add(cardOpsi3)
+
+            for (option in options) {
+                option.setCardBackgroundColor(color(COLOR_DEFAULT))
+            }
+        }
+    }
+
     override fun onClick(view: View?) {
         with(binding){
             when(view){
@@ -138,17 +158,46 @@ class GuessFragment : Fragment(), View.OnClickListener {
         releaseAudio()
         cancelTimer()
         val answeredKey = question.kunciJawaban
-        if(answeredKey == selectedOption){
-            score = score + 1
-        }
-        if(index != listSoal.size-1 && index < listSoal.size){
-            ++index
-            ++indexProgress
-            prepareQuestions()
-        }else{
-            moveToResult()
-        }
 
+        //delay 1 second for showing view answer result
+        Handler(Looper.getMainLooper()).postDelayed({
+            if(answeredKey == selectedOption){
+                score = score + 1
+                answerView(selectedOption,true)
+            }else{
+                answerView(selectedOption,false)
+            }
+
+            if(index != listSoal.size-1 && index < listSoal.size){
+                ++index
+                ++indexProgress
+                prepareQuestions()
+            }else{
+                moveToResult()
+            }
+        },1000)
+    }
+
+    private fun answerView(selectedOption: Int, condition: Boolean) {
+        with(binding){
+            when(selectedOption){
+                1 -> changeViewSelectedOption(cardOpsi1,condition)
+                2 -> changeViewSelectedOption(cardOpsi2,condition)
+                3 -> changeViewSelectedOption(cardOpsi3,condition)
+            }
+        }
+    }
+
+    private fun changeViewSelectedOption(cardOption: MaterialCardView, condition: Boolean) {
+        if(condition)cardOption.setCardBackgroundColor(color(COLOR_RIGHT)) else cardOption.setCardBackgroundColor(color(COLOR_RIGHT))
+    }
+
+    private fun color(type: Int): Int {
+        when(type){
+            COLOR_RIGHT -> return ContextCompat.getColor(requireContext(),R.color.colorRight)
+            COLOR_WRONG -> return ContextCompat.getColor(requireContext(),R.color.colorWrong)
+            else -> return ContextCompat.getColor(requireContext(),R.color.black)
+        }
     }
 
     private fun moveToResult(){
@@ -189,14 +238,18 @@ class GuessFragment : Fragment(), View.OnClickListener {
         mediaPlayer?.start()
     }
 
-    private fun releaseAudio() {
+    private fun releaseAudio(emptyMediaPlayer: Boolean = true) {
         mediaPlayer?.release()
-        mediaPlayer = null
+        if(emptyMediaPlayer)mediaPlayer = null
     }
 
     private fun prepareMediaPlayer(urlAudio: String) {
+        val attribute = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+            .build()
         try {
-            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer?.setAudioAttributes(attribute)
             mediaPlayer?.setDataSource(urlAudio) // URL music file
             mediaPlayer?.prepare()
         } catch (e: Exception) {
@@ -225,6 +278,14 @@ class GuessFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        mainActivity.mediaPlayer.pause()
+    }
 
-
+    override fun onStop() {
+        super.onStop()
+        releaseAudio(emptyMediaPlayer = false)
+        mainActivity.mediaPlayer.start()
+    }
 }

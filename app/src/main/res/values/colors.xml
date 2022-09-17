@@ -5,4 +5,8 @@
     <color name="primaryColor">#0089FF</color>
     <color name="primaryLight">#69b8ff</color>
     <color name="primaryDark">#005dcb</color>
+
+    <color name="colorWrong">#D65132</color>
+    <color name="colorRight">#33C2CF</color>
+    <color name="colorSelected">#0962A0</color>
 </resources>

@@ -5,31 +5,39 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.AssetFileDescriptor
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.ActivityUserProfileBinding
 import com.wisnu.speechrecognition.local_db.User
 import com.wisnu.speechrecognition.model.user.Data
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.BackgroundSound
 import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_ADMIN
+import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
 import com.wisnu.speechrecognition.utils.createPartFromString
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.auth.AuthActivity
 import com.wisnu.speechrecognition.view.auth.AuthViewModel
+import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
+import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -41,7 +49,6 @@ import java.io.File
 class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var binding: ActivityUserProfileBinding
     private val viewModel by viewModels<AuthViewModel>()
-    private lateinit var mGoogleSignInClient :GoogleSignInClient
 
     private lateinit var user: User
 
@@ -49,8 +56,14 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
     private var imageUri: Uri? = null
     private var imagePath: String? = null
 
+//    private lateinit var audioRaw: AssetFileDescriptor
+//    lateinit var mediaPlayer: MediaPlayer
+    private var isReady: Boolean = false
 
     private val TAG = UserProfileActivity::class.simpleName
+
+//    private lateinit var BackgroundSound: BackgroundSound
+
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 111
@@ -60,6 +73,7 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
         private const val USERNAME_NOT_NULL = "Username tidak boleh kosong!"
         private const val PASSWORD_NOT_NULL = "Password tidak boleh kosong!"
         private const val MIN_COUNTER_LENGTH_PASS = "Minimal 5 karakter password"
+        const val TYPE = "type"
     }
 
 
@@ -67,6 +81,11 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityUserProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        mediaPlayer = MediaPlayer()
+//        audioRaw = applicationContext.resources.openRawResourceFd(R.raw.music_app)
+//
+//        prepareMediaPlayer()
 
         prepareView()
     }
@@ -325,5 +344,44 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
             }
         }
     }
+
+//    private fun prepareMediaPlayer() {
+//        val attribute = AudioAttributes.Builder()
+//            .setUsage(AudioAttributes.USAGE_MEDIA)
+//            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+//            .build()
+//        try {
+//            mediaPlayer?.setAudioAttributes(attribute)
+//            mediaPlayer?.setDataSource(audioRaw.fileDescriptor,audioRaw.startOffset,audioRaw.length)
+//            mediaPlayer?.prepare()
+//        } catch (e: Exception) {
+//            Log.e(TAG, "prepareMediaPlayer: ${e.message}")
+//        }
+//
+//        mediaPlayer?.setOnPreparedListener {
+//            isReady = true
+//            mediaPlayer?.start()
+//        }
+//        mediaPlayer?.setOnErrorListener { _, _, _ -> false }
+//    }
+
+//    override fun onStart() {
+//        super.onStart()
+//        BackgroundSound.mediaPlayer.start()
+//        Log.d(TAG,"onstart")
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        BackgroundSound.mediaPlayer.pause()
+//        Log.d(TAG,"onstop")
+//    }
+//
+//    override fun onDestroy() {
+//        BackgroundSound.mediaPlayer.release()
+//        super.onDestroy()
+//
+//        Log.d(TAG,"ondestroy")
+//    }
 
 }

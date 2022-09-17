@@ -14,10 +14,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
 import com.kontakanprojects.apptkslb.local_db.Login
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentLoginBinding
@@ -37,7 +33,7 @@ import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_ADMIN
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 
 
-class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+class LoginFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -246,9 +242,4 @@ class LoginFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener, Vi
         _binding = null
     }
 
-
-    override fun onConnectionFailed(p0: ConnectionResult) {
-        TODO("Not yet implemented")
-        Log.d(TAG,"connection failed sign in api google ${p0.toString()}")
-    }
 }

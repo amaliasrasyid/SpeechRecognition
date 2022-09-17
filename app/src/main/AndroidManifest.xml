@@ -20,6 +20,11 @@
         android:theme="@style/Theme.SpeechRecognition"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name=".service.BackgroundSoundService"
+            android:enabled="true"
+            android:exported="false"></service>
+
         <activity
             android:name=".view.main.ui.profile.ChangePasswordActivity"
             android:exported="false" />
