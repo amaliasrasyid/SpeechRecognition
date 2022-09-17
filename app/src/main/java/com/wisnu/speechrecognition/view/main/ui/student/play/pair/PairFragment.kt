@@ -305,6 +305,7 @@ class PairFragment : Fragment() {
         if(textPair == imgPair){
             score++
         }
+//        showHideButton()
         //reset after all pairing finished and move index PairQ
         if(indexPair ==  totalPairs){
             //cek dulu ada ndak soal selanjutnya
@@ -326,6 +327,8 @@ class PairFragment : Fragment() {
             Log.d(TAG,"skor saat ini : ${score}")
         }
     }
+
+
 
     private fun moveToResult() {
         val toResult = PairFragmentDirections.actionPairFragmentToResultFragment().apply {
@@ -436,12 +439,12 @@ class PairFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        mainActivity.mediaPlayer.pause()
+        if(mainActivity != null) mainActivity.mediaPlayer.pause()
     }
 
     override fun onStop() {
         super.onStop()
         releaseAudio(emptyMediaPlayer = false)
-        mainActivity.mediaPlayer.start()
+        if(mainActivity != null) mainActivity.mediaPlayer.start()
     }
 }

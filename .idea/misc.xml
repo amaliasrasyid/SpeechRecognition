@@ -86,7 +86,7 @@
         <entry key="app/src/main/res/layout/fragment_vowel_sentence.xml" value="0.1415969848632812" />
         <entry key="app/src/main/res/layout/item_list_data.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_list_dmatery.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_list_img_pair.xml" value="0.1085934159897392" />
+        <entry key="app/src/main/res/layout/item_list_img_pair.xml" value="0.75" />
         <entry key="app/src/main/res/layout/item_list_matery.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_list_matery_score.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_list_menu.xml" value="0.18" />

@@ -523,13 +523,13 @@ class QuestionFragment : Fragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        mainActivity.mediaPlayer.pause()
+        if(mainActivity != null) mainActivity.mediaPlayer.pause()
     }
 
     override fun onStop() {
         super.onStop()
         releaseAudio(emptyMediaPlayer = false)
-        mainActivity.mediaPlayer.start()
+        if(mainActivity != null) mainActivity.mediaPlayer.start()
     }
 
     private fun dataNotFound() {

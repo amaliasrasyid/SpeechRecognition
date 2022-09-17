@@ -159,15 +159,17 @@ class GuessFragment : Fragment(), View.OnClickListener {
         cancelTimer()
         val answeredKey = question.kunciJawaban
 
-        //delay 1 second for showing view answer result
+        if(answeredKey == selectedOption){
+            score = score + 1
+        }
+        if(answeredKey != selectedOption){
+            answerView(selectedOption,false)
+        }
+        answerView(answeredKey!!,true)
+        //delay 1 second for user can see the result (which is wrong and which is right)
+        loader(true)
         Handler(Looper.getMainLooper()).postDelayed({
-            if(answeredKey == selectedOption){
-                score = score + 1
-                answerView(selectedOption,true)
-            }else{
-                answerView(selectedOption,false)
-            }
-
+            loader(false)
             if(index != listSoal.size-1 && index < listSoal.size){
                 ++index
                 ++indexProgress
@@ -175,7 +177,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
             }else{
                 moveToResult()
             }
-        },1000)
+        },500)
     }
 
     private fun answerView(selectedOption: Int, condition: Boolean) {
@@ -189,7 +191,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
     }
 
     private fun changeViewSelectedOption(cardOption: MaterialCardView, condition: Boolean) {
-        if(condition)cardOption.setCardBackgroundColor(color(COLOR_RIGHT)) else cardOption.setCardBackgroundColor(color(COLOR_RIGHT))
+        if(condition)cardOption.setCardBackgroundColor(color(COLOR_RIGHT)) else cardOption.setCardBackgroundColor(color(COLOR_WRONG))
     }
 
     private fun color(type: Int): Int {
@@ -280,12 +282,12 @@ class GuessFragment : Fragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        mainActivity.mediaPlayer.pause()
+        if(mainActivity != null) mainActivity.mediaPlayer.pause()
     }
 
     override fun onStop() {
         super.onStop()
         releaseAudio(emptyMediaPlayer = false)
-        mainActivity.mediaPlayer.start()
+        if(mainActivity != null) mainActivity.mediaPlayer.start()
     }
 }

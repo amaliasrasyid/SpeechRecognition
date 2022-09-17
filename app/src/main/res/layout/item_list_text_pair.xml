@@ -29,6 +29,20 @@
         android:layout_marginEnd="@dimen/dimen_16"
         app:layout_constraintBottom_toBottomOf="@+id/tv_text"
         app:layout_constraintEnd_toStartOf="@+id/tv_text"
+        app:layout_constraintTop_toTopOf="@+id/tv_text"
+        android:contentDescription="text point" />
+
+    <ImageButton
+        android:id="@+id/remove_line_text"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="@dimen/dimen_16"
+        android:background="@null"
+        android:contentDescription="remove line"
+        android:src="@drawable/ic_red_close"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_text"
+        app:layout_constraintEnd_toStartOf="@+id/tv_text"
         app:layout_constraintTop_toTopOf="@+id/tv_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
