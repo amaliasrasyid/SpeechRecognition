@@ -70,10 +70,19 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         }
         invalidate()
     }
-    
+
     fun clearLines(){
         lines.clear()
         invalidate()//forcing onDraw called with empty lines
+    }
+
+    fun removeLine(x2: Float, y2: Float){
+        val filteredLines = lines.filterNot {
+            it.stopX == x2 && it.stopY == y2
+        }
+        lines.clear()
+        lines.addAll(filteredLines)
+        invalidate()
     }
     
     fun setDensitiyDpi(densityDpi: Int){

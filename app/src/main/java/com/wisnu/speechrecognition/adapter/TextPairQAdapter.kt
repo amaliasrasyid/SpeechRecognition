@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.wisnu.speechrecognition.R
 
 class TextPairQAdapter(context: Context,
@@ -25,7 +26,9 @@ class TextPairQAdapter(context: Context,
             var textview = listItem!!.findViewById<TextView>(R.id.tv_text)
             var textPoint = listItem!!.findViewById<ImageView>(R.id.point_text)
             textview.setText(textData!!.uppercase())
-            textview.setOnClickListener { onTextClickCallback?.onTextClicked(textview,textPoint) }
+            var parentView = listItem!!.findViewById<ConstraintLayout>(R.id.parent_layout)
+
+            parentView.setOnClickListener { onTextClickCallback?.onTextClicked(textview,textPoint,position) }
         }
         return listItem!!
     }
@@ -35,6 +38,6 @@ class TextPairQAdapter(context: Context,
     }
 
     interface OnTextClickCallback {
-        fun onTextClicked(textView: TextView,view: ImageView)
+        fun onTextClicked(textView: TextView, view: ImageView, position: Int)
     }
 }

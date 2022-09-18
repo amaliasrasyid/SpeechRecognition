@@ -1,7 +1,7 @@
 package com.wisnu.speechrecognition.view.main.ui.student.play.pair
 
+import android.graphics.Color
 import android.media.AudioAttributes
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,8 +15,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.adapter.ImagePairQAdapter
 import com.wisnu.speechrecognition.adapter.TextPairQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentPairBinding
@@ -24,15 +26,10 @@ import com.wisnu.speechrecognition.model.questions.PairWordQ
 import com.wisnu.speechrecognition.model.questions.PairsItem
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.session.UserPreference
-import com.wisnu.speechrecognition.utils.UtilsCode
-import com.wisnu.speechrecognition.utils.UtilsCode.TIPE_BERMAIN_TEMUKAN_PASANGAN
-import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
-import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.PairQViewModel
 import com.wisnu.speechrecognition.utils.miliSecondToTimer
-import com.wisnu.speechrecognition.view.main.ui.score.ScoreViewModel
 import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.student.ResultFragment.Companion.PAIR_TYPE
 import www.sanju.motiontoast.MotionToast
@@ -41,13 +38,18 @@ class PairFragment : Fragment() {
     private lateinit var binding: FragmentPairBinding
 
     private var selectedImage: ImageView? = null
-    private var selectedText: TextView? = null
     private var listSelectedImg = ArrayList<ImageView>()
     private var listSelectedText = ArrayList<TextView>()
+    private var listSelectedPair = ArrayList<Pair<ImageView,String>>()
     private var listPairQ = ArrayList<PairWordQ>()
     private var listText = ArrayList<String>()
+    private var selectedPair :Pair<ImageView,String>? = null
 
     private var isTextBeingSelected = false
+    private var countDeletedLines = 0
+
+    private var x1 = 0f
+    private var y1 = 0f
 
     private var score :Int = 0
     private var index = 0
@@ -140,16 +142,15 @@ class PairFragment : Fragment() {
                 imgAdapter.setOnImageClickCallback(object: ImagePairQAdapter.OnImageClickCallback{
                     override fun onImageClicked(img: ImageView, imgPoint: ImageView) {
                         if(selectedImage != img){
-                            val isImageHadSelected = find(listSelectedImg,img)
+                            val isImageHadSelected = findImage(listSelectedPair,img)
                             if(!isImageHadSelected){
                                 selectedImage = img
                                 drawStartLine(imgPoint)
-                                listSelectedImg.add(img)
                             }else{
                                 showMessage(
                                     requireActivity(),
                                     TITLE_WARNING,
-                                    "gambar sudah dipasangkan dengan katanya, silahkan pasangkan gambar yang lain",
+                                    "pilihlah gambar yang belum dipasangkan",
                                     MotionToast.TOAST_WARNING
                                 )
                             }
@@ -164,31 +165,50 @@ class PairFragment : Fragment() {
                     }
                 })
                 textAdapter.setOnTextClickCallback(object: TextPairQAdapter.OnTextClickCallback{
-                    override fun onTextClicked(textView: TextView, pointView: ImageView) {
-                        if(selectedText != textView){
-                            val isTextViewHadSelected = find(listSelectedText,textView)
-                            if(!isTextViewHadSelected){
-                                if(!isTextBeingSelected){
-                                    drawDestLine(pointView)
-                                    selectedText = textView
-                                    checkPair(textView.text.toString())
-                                    listSelectedText.add(textView)
-                                }else{
-                                    showMessage(
-                                        requireActivity(),
-                                        TITLE_WARNING,
-                                        "kata hanya bisa dipasangkan satu kali saja",
-                                        MotionToast.TOAST_WARNING
-                                    )
+                    override fun onTextClicked(
+                        textView: TextView,
+                        pointView: ImageView,
+                        position: Int
+                    ) {
+                        Log.d(TAG,"posisi text ${position}")
+//                        Log.d(TAG,"isTextBeingSelected: ${isTextBeingSelected.toString()}")
+                        val isTextViewHadSelected = findText(listSelectedPair,textView)
+
+                        if(!isTextViewHadSelected && !isTextBeingSelected){
+                            val stateDraw = drawDestLine(pointView)
+                            Log.d(TAG,"state draw dest line: ${stateDraw}")
+                            if(stateDraw) {
+                                checkPair(textView.text.toString())
+
+                                //change the text point to remover line
+                                pointView.setImageResource(R.drawable.ic_red_close)
+                                pointView.setBackgroundColor(Color.WHITE)
+                            }
+                        }else{
+                            if(selectedImage == null){
+                                //change the remover line to text point
+                                pointView.setImageResource(R.drawable.bg_shape_button_blue)
+                                pointView.setBackgroundColor(Color.TRANSPARENT)
+
+                                //remove the line
+                                removeLine(pointView)
+
+                                //remove text from selected text list
+                                val text = textView.text.toString().trim()
+                                val filteredPairs = listSelectedPair.filterNot {
+                                    it.second == text
                                 }
+                                listSelectedPair.clear()
+                                listSelectedPair.addAll(filteredPairs)
                             }else{
                                 showMessage(
                                     requireActivity(),
                                     TITLE_WARNING,
-                                    "kata sudah dipasangkan",
+                                    "pilih kata yg belum dipasangkan",
                                     MotionToast.TOAST_WARNING
                                 )
                             }
+
                         }
                     }
 
@@ -222,7 +242,6 @@ class PairFragment : Fragment() {
     }
 
     //prepare list gambar n kata n shuffle it
-    //TODO: shuffle element random blm berhasil
     private fun prepareDataQ(result: PairWordQ): Pair<List<PairsItem>,List<String>> {
         val pairQ = result
         //for data image
@@ -240,7 +259,6 @@ class PairFragment : Fragment() {
     }
 
     private fun drawStartLine(view: ImageView) {
-//        val width = view.width/2
         val coordinates = IntArray(2)
         view.getLocationOnScreen(coordinates)
         val x1 = coordinates[0].toFloat()
@@ -251,21 +269,22 @@ class PairFragment : Fragment() {
 
 //        Log.d(TAG,"img point size W:${view.width},H:${view.height}")
         Log.d(TAG,"img point position x1:${x1},y1:${y1}")
-
     }
 
-    private fun drawDestLine(view: ImageView) {
+    private fun drawDestLine(view: ImageView) :Boolean {
         if(selectedImage != null){
-
             val coordinates = IntArray(2)
             view.getLocationInWindow(coordinates)
             val x2 = coordinates[0].toFloat()
             val y2 = coordinates[1].toFloat()
             binding.drawView.addDestinationPoint(x2,y2)
+
             isTextBeingSelected = true
 
 //            Log.d(TAG,"text point size W:${view.width},H:${view.height}")
             Log.d(TAG,"text point position x2:${x2},y2:${y2}")
+
+            return true
         }else{
             showMessage(
                 requireActivity(),
@@ -273,7 +292,58 @@ class PairFragment : Fragment() {
                 "pilih dulu gambar yang ingin dipasangkan",
                 MotionToast.TOAST_WARNING
             )
+            return false
         }
+    }
+
+    private fun removeLine(view: ImageView) {
+        isTextBeingSelected = false
+//        notStartLine = true
+        indexPair--
+
+        val coordinates = IntArray(2)
+        view.getLocationInWindow(coordinates)
+        val x2 = coordinates[0].toFloat()
+        val y2 = coordinates[1].toFloat()
+        binding.drawView.removeLine(x2,y2)
+
+        Log.d(TAG,"removeline() called")
+
+    }
+
+    private fun checkPair(text: String) {
+        val imgPair = selectedImage!!.contentDescription.trim()
+        val textPair = text.trim()
+        if(textPair == imgPair){
+            score++
+        }
+        //save pair
+        selectedPair = Pair(selectedImage!!,text)
+        listSelectedPair.add(selectedPair!!)
+
+        selectedImage = null //update state image to null after finished using
+
+        //reset after all pairing finished and move index PairQ
+        if(indexPair ==  totalPairs){
+            //cek dulu ada ndak soal selanjutnya
+            if(index != listPairQ.size-1 && index < listPairQ.size){
+                loader(true)
+                //delay 1 second
+                Handler(Looper.getMainLooper()).postDelayed({
+                    loader(false)
+                    nextPairQ()
+                },1000)
+            }else{
+                loader(true)
+                reset()
+                moveToResult()
+            }
+        }else{
+            indexPair++
+            Log.d(TAG,"content description img : ${imgPair}")
+            Log.d(TAG,"skor saat ini : ${score}")
+        }
+        Log.d(TAG,"jumlah gambar yg terpilih ${listSelectedPair.size}")
     }
 
     private fun observePairQ() {
@@ -299,37 +369,6 @@ class PairFragment : Fragment() {
         }
     }
 
-    private fun checkPair(text: String) {
-        val imgPair = selectedImage!!.contentDescription.trim()
-        val textPair = text.trim()
-        if(textPair == imgPair){
-            score++
-        }
-//        showHideButton()
-        //reset after all pairing finished and move index PairQ
-        if(indexPair ==  totalPairs){
-            //cek dulu ada ndak soal selanjutnya
-            if(index != listPairQ.size-1 && index < listPairQ.size){
-                loader(true)
-                //delay 1 second
-                Handler(Looper.getMainLooper()).postDelayed({
-                    loader(false)
-                    nextPairQ()
-                },1000)
-            }else{
-                loader(true)
-                reset()
-                moveToResult()
-            }
-        }else{
-            indexPair++
-            Log.d(TAG,"content description img : ${imgPair}")
-            Log.d(TAG,"skor saat ini : ${score}")
-        }
-    }
-
-
-
     private fun moveToResult() {
         val toResult = PairFragmentDirections.actionPairFragmentToResultFragment().apply {
             totalQuestion = countTotalPairs
@@ -342,8 +381,12 @@ class PairFragment : Fragment() {
         },200)//0.2s
     }
 
-    private fun find(list: List<Any>, view :View): Boolean {
-        return list.filter{it == view}.isNotEmpty()
+    private fun findImage(list: List<Pair<ImageView,String>>, view :View): Boolean {
+        return list.filter{it.first == view}.isNotEmpty()
+    }
+
+    private fun findText(list: List<Pair<ImageView,String>>, view: TextView): Boolean {
+        return list.filter{it.second == view.text.toString().trim()}.isNotEmpty()
     }
 
     private fun cancelTimer() {
@@ -445,6 +488,7 @@ class PairFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         releaseAudio(emptyMediaPlayer = false)
+        if(countDownTimer != null) cancelTimer()
         if(mainActivity != null) mainActivity.mediaPlayer.start()
     }
 }
