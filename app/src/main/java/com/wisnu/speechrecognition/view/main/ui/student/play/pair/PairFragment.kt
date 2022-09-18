@@ -182,7 +182,7 @@ class PairFragment : Fragment() {
 
                                 //change the text point to remover line
                                 pointView.setImageResource(R.drawable.ic_red_close)
-                                pointView.setBackgroundColor(Color.WHITE)
+                                pointView.setBackgroundColor(Color.BLACK)
                             }
                         }else{
                             if(selectedImage == null){
