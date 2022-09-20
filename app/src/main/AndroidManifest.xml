@@ -6,8 +6,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /><!--    WAJIG ADA, klu tak di hp vivo api 30 tidak bs klik app penyedia file audionya-->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGE"/>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PICK"/>
+            <data android:mimeType="*/*"/>
+        </intent>
+        <intent>
+            <action android:name="android.speech.RecognitionService"/>
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -53,7 +66,8 @@
             android:exported="false"
             android:label="@string/title_activity_upload_lesson_qactivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.SpeechRecognition" />
+            android:theme="@style/Theme.SpeechRecognition">
+        </activity>
         <activity
             android:name=".view.main.ui.teacher.TeacherActivity"
             android:configChanges="orientation"

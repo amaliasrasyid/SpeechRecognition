@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:background="@null"
-                android:src="@drawable/ic_nextq"
                 android:visibility="gone"
+                android:src="@drawable/ic_nextq"
                 app:layout_constraintBottom_toBottomOf="@+id/img_question"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="@+id/img_question" />
@@ -67,14 +67,14 @@
 
             <ImageView
                 android:id="@+id/img_question"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="@dimen/dimen_24"
                 android:scaleType="fitCenter"
                 android:src="@drawable/img_not_found"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintHorizontal_bias="0.559"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/btn_speaker" />
 
             <ProgressBar
@@ -89,6 +89,26 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.36" />
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_on_ready_speech"
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/dimen_8"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/btn_speech"
+                app:layout_constraintStart_toStartOf="@+id/btn_speech"
+                app:layout_constraintTop_toTopOf="@+id/btn_speech">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Silahkan berbicara"
+                    android:background="@color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    android:padding="@dimen/dimen_8" />
+            </com.google.android.material.card.MaterialCardView>
+
             <ImageButton
                 android:id="@+id/btn_speech"
                 style="@style/ShapeAppearanceOverlay.Material3.Button"
@@ -101,6 +121,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_question" />
+
 
             <TextView
                 android:id="@+id/textView"

@@ -80,6 +80,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_on_ready_speech"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/dimen_8"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/btn_speech"
+            app:layout_constraintStart_toStartOf="@+id/btn_speech"
+            app:layout_constraintTop_toTopOf="@+id/btn_speech">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Silahkan berbicara"
+                android:background="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:padding="@dimen/dimen_8" />
+        </com.google.android.material.card.MaterialCardView>
+
         <ImageButton
             android:id="@+id/btn_speech"
             android:layout_width="wrap_content"

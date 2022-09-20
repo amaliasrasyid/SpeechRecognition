@@ -3,18 +3,16 @@ package com.wisnu.speechrecognition.view.main.ui.question
 import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
-import android.content.ComponentName
 import android.content.Intent
-import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.media.AudioAttributes
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.IBinder
+import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,7 +29,6 @@ import com.wisnu.speechrecognition.local_db.StudentScore
 import com.wisnu.speechrecognition.model.questions.Question
 import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_IMAGE
 import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_SOUNDS
-import com.wisnu.speechrecognition.service.BackgroundSoundService
 import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.*
 import com.wisnu.speechrecognition.utils.UtilsCode.REQUEST_CODE_AUDIO_RECORD
@@ -47,7 +44,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class QuestionFragment : Fragment(), View.OnClickListener {
+class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
 
     private var _binding: FragmentQuestionBinding? = null
     private val binding get() = _binding!!
@@ -203,7 +200,8 @@ class QuestionFragment : Fragment(), View.OnClickListener {
                 tvKalimatTest.text = "Kalimat: ${answerText}"
             }
             with(binding.layoutVocabQuestion) {
-
+                answerText = soal.teksJawaban.lowercase()
+                tvKalimatTest.text = "Kalimat: ${answerText}"
             }
 
             //prepare view answered Question
@@ -305,53 +303,19 @@ class QuestionFragment : Fragment(), View.OnClickListener {
 
     private fun openSpeechRecord() {
         checkPermissionAudioRecord()
+        val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireActivity())
+        speechRecognizer.setRecognitionListener(this)
         // Get the Intent action
-        val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        // Language model defines the purpose, there are special models for other use cases, like search.
-        sttIntent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-        )
-        // Adding an extra language, you can use any language from the Locale class.
-        sttIntent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE,
-            Locale.getDefault()
-        )//TODO: pastikan bahasa hp indonesia
-        // Text that shows up on the Speech input prompt.
-        sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Silahkan berbicara!")
-        try {
-            // Start the intent for a result, and pass in our request code.
-            startActivityForResult(sttIntent, REQUEST_CODE_AUDIO_RECORD)
-        } catch (e: ActivityNotFoundException) {
-            // Handling error when the service is not available.
-            e.printStackTrace()
-            val show =
-                Toast.makeText(
-                    requireContext(),
-                    "Your device does not support STT.",
-                    Toast.LENGTH_LONG
-                ).show()
+        val recIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).also {
+            it.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            it.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE, "id" )
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            // Handle the result for our request code.
-            REQUEST_CODE_AUDIO_RECORD -> {
-                // Safety checks to ensure data is available.
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    // Retrieve the result array.
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    // Ensure result array is not null or empty to avoid errors.
-                    if (!result.isNullOrEmpty()) {
-                        // Recognized text is in the first position.
-                        val recognizedText = result[0]
-                        calculateScore(recognizedText.lowercase(Locale.getDefault()))
-                    }
-                }
-            }
-        }
+        //start listening
+        speechRecognizer.startListening(recIntent)
     }
 
     private fun checkPermissionAudioRecord() {
@@ -541,5 +505,56 @@ class QuestionFragment : Fragment(), View.OnClickListener {
             layoutQuestion.visibility = View.GONE
             layoutVocab.visibility = View.GONE
         }
+    }
+
+    override fun onBeginningOfSpeech() {}
+    override fun onRmsChanged(p0: Float) {}
+    override fun onBufferReceived(p0: ByteArray?) {}
+
+    override fun onReadyForSpeech(p0: Bundle?) {
+        with(binding.layoutQuestion){
+           cardOnReadySpeech.visibility = View.VISIBLE
+        }
+        with(binding.layoutVocabQuestion){
+            cardOnReadySpeech.visibility = View.VISIBLE
+        }
+        Log.d(TAG,"onreadyspeech")
+    }
+
+    override fun onEndOfSpeech() {
+        with(binding.layoutQuestion){
+            cardOnReadySpeech.visibility = View.INVISIBLE
+        }
+        with(binding.layoutVocabQuestion){
+            cardOnReadySpeech.visibility = View.INVISIBLE
+        }
+        Log.d(TAG,"onendspeech")
+    }
+
+    override fun onError(errorCode: Int) {
+        val errorMessage = ErrorCodeSpeechRecognizer.getErrorCode(errorCode)
+        Toast.makeText(requireActivity(),errorMessage,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResults(results: Bundle?) {
+        val result = results!!.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+        val recognizedText = result!!.get(0)
+        calculateScore(recognizedText!!.lowercase(Locale.getDefault()))
+
+        var message = ""
+        for(msg in message){
+            message += msg + "\n"
+        }
+
+        Log.d(TAG,"hasil arr index 0: ${recognizedText}")
+        Log.d(TAG,"hasil seluruh arr: ${message}")
+    }
+
+    override fun onPartialResults(p0: Bundle?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onEvent(p0: Int, p1: Bundle?) {
+        TODO("Not yet implemented")
     }
 }

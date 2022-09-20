@@ -181,10 +181,10 @@ class UploadPairQActivity : AppCompatActivity(), View.OnClickListener {
         permission()
         mediaPlayer = MediaPlayer()
         val mimeTypes = arrayOf("audio/wav", "audio/m4a", "audio/mp3", "audio/amr")
-//        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI).apply {
-            type = "audio/*"
+//            type = "audio/*"
             putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            addCategory(Intent.CATEGORY_OPENABLE)
         }
         resultLauncherVoice.launch(Intent.createChooser(intent, "Pilih 1 Audio"))
     }

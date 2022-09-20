@@ -167,12 +167,14 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
         permission()
         mediaPlayer = MediaPlayer()
         val mimeTypes = arrayOf("audio/wav", "audio/m4a", "audio/mp3","audio/amr")
-//        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+//                val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
         val intent = Intent(Intent.ACTION_PICK,MediaStore.Audio.Media.EXTERNAL_CONTENT_URI).apply {
-            type = "audio/*"
+//            type = "audio/*" //klu ditambahkan, muncul pesan "tidak ada app yg ditemukan untk aksi tersebut..". tp wajib ada klu pk ACTION_GET_CONTENT
             putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            addCategory(Intent.CATEGORY_OPENABLE)
         }
         resultLauncherVoice.launch(Intent.createChooser(intent, "Pilih 1 Audio"))
+//        resultLauncherVoice.launch(intent)
     }
 
     private fun selectImage() {
@@ -489,7 +491,7 @@ class UploadLessonQActivity : AppCompatActivity(), View.OnClickListener {
             ActivityCompat.requestPermissions(
                 this, arrayOf(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
                 ), REQUEST_CODE_PERMISSIONS
             )
         }
