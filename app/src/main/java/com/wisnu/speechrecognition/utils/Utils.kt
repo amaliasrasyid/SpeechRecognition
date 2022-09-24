@@ -204,8 +204,7 @@ fun createPartFromString(descriptionString: String): RequestBody {
 
 fun reqFileImage(path: String?, name: String): MultipartBody.Part {
     val fileImage = File(path!!)
-    val reqFileImage =
-        fileImage.asRequestBody("image/jpeg/jpg/png".toMediaTypeOrNull())
+    val reqFileImage = fileImage.asRequestBody("image/jpeg/jpg/png".toMediaTypeOrNull())
     return MultipartBody.Part.createFormData(
         name, fileImage.name, reqFileImage
     )

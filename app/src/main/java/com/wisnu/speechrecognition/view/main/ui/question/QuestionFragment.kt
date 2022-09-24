@@ -81,7 +81,6 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         mainActivity = activity as MainActivity
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
         return binding.root
@@ -165,6 +164,8 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
     }
 
     private fun prepareQuestions() {
+        if(mediaPlayer?.isPlaying ?: false) releaseAudio()
+
         prepareButtonPrevNext()
         with(binding) {
             with(layoutQuestion) {
@@ -370,9 +371,9 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
     private fun calculateScore(recognizedText: String) {
         //dg metode levenstein;ad di helper
         loader(true)
-        distance = getLevenshteinDistance(answerText, recognizedText)
-        val rightWrongWord = countRightWrongWord(answerText, recognizedText)
-        val similarity = findSimilarity(answerText, recognizedText)
+        distance = getLevenshteinDistance(recognizedText,answerText)
+        val rightWrongWord = countRightWrongWord(answerText,recognizedText)
+        val similarity = findSimilarity(recognizedText,answerText)
         score = (similarity * 100).toInt()
         rightWord = rightWrongWord["righWord"] ?: 0
         wrongWord = rightWrongWord["wrongWord"] ?: 0

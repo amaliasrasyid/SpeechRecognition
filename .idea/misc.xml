@@ -96,7 +96,7 @@
         <entry key="app/src/main/res/layout/item_list_pilihan_tebak_kata.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/item_list_siswa.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_list_text_pair.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/item_question.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_question.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_score_result.xml" value="0.21967749089840208" />
         <entry key="app/src/main/res/layout/item_test.xml" value="0.18631006346328197" />
         <entry key="app/src/main/res/layout/item_vocab_question.xml" value="0.25" />

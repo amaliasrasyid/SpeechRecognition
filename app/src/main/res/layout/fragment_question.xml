@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/layout_question"
-        layout="@layout/item_question"/>
+        layout="@layout/item_question" />
     <include
         android:id="@+id/layout_empty"
         android:visibility="gone"

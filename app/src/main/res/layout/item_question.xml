@@ -24,8 +24,8 @@
                 android:text="Mengenal\nHuruf"
                 android:textAlignment="center"
                 android:textSize="40sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
@@ -50,7 +50,7 @@
                 android:visibility="gone"
                 android:src="@drawable/ic_nextq"
                 app:layout_constraintBottom_toBottomOf="@+id/img_question"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintTop_toTopOf="@+id/img_question" />
 
             <ImageButton
@@ -59,22 +59,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:background="@null"
-                android:src="@drawable/ic_prefq"
                 android:visibility="gone"
+                android:src="@drawable/ic_prefq"
                 app:layout_constraintBottom_toBottomOf="@+id/img_question"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintTop_toTopOf="@+id/img_question" />
 
             <ImageView
                 android:id="@+id/img_question"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="@dimen/dimen_24"
                 android:scaleType="fitCenter"
                 android:src="@drawable/img_not_found"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintHorizontal_bias="0.559"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintTop_toBottomOf="@+id/btn_speaker" />
 
             <ProgressBar
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_microphone_black"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView3" />
 
@@ -160,7 +160,7 @@
                 android:src="@drawable/ic_baseline_arrow_drop_down_24"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintTop_toTopOf="@+id/textView3" />
 
             <TextView
@@ -168,8 +168,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nilai:"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
@@ -180,8 +180,8 @@
                 android:digits="3"
                 android:textColor="#F80000"
                 android:textSize="28sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <TextView
@@ -190,8 +190,8 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 tools:text="Ucapan Sempurna, Mantap!!"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintTop_toBottomOf="@+id/tv_result_score" />
 
             <ImageView
@@ -200,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_microphone_black"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -209,8 +209,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16"
                 android:text="Pencocokan Kalimat"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left_img"
                 app:layout_constraintTop_toBottomOf="@+id/tv_message_result_score" />
 
             <ImageButton
@@ -221,7 +221,7 @@
                 android:src="@drawable/ic_baseline_arrow_drop_down_24"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintTop_toBottomOf="@+id/tv_message_result_score" />
 
             <TextView
@@ -233,7 +233,7 @@
                 android:textColor="#F80000"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@id/barrier5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <TextView
@@ -243,7 +243,7 @@
                 android:text="Yang disebut : ..."
                 android:textColor="#F80000"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintStart_toStartOf="@id/barrier5"
                 app:layout_constraintTop_toBottomOf="@+id/tv_kalimat_test" />
 
@@ -254,7 +254,7 @@
                 android:text="Rumus Levenstein Distance:"
                 android:textColor="#F80000"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintStart_toStartOf="@id/barrier5"
                 app:layout_constraintTop_toBottomOf="@+id/tv_voice_result" />
 
@@ -265,7 +265,7 @@
                 android:text="Benar Huruf: ..."
                 android:textColor="#F80000"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintStart_toStartOf="@id/barrier5"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -276,7 +276,7 @@
                 android:text="Salah Huruf: ..."
                 android:textColor="#F80000"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintStart_toStartOf="@id/barrier5"
                 app:layout_constraintTop_toBottomOf="@+id/tv_correct_result" />
 
@@ -287,28 +287,19 @@
                 android:text="Hasil Rumus: ..."
                 android:textColor="#F80000"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_img_right"
                 app:layout_constraintStart_toStartOf="@id/barrier5"
                 app:layout_constraintTop_toBottomOf="@+id/tv_wrong_result" />
 
-
-            <!--            <TextView-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="SGA"-->
-            <!--                android:textSize="50sp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="parent" />-->
-
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
+                android:id="@+id/guideline_left_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="94dp" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
+                android:id="@+id/guideline_img_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

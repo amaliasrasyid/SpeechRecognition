@@ -4,17 +4,17 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- *  X =
- *  Y =
+ *  X = string sumber
+ *  Y = string target
  */
     fun getLevenshteinDistance(X: String, Y: String): Int {
         val m = X.length
         val n = Y.length
         val T = Array(m + 1) { IntArray(n + 1) }
-        for (i in 1..m) {
+        for (i in 0..m) {
             T[i][0] = i
         }
-        for (j in 1..n) {
+        for (j in 0..n) {
             T[0][j] = j
         }
         var cost: Int
@@ -38,6 +38,8 @@ import kotlin.math.min
     }
 
 /**
+ * X = target
+ * Y = sumber
  * NOTE: huruf yg salah dihitung dr huruf (hasil ucapan siswa) yg tidak sesuai dg jawaban
  * TIDAK TERMASUK jumlah huruf yg tidak disebutkannya
  * misal: "ayah" & "at", Huruf yg salah hanya 1

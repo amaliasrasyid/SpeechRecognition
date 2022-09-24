@@ -60,10 +60,11 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:layout_below="@id/btn_speaker"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/img_ex_vocab" />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/img_not_found" />
             </RelativeLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -164,7 +165,7 @@
             android:id="@+id/tv_result_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
+            android:text="0"
             android:textColor="#F80000"
             android:textSize="28sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -175,7 +176,7 @@
             android:id="@+id/tv_message_result_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ucapan Sempurna, Mantap!!"
+            tools:text="Ucapan Sempurna, Mantap!!"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/tv_result_score" />

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "382587637334",
+    "project_id": "speech-rec-361714",
+    "storage_bucket": "speech-rec-361714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382587637334:android:2a5d8385c668c791e6f5f7",
+        "android_client_info": {
+          "package_name": "com.wisnu.speechrecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382587637334-klaatvo3m2qpkj400gbd1r61ueeik0ec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wisnu.speechrecognition",
+            "certificate_hash": "9362a6a13281e0295b4b78be1aab226d1c278f17"
+          }
+        },
+        {
+          "client_id": "382587637334-aaapo78m1s4miv4iak2o2vot8bcj1cb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzlHQ9qwOJBmxpu2ErMf0QvkCuWR3vy3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382587637334-aaapo78m1s4miv4iak2o2vot8bcj1cb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
