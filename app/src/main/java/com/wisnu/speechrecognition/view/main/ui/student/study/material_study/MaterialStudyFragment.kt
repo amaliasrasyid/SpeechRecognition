@@ -132,7 +132,6 @@ class MaterialStudyFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    //TODO: sebaiknya pindah ke util karna dipkai multiple diberbagai class
     private fun dataNotFound() {
         with(binding) {
             val layoutEmpty = layoutEmpty.root

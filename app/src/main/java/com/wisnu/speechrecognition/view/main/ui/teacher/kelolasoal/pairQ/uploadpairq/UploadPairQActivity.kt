@@ -124,7 +124,7 @@ class UploadPairQActivity : AppCompatActivity(), View.OnClickListener {
     private fun savePairQ(){
         with(binding){
             when{
-                !isAudioExist -> { //todo: rentan error, notif mana request yg store n update
+                !isAudioExist -> {
                     showMessage(
                         this@UploadPairQActivity,
                         title = TITLE_WARNING,

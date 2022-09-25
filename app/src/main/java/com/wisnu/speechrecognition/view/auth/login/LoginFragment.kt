@@ -151,7 +151,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
     private fun login(params: HashMap<String, Any>) {
-        //TODO: message return multiple times (berdasarkan jmlh klik button) cause tiap klik tambah observer lain tanpa menghapus observer sebelumnya (terus terpanggil)
         val hasObserver = viewModel.login(params).hasObservers()
         Log.d(TAG,"state observer view model = ${hasObserver}")
         viewModel.login(params).observe(viewLifecycleOwner, { result ->

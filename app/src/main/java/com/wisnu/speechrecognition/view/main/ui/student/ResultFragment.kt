@@ -168,7 +168,6 @@ class ResultFragment : Fragment(), View.OnClickListener {
 
     private fun resultConclusion(score: Int): String {
         var mString = "-"
-        //TODO: ubah warna teks nilai sesuai tingkatannya
         when (score) {
             in 0..30 -> {
                 mString = "Sangat Tidak Memuaskan"

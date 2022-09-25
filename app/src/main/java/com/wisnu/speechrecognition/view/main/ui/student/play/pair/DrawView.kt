@@ -89,33 +89,6 @@ class DrawView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         this.densityDpi = densityDpi
     }
 
-//    override fun onTouchEvent(event: MotionEvent?): Boolean {
-//        when{
-//            event!!.action == MotionEvent.ACTION_DOWN -> {//A pressed gesture has started, the motion contains the initial starting location.
-//
-//                lines.add(Line(event.x,event.y))
-//                isDrawing = true
-//                return true
-//            }
-//            event!!.action == MotionEvent.ACTION_MOVE && lines.size > 0  -> {//A change has happened during a press gesture;press gesture is moving
-//                val currentLine = lines.get(lines.size - 1) //ambil line paling terbaru (stack teratas)
-//                currentLine.stopX = event.x
-//                currentLine.stopY = event.y
-//                invalidate()
-//                return true
-//            }
-//            event!!.action == MotionEvent.ACTION_UP && lines.size > 0 -> { //contains the final release location
-//                val currentLine = lines.get(lines.size - 1) //ambil line paling terbaru (stack teratas)
-//                currentLine.stopX = event.x
-//                currentLine.stopY = event.y
-//                invalidate()
-//                return true
-//            }
-//            else -> {
-//                return false
-//            }
-//        }
-//    }
 }
 
 class Line(startX: Float,startY: Float) {
@@ -135,16 +108,4 @@ class Line(startX: Float,startY: Float) {
         this.stopX = stopX
         this.stopY = stopY
     }
-
-//    init{
-//        println("${startX} ${startY} ${stopX} ${stopY}")
-//        this.startX = _startX
-//        this.startY = _startY
-//        this.stopX = _stopX
-//        this.stopY = _stopY
-//    }
-
-//    constructor(_startX: Float,_startY: Float) : this(_startX,_startY, _stopX, _stopY) {
-//        this(startX,startY,stopX,stopY)
-//    }
 }

@@ -96,7 +96,7 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
 
     private fun prepareView() {
         val args = QuestionFragmentArgs.fromBundle(arguments as Bundle)
-        siswa = UserPreference(requireContext()).getUser().id ?: 0 //TODO: rentan error karna api returnnya html
+        siswa = UserPreference(requireContext()).getUser().id ?: 0
         val materyId = args.idMateriBelajar
         materyType = args.tipeMateriBelajar
 
@@ -186,7 +186,7 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
             val urlImage = URL_IMAGE + soal.gambar
             Glide.with(requireContext())
                 .load(urlImage)
-                .error(R.drawable.img_not_found) //TODO: GANTI NANTI
+                .error(R.drawable.img_not_found)
                 .into(imageView)
 
             //Prepare Audio
@@ -403,7 +403,6 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
 
     private fun kesimpulanHasil(score: Int): String {
         var mString = "-"
-        //TODO: ubah warna teks nilai sesuai tingkatannya
         when (score) {
             in 0..30 -> {
                 mString = "Ucapan Sangat Kurang Sempurna, silahkan coba lagi"
@@ -551,11 +550,7 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
         Log.d(TAG,"hasil seluruh arr: ${message}")
     }
 
-    override fun onPartialResults(p0: Bundle?) {
-        TODO("Not yet implemented")
-    }
+    override fun onPartialResults(p0: Bundle?) {}
 
-    override fun onEvent(p0: Int, p1: Bundle?) {
-        TODO("Not yet implemented")
-    }
+    override fun onEvent(p0: Int, p1: Bundle?) {}
 }

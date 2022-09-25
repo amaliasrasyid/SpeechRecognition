@@ -29,7 +29,7 @@ class ImagePairQAdapter(context: Context,
 
             Glide.with(context)
                 .load(ApiConfig.URL_IMAGE +imgData?.gambar)
-                .error(R.drawable.img_not_found) //TODO: GANTI NANTI
+                .error(R.drawable.img_not_found)
                 .into(image)
             image.contentDescription = imgData!!.kata!!.uppercase()
             image.setOnClickListener{onImageClickCallback?.onImageClicked(image,imgPoint)}

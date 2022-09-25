@@ -106,7 +106,7 @@ class PairFragment : Fragment() {
 
     private fun prepareQuestion() {
         with(binding){
-            val pairQ = listPairQ.get(index) //TODO: Rentan error, karna list data pairQ meski dia tak ada pairs
+            val pairQ = listPairQ.get(index)
             totalPairs = pairQ.pairs!!.size
             if(totalPairs == 0){
                 if(index != listPairQ.size-1 && index < listPairQ.size){
@@ -267,7 +267,6 @@ class PairFragment : Fragment() {
         binding.drawView.addSourcePoint(x1,y1)
         isTextBeingSelected = false
 
-//        Log.d(TAG,"img point size W:${view.width},H:${view.height}")
         Log.d(TAG,"img point position x1:${x1},y1:${y1}")
     }
 
@@ -281,7 +280,6 @@ class PairFragment : Fragment() {
 
             isTextBeingSelected = true
 
-//            Log.d(TAG,"text point size W:${view.width},H:${view.height}")
             Log.d(TAG,"text point position x2:${x2},y2:${y2}")
 
             return true
@@ -298,7 +296,6 @@ class PairFragment : Fragment() {
 
     private fun removeLine(view: ImageView) {
         isTextBeingSelected = false
-//        notStartLine = true
         indexPair--
 
         val coordinates = IntArray(2)

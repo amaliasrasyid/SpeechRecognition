@@ -239,7 +239,6 @@ class MateryFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onResume() {
         super.onResume()
         Log.d("MateryFragment","onresume")
-//        TODO: KENAPA data terupdate (create & delete) seolah dipanggil saat resume padahal tidak ada
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

@@ -147,7 +147,7 @@ class UploadGuessQActivity : AppCompatActivity(), View.OnClickListener {
             val opsi3 = edtOpsi3.text.toString().trim()
 
             when {
-                !isAudioExist -> { //todo: rentan error, notif mana request yg store n update
+                !isAudioExist -> {
                     showMessage(
                         this@UploadGuessQActivity,
                         title = TITLE_WARNING,
