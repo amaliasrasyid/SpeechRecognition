@@ -288,6 +288,7 @@ class GuessFragment : Fragment(), View.OnClickListener {
     override fun onStop() {
         super.onStop()
         releaseAudio(emptyMediaPlayer = false)
+        if(countDownTimer != null) cancelTimer()
         if(mainActivity != null) mainActivity.mediaPlayer.start()
     }
 }

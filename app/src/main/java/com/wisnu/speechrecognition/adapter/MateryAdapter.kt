@@ -91,8 +91,8 @@ class MateryAdapter : RecyclerView.Adapter<MateryAdapter.MateryViewHolder>() {
                 }
                 btnDelete.setOnClickListener{onItemBtnDeleteCallBack?.onDeleteClicked(bindingAdapterPosition,materyStudy)}
                 btnEdit.setOnClickListener{onItemBtnEditCallBack?.onEditClicked(materyStudy)}
-                itemView.setOnClickListener { onItemClickCallBack?.onItemClicked(materyStudy) }
             }
+                itemView.setOnClickListener { onItemClickCallBack?.onItemClicked(materyStudy) }
         }
 
     }

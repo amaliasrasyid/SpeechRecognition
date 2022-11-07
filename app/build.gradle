@@ -50,10 +50,10 @@ dependencies {
 
     // lib glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
     // lib lottie
     implementation 'com.airbnb.android:lottie:5.2.0'
