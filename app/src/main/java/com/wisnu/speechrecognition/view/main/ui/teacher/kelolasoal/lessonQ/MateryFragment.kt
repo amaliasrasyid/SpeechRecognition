@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.MateryAdapter
 import com.wisnu.speechrecognition.databinding.FragmentMateryBinding
-import com.wisnu.speechrecognition.model.matery.MateryStudy
+import com.wisnu.speechrecognition.data.model.matery.MateryStudy
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.showMessage

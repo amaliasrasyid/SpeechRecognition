@@ -5,13 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.wisnu.speechrecognition.model.student.StudentScoreResponse
-import com.wisnu.speechrecognition.model.student.StudentScoresResponse
+import com.wisnu.speechrecognition.data.model.student.StudentScoreResponse
+import com.wisnu.speechrecognition.data.model.student.StudentScoresResponse
 import com.wisnu.speechrecognition.network.ApiConfig
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+//@HiltViewModel
 class ScoreViewModel : ViewModel() {
     private var _studentScores = MutableLiveData<StudentScoresResponse>()
     private var _crudScore = MutableLiveData<StudentScoreResponse>()

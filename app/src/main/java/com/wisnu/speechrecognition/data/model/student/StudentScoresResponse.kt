@@ -1,4 +1,4 @@
-package com.wisnu.speechrecognition.model.student
+package com.wisnu.speechrecognition.data.model.student
 
 import com.google.gson.annotations.SerializedName
 

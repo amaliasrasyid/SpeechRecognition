@@ -18,7 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentGuessBinding
-import com.wisnu.speechrecognition.model.questions.GuessQItem
+import com.wisnu.speechrecognition.data.model.questions.GuessQItem
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.student.MainActivity

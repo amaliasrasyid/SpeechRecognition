@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.ItemListSiswaBinding
-import com.wisnu.speechrecognition.model.student.StudentsResult
+import com.wisnu.speechrecognition.data.model.student.StudentsResult
 import com.wisnu.speechrecognition.network.ApiConfig
 
 class StudentAdapter : RecyclerView.Adapter<StudentAdapter.SiswaViewHolder>() {

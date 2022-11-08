@@ -28,16 +28,20 @@ import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
 import www.sanju.motiontoast.MotionToast
 import com.google.android.material.textfield.TextInputEditText
+import com.wisnu.speechrecognition.data.request.LoginRequest
 import com.wisnu.speechrecognition.model.user.UserResponse
+import com.wisnu.speechrecognition.utils.Status
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_ADMIN
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<AuthViewModel>()
+    private val viewModel: AuthViewModel by viewModels()
     private val loginValid = true
     private var roleId :Int  = 0
 
@@ -138,10 +142,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         password.isEmpty() -> tiPassword.error = PASSWORD_NOT_NULL
                         else -> {
                             loader(true)
-                            val params = HashMap<String, Any>()
-                            params["email"] = email
-                            params["password"] = password
-                            login(params)
+                            login(LoginRequest(email,password))
                         }
                     }
                 }
@@ -150,24 +151,23 @@ class LoginFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun login(params: HashMap<String, Any>) {
-        val hasObserver = viewModel.login(params).hasObservers()
-        Log.d(TAG,"state observer view model = ${hasObserver}")
-        viewModel.login(params).observe(viewLifecycleOwner, { result ->
-            loader(false)
-            if (result != null) {
-                if(result.data != null){
-                    if (result.code == 200) {
-                        val role = result.data?.role
+    private fun login(request: LoginRequest) {
+        val hasObserver = viewModel.login(request).observe(viewLifecycleOwner){ result ->
+            when(result.status) {
+                Status.LOADING -> loader(true)
+                Status.SUCCESS -> {
+                    loader(false)
+                    result.data.let {
+                        val role = it?.data?.role
                         UserPreference(requireContext()).apply {
                             setUser(
                                 User(
-                                    id = result.data?.id,
-                                    nama = result.data?.nama,
+                                    id = it?.data?.id,
+                                    nama = it?.data?.nama,
                                     role = role,
-                                    gambar = result.data?.gambar,
-                                    email = result.data?.email,
-                                    password = result.data?.password
+                                    gambar = it?.data?.gambar,
+                                    email = it?.data?.email,
+                                    password = it?.data?.password
                                 )
                             )
                             setLogin(Login(loginValid))
@@ -177,41 +177,44 @@ class LoginFragment : Fragment(), View.OnClickListener {
                                 message = "berhasil login",
                                 style = MotionToast.TOAST_SUCCESS
                             )
-                            Log.d(TAG,result?.message ?: "")
-                            when(role){
-                                ROLE_ADMIN -> {startActivity(Intent(requireContext(),TeacherActivity::class.java))}
-                                ROLE_SISWA -> {startActivity(Intent(requireContext(), MainActivity::class.java))}
-                                ROLE_GURU -> Toast.makeText(requireActivity(),"hak akses untuk guru tidak diizinkan masuk ke aplikasi",Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, result?.message ?: "")
+                            when (role) {
+                                ROLE_ADMIN -> {
+                                    startActivity(
+                                        Intent(
+                                            requireContext(),
+                                            TeacherActivity::class.java
+                                        )
+                                    )
+                                }
+                                ROLE_SISWA -> {
+                                    startActivity(
+                                        Intent(
+                                            requireContext(),
+                                            MainActivity::class.java
+                                        )
+                                    )
+                                }
+                                ROLE_GURU -> Toast.makeText(
+                                    requireActivity(),
+                                    "hak akses untuk guru tidak diizinkan masuk ke aplikasi",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
-                    } else {
-                        showMessage(
-                            requireActivity(),
-                            TITLE_ERROR,
-                            message =  result.message ?: "",
-                            style = MotionToast.TOAST_ERROR
-                        )
-                        Log.d(TAG,result?.message ?: "")
                     }
-                }else{
+                }
+                Status.ERROR -> {
+                    loader(false)
                     showMessage(
                         requireActivity(),
                         TITLE_ERROR,
-                        message = result.message ?: "",
+                        result.message ?: "",
                         style = MotionToast.TOAST_ERROR
                     )
-                    Log.d(TAG,result?.message ?: "")
                 }
-            }else{
-                showMessage(
-                    requireActivity(),
-                    TITLE_ERROR,
-                    style = MotionToast.TOAST_ERROR
-                )
-                Log.d(TAG,result?.message ?: "")
             }
-        })
-        if(hasObserver) viewModel.login(params).removeObservers(this)
+        }
     }
 
     override fun onStart() {

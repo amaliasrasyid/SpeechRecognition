@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.databinding.ItemListDmateryBinding
-import com.wisnu.speechrecognition.model.questions.GuessQItem
+import com.wisnu.speechrecognition.data.model.questions.GuessQItem
 
 class GuessQAdapter : RecyclerView.Adapter<GuessQAdapter.GuessQViewHolder>() {
     private val REQUEST_TYPE_ = 1

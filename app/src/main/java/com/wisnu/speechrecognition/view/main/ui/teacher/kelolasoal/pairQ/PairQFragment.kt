@@ -19,8 +19,8 @@ import com.wisnu.speechrecognition.adapter.PairQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentPairQBinding
 import com.wisnu.speechrecognition.local_db.Pair
 import com.wisnu.speechrecognition.local_db.PairWordQClass
-import com.wisnu.speechrecognition.model.questions.PairWordQ
-import com.wisnu.speechrecognition.model.questions.PairsItem
+import com.wisnu.speechrecognition.data.model.questions.PairWordQ
+import com.wisnu.speechrecognition.data.model.questions.PairsItem
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.uploadpair.UploadPairActivity
@@ -307,6 +307,6 @@ class PairQFragment : Fragment(), RvItemClickListener, SearchView.OnQueryTextLis
 }
 
 interface RvItemClickListener{
-    fun onChildItemDeleteClick(parentPosition: Int,childPosition: Int,pair :PairsItem)
-    fun onChildItemEditClick(parentPosition: Int,childPosition: Int,pair :PairsItem)
+    fun onChildItemDeleteClick(parentPosition: Int,childPosition: Int,pair : PairsItem)
+    fun onChildItemEditClick(parentPosition: Int,childPosition: Int,pair : PairsItem)
 }

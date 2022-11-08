@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.GuessQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentGuessQBinding
 import com.wisnu.speechrecognition.local_db.QuestionPlayGuess
-import com.wisnu.speechrecognition.model.questions.GuessQItem
+import com.wisnu.speechrecognition.data.model.questions.GuessQItem
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS

@@ -1,51 +1,44 @@
 package com.wisnu.speechrecognition.network
 
-import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
-import com.wisnu.speechrecognition.model.questions.PairResponse
-import com.wisnu.speechrecognition.model.questions.QuestionPlayGuessResponse
-import com.wisnu.speechrecognition.model.questions.QuestionPlayPairWordResponse
-import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
-import com.wisnu.speechrecognition.model.student.StudentScoreResponse
-import com.wisnu.speechrecognition.model.student.StudentScoresResponse
-import com.wisnu.speechrecognition.model.student.StudentsResultResponse
+import com.wisnu.speechrecognition.data.model.matery.MateryStudyResponse
+import com.wisnu.speechrecognition.data.model.questions.PairResponse
+import com.wisnu.speechrecognition.data.model.questions.QuestionPlayGuessResponse
+import com.wisnu.speechrecognition.data.model.questions.QuestionPlayPairWordResponse
+import com.wisnu.speechrecognition.data.model.questions.QuestionStudyResponse
+import com.wisnu.speechrecognition.data.model.student.StudentScoreResponse
+import com.wisnu.speechrecognition.data.model.student.StudentScoresResponse
+import com.wisnu.speechrecognition.data.model.student.StudentsResultResponse
+import com.wisnu.speechrecognition.data.request.LoginRequest
 import com.wisnu.speechrecognition.model.user.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
 
-//    /** AUTH */
-//    @FormUrlEncoded
-//    @POST("auth/login")
-//    fun login(@Field("no_handphone") numberPhone: String): Call<ResponseLogin>
 
-//    @FormUrlEncoded
-//    @POST("auth/register")
-//    fun register(@FieldMap params: HashMap<String, String>): Call<ResponseRegister>
-
-    @FormUrlEncoded
     @POST("login")
-    fun login(@FieldMap params: HashMap<String,Any>): Call<UserResponse>
+    suspend fun login(@Body request: LoginRequest): Response<UserResponse>
 
     @Multipart
     @POST("user")
-    fun storeUser(
+    suspend fun storeUser(
         @Part image: MultipartBody.Part? = null,
         @PartMap params: HashMap<String,RequestBody>
-    ): Call<UserResponse>
+    ): Response<UserResponse>
 
     @FormUrlEncoded
     @POST("user/{userId}")
-    fun detailUser(@Path("userId") userId: Int): Call<UserResponse>
+    suspend fun detailUser(@Path("userId") userId: Int): Response<UserResponse>
 
     @GET("user/students")
     fun getStudents(): Call<StudentsResultResponse>
 
     @FormUrlEncoded
     @POST("user/change-password")
-    fun updateUserPassword(@FieldMap params: HashMap<String,Any>): Call<UserResponse>
+    suspend fun updateUserPassword(@FieldMap params: HashMap<String,Any>): Response<UserResponse>
 
     //ROUTE-DATA MATERY (MATERIAL STUDY)
     @FormUrlEncoded

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.adapter.StudentAdapter
 import com.wisnu.speechrecognition.databinding.FragmentStudentsBinding
-import com.wisnu.speechrecognition.model.student.StudentsResult
+import com.wisnu.speechrecognition.data.model.student.StudentsResult
 
 class StudentsFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentStudentsBinding? = null

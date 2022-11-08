@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.MaterialStudyScoreAdapter
 import com.wisnu.speechrecognition.databinding.FragmentScoreBinding
-import com.wisnu.speechrecognition.model.matery.MateryStudy
-import com.wisnu.speechrecognition.model.student.StudentScore
+import com.wisnu.speechrecognition.data.model.matery.MateryStudy
+import com.wisnu.speechrecognition.data.model.student.StudentScore
 import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.showMessage

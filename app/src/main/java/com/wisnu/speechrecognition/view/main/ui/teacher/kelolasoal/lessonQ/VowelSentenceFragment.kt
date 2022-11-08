@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wisnu.speechrecognition.adapter.QuestionAdapter
 import com.wisnu.speechrecognition.databinding.FragmentVowelSentenceBinding
 import com.wisnu.speechrecognition.local_db.QuestionStudyClass
-import com.wisnu.speechrecognition.model.questions.Question
+import com.wisnu.speechrecognition.data.model.questions.Question
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.showMessage

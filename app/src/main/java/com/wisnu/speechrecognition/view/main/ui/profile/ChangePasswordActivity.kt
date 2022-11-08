@@ -11,14 +11,17 @@ import com.wisnu.speechrecognition.databinding.ActivityUserProfileBinding
 import com.wisnu.speechrecognition.local_db.User
 import com.wisnu.speechrecognition.model.user.Data
 import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.Status
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.auth.AuthViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import www.sanju.motiontoast.MotionToast
 
+@AndroidEntryPoint
 class ChangePasswordActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityChangePasswordBinding
     private val viewModel by viewModels<AuthViewModel>()
@@ -157,34 +160,31 @@ class ChangePasswordActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun changePassword(params: HashMap<String, Any>) {
-        viewModel.updatePassword(params).observe(this) { response ->
-            loader(false)
-            if (response.data != null) {
-                if (response.code == 200) {
-                    showMessage(
-                        this,
-                        TITLE_SUCESS,
-                        response.message ?: "",
-                        style = MotionToast.TOAST_SUCCESS
-                    )
-                    val result = response.data
-                    saveDataToPreference(result)
-                    finish()
-                } else {
+        viewModel.updatePassword(params).observe(this) { result ->
+            when(result.status) {
+                Status.LOADING -> loader(true)
+                Status.SUCCESS -> {
+                    loader(false)
                     showMessage(
                         this@ChangePasswordActivity,
-                        TITLE_ERROR,
-                        response.message ?: "",
+                        UtilsCode.TITLE_SUCESS,
+                        result.message ?: "",
+                        style = MotionToast.TOAST_SUCCESS
+                    )
+                    result.data.let {
+                        saveDataToPreference(it?.data!!)
+                    }
+                    finish()
+                }
+                Status.ERROR -> {
+                    loader(false)
+                    showMessage(
+                        this@ChangePasswordActivity,
+                        UtilsCode.TITLE_ERROR,
+                        result.message ?: "",
                         style = MotionToast.TOAST_ERROR
                     )
                 }
-            } else {
-                showMessage(
-                    this@ChangePasswordActivity,
-                    TITLE_ERROR,
-                    response.message ?: "",
-                    style = MotionToast.TOAST_ERROR
-                )
             }
         }
     }

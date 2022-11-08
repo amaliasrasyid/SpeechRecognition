@@ -23,8 +23,8 @@ import com.bumptech.glide.Glide
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.ActivityUploadLessonQBinding
 import com.wisnu.speechrecognition.local_db.QuestionStudyClass
-import com.wisnu.speechrecognition.model.matery.MateryStudy
-import com.wisnu.speechrecognition.model.questions.Question
+import com.wisnu.speechrecognition.data.model.matery.MateryStudy
+import com.wisnu.speechrecognition.data.model.questions.Question
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.network.UploadRequestBody
 import com.wisnu.speechrecognition.utils.UtilsCode

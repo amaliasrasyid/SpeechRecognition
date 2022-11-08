@@ -1,16 +1,23 @@
 package com.wisnu.speechrecognition.view.auth.register
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kontakanprojects.apptkslb.local_db.Login
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentRegisterBinding
+import com.wisnu.speechrecognition.local_db.User
+import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.Status
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_ERROR
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_SUCESS
@@ -19,9 +26,13 @@ import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import com.wisnu.speechrecognition.view.auth.login.LoginFragment
 import com.wisnu.speechrecognition.view.auth.login.LoginFragmentArgs
+import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
+import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.RequestBody
 import www.sanju.motiontoast.MotionToast
 
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
@@ -145,31 +156,28 @@ class RegisterFragment : Fragment() {
     }
 
     private fun register(params: HashMap<String, RequestBody>) {
-        viewModel.register(params = params).observe(requireActivity()) { response ->
-            loader(false)
-            if (response.data != null) {
-                if (response.code == 200) {
+        viewModel.register(params = params).observe(viewLifecycleOwner){ result ->
+            when(result.status) {
+                Status.LOADING -> loader(true)
+                Status.SUCCESS -> {
+                    loader(false)
                     showMessage(
                         requireActivity(),
                         TITLE_SUCESS,
-                        response.message ?: "",
+                        result.message ?: "",
                         style = MotionToast.TOAST_SUCCESS
                     )
                     findNavController().navigateUp()
-                } else {
+                }
+                Status.ERROR -> {
+                    loader(false)
                     showMessage(
                         requireActivity(),
                         TITLE_ERROR,
-                        response.message ?: "",
+                        result.message ?: "",
                         style = MotionToast.TOAST_ERROR
                     )
                 }
-            } else {
-                showMessage(
-                    requireActivity(),
-                    TITLE_ERROR,
-                    style = MotionToast.TOAST_ERROR
-                )
             }
         }
     }

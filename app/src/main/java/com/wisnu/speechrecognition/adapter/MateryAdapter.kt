@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.databinding.ItemListDmateryBinding
 import com.wisnu.speechrecognition.databinding.ItemListMateryBinding
-import com.wisnu.speechrecognition.model.matery.MateryStudy
+import com.wisnu.speechrecognition.data.model.matery.MateryStudy
 import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_AZ
 import com.wisnu.speechrecognition.view.main.ui.category.CategoryFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment

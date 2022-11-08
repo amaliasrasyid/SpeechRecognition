@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.wisnu.speechrecognition.model.questions.PairResponse
-import com.wisnu.speechrecognition.model.questions.QuestionPlayPairWordResponse
+import com.wisnu.speechrecognition.data.model.questions.PairResponse
+import com.wisnu.speechrecognition.data.model.questions.QuestionPlayPairWordResponse
 import com.wisnu.speechrecognition.network.ApiConfig
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

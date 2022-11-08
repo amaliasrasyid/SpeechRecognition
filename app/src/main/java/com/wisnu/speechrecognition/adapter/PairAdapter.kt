@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.databinding.ItemListPairBinding
-import com.wisnu.speechrecognition.model.questions.PairsItem
+import com.wisnu.speechrecognition.data.model.questions.PairsItem
 
 class PairAdapter(private val listPair: List<PairsItem>?) : RecyclerView.Adapter<PairAdapter.PairViewHolder>() {
     private val listPairItem= ArrayList<PairsItem>()

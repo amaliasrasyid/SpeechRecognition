@@ -8,13 +8,13 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.wisnu.speechrecognition.R
-import com.wisnu.speechrecognition.model.questions.PairsItem
+import com.wisnu.speechrecognition.data.model.questions.PairsItem
 import com.wisnu.speechrecognition.network.ApiConfig
 
 class ImagePairQAdapter(context: Context,
                         resource: Int = 0,
                         imgData: List<PairsItem>
-) : ArrayAdapter<PairsItem>(context, resource, imgData) {    
+) : ArrayAdapter<PairsItem>(context, resource, imgData) {
     private var onImageClickCallback: OnImageClickCallback? = null
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

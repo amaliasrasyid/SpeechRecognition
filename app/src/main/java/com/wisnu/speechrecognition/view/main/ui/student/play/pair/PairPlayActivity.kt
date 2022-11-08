@@ -12,7 +12,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import com.wisnu.speechrecognition.databinding.ActivityPairPlayBinding
 import com.wisnu.speechrecognition.local_db.PairWordQClass
-import com.wisnu.speechrecognition.model.questions.PairWordQ
+import com.wisnu.speechrecognition.data.model.questions.PairWordQ
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyViewModel

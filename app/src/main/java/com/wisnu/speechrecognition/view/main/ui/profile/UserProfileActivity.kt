@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.ActivityUserProfileBinding
@@ -27,17 +28,15 @@ import com.wisnu.speechrecognition.local_db.User
 import com.wisnu.speechrecognition.model.user.Data
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.session.UserPreference
-import com.wisnu.speechrecognition.utils.BackgroundSound
-import com.wisnu.speechrecognition.utils.UtilsCode
+import com.wisnu.speechrecognition.utils.*
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_ADMIN
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING
-import com.wisnu.speechrecognition.utils.createPartFromString
-import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.auth.AuthActivity
 import com.wisnu.speechrecognition.view.auth.AuthViewModel
 import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -45,6 +44,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import www.sanju.motiontoast.MotionToast
 import java.io.File
+
+@AndroidEntryPoint
 
 class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var binding: ActivityUserProfileBinding
@@ -190,34 +191,31 @@ class UserProfileActivity : AppCompatActivity(),View.OnClickListener {
     }
 
     private fun updateProfile(bodyImage: MultipartBody.Part,params: HashMap<String,RequestBody>) {
-        viewModel.updateProfile(bodyImage,params).observe(this) { response ->
-            loader(false)
-            if (response.data != null) {
-                if (response.code == 200) {
+        viewModel.updateProfile(bodyImage,params).observe(this) { result ->
+            when(result.status) {
+                Status.LOADING -> loader(true)
+                Status.SUCCESS -> {
+                    loader(false)
                     showMessage(
                         this@UserProfileActivity,
                         UtilsCode.TITLE_SUCESS,
-                        response.message ?: "",
+                        result.message ?: "",
                         style = MotionToast.TOAST_SUCCESS
                     )
-                    val result = response.data
-                    saveDataToPreference(result)
+                   result.data.let {
+                       saveDataToPreference(it?.data!!)
+                   }
                     finish()
-                } else {
+                }
+                Status.ERROR -> {
+                    loader(false)
                     showMessage(
                         this@UserProfileActivity,
                         UtilsCode.TITLE_ERROR,
-                        response.message ?: "",
+                        result.message ?: "",
                         style = MotionToast.TOAST_ERROR
                     )
                 }
-            } else {
-                showMessage(
-                    this@UserProfileActivity,
-                    UtilsCode.TITLE_ERROR,
-                    response.message ?: "",
-                    style = MotionToast.TOAST_ERROR
-                )
             }
         }
     }

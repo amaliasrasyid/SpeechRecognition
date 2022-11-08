@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.databinding.ItemListPairqBinding
-import com.wisnu.speechrecognition.model.questions.PairWordQ
+import com.wisnu.speechrecognition.data.model.questions.PairWordQ
 import com.wisnu.speechrecognition.view.main.ui.teacher.kelolasoal.pairQ.RvItemClickListener
 
 class PairQAdapter : RecyclerView.Adapter<PairQAdapter.PairQViewHolder>() {

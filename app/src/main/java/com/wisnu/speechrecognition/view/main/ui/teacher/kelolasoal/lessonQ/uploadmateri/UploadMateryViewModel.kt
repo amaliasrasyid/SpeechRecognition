@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
-import com.wisnu.speechrecognition.model.student.StudentScoresResponse
+import com.wisnu.speechrecognition.data.model.matery.MateryStudyResponse
+import com.wisnu.speechrecognition.data.model.student.StudentScoresResponse
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.view.main.ui.score.ScoreViewModel
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyViewModel

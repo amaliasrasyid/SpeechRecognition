@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.wisnu.speechrecognition.model.matery.MateryStudyResponse
-import com.wisnu.speechrecognition.model.questions.QuestionStudyResponse
+import com.wisnu.speechrecognition.data.model.matery.MateryStudyResponse
+import com.wisnu.speechrecognition.data.model.questions.QuestionStudyResponse
 import com.wisnu.speechrecognition.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback

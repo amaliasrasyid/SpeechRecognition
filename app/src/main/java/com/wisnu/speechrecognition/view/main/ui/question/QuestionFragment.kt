@@ -26,7 +26,7 @@ import com.bumptech.glide.Glide
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentQuestionBinding
 import com.wisnu.speechrecognition.local_db.StudentScore
-import com.wisnu.speechrecognition.model.questions.Question
+import com.wisnu.speechrecognition.data.model.questions.Question
 import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_IMAGE
 import com.wisnu.speechrecognition.network.ApiConfig.Companion.URL_SOUNDS
 import com.wisnu.speechrecognition.session.UserPreference

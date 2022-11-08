@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wisnu.speechrecognition.databinding.ItemListDmateryBinding
-import com.wisnu.speechrecognition.model.questions.Question
+import com.wisnu.speechrecognition.data.model.questions.Question
 
 class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.MateryViewHolder>() {
     private var listQuestion= ArrayList<Question>()

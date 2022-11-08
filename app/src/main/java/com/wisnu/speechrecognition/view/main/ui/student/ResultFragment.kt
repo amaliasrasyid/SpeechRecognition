@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.databinding.FragmentResultBinding
-import com.wisnu.speechrecognition.model.student.Data
-import com.wisnu.speechrecognition.model.student.StudentScoreResponse
+import com.wisnu.speechrecognition.data.model.student.Data
+import com.wisnu.speechrecognition.data.model.student.StudentScoreResponse
 import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TIPE_BERMAIN_TEBAK_KATA

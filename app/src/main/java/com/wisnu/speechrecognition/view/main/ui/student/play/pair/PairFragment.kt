@@ -22,8 +22,8 @@ import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.adapter.ImagePairQAdapter
 import com.wisnu.speechrecognition.adapter.TextPairQAdapter
 import com.wisnu.speechrecognition.databinding.FragmentPairBinding
-import com.wisnu.speechrecognition.model.questions.PairWordQ
-import com.wisnu.speechrecognition.model.questions.PairsItem
+import com.wisnu.speechrecognition.data.model.questions.PairWordQ
+import com.wisnu.speechrecognition.data.model.questions.PairsItem
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.session.UserPreference
 import com.wisnu.speechrecognition.utils.UtilsCode.TITLE_WARNING

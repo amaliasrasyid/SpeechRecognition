@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.wisnu.speechrecognition.model.student.StudentsResultResponse
+import com.wisnu.speechrecognition.data.model.student.StudentsResultResponse
 import com.wisnu.speechrecognition.network.ApiConfig
 import com.wisnu.speechrecognition.utils.UtilsCode.ROLE_SISWA
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyViewModel
