@@ -36,4 +36,5 @@ object AppModule {
     @Provides
     @Singleton
     fun provideScoreRepository(dataSource: ScoreRemoteDataSource) = ScoreRepository(dataSource)
+
 }

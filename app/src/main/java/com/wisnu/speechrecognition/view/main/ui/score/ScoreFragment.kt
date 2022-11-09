@@ -1,6 +1,8 @@
 package com.wisnu.speechrecognition.view.main.ui.score
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,20 +12,27 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kontakanprojects.apptkslb.local_db.Login
 import com.wisnu.speechrecognition.adapter.MaterialStudyScoreAdapter
 import com.wisnu.speechrecognition.databinding.FragmentScoreBinding
 import com.wisnu.speechrecognition.data.model.matery.MateryStudy
 import com.wisnu.speechrecognition.data.model.student.StudentScore
+import com.wisnu.speechrecognition.local_db.User
 import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.Status
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.showMessage
+import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_AZ
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_KONSONAN
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_HURUF_VOKAL
 import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment.Companion.TIPE_MEMBACA
 import com.wisnu.speechrecognition.view.main.ui.student.study.material_study.MaterialStudyViewModel
+import com.wisnu.speechrecognition.view.main.ui.teacher.TeacherActivity
+import dagger.hilt.android.AndroidEntryPoint
 import www.sanju.motiontoast.MotionToast
 
+@AndroidEntryPoint
 class ScoreFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val viewModel by viewModels<ScoreViewModel>()
@@ -109,37 +118,39 @@ class ScoreFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun observeStudentScores(tipeMateri: Int,idSiswa: Int,isVocal: Boolean = false) {
         with(binding.score){
-            viewModel.studentScores(tipeMateri,idSiswa).observe(viewLifecycleOwner, { response ->
-                pbScore.visibility = View.GONE
-                if (response.data != null) {
-                    if(!response.data.isEmpty()){
-                        if (response.code == 200) {
-                            val result = response.data
+            viewModel.studentScores(tipeMateri,idSiswa).observe(viewLifecycleOwner){ result ->
+                when(result.status) {
+                    Status.LOADING -> loader(true)
+                    Status.SUCCESS -> {
+                        loader(false)
+                        result.data.let {
                             materyStudyScoreAdapter.setVokal(isVocal)
-                            materyStudyScoreAdapter.setData(result)
-                            if(tipeMateri == TIPE_HURUF_AZ || tipeMateri == TIPE_HURUF_KONSONAN) materyStudyScoreAdapter.setLetter(true)
+                            materyStudyScoreAdapter.setData(it?.data)
+                            if(tipeMateri == TIPE_HURUF_AZ || tipeMateri == TIPE_HURUF_KONSONAN){
+                                materyStudyScoreAdapter.setLetter(true)
+                            }else if(tipeMateri == TIPE_MEMBACA){
+                                materyStudyScoreAdapter.setReading(true)
+                            }
 
                             //for filter
-                            listScore.addAll(result)
-                        } else {
-                            dataNotFound()
+                            it?.data?.let { it1 -> listScore.addAll(it1) }
+                            }
                         }
-                    }else{
+                    Status.ERROR -> {
+                        loader(false)
                         dataNotFound()
                     }
-                } else {
-                    dataNotFound()
                 }
-            })
+            }
         }
     }
 
     private fun observeMaterialStudy(materyId: Int) {
         with(binding.score){
-            viewModel2.materialStudy(materyId).observe(viewLifecycleOwner, { response ->
+            viewModel2.materialStudy(materyId).observe(viewLifecycleOwner) { response ->
                 pbScore.visibility = View.GONE
                 if (response.data != null) {
-                    if(!response.data.isEmpty()){
+                    if (!response.data.isEmpty()) {
                         if (response.code == 200) {
                             val result = response.data
                             materyStudyScoreAdapter.setData(result)
@@ -149,13 +160,13 @@ class ScoreFragment : Fragment(), SearchView.OnQueryTextListener {
                         } else {
                             dataNotFound()
                         }
-                    }else{
+                    } else {
                         dataNotFound()
                     }
                 } else {
                     dataNotFound()
                 }
-            })
+            }
         }
     }
 
@@ -213,6 +224,16 @@ class ScoreFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         filterList(newText)
         return true
+    }
+
+    private fun loader(state: Boolean) {
+        with(binding.score) {
+            if (state) {
+                pbScore.visibility = View.VISIBLE
+            } else {
+                pbScore.visibility = View.GONE
+            }
+        }
     }
 
 }

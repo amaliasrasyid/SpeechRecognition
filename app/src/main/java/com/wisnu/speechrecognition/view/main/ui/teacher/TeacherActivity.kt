@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.util.Log
 import com.wisnu.speechrecognition.R
 import com.wisnu.speechrecognition.view.main.ui.student.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TeacherActivity : AppCompatActivity() {
     private var isReady: Boolean = false
     private var isFinished: Boolean = false

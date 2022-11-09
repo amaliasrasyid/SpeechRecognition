@@ -21,9 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(private val repository: AuthRepository): ViewModel() {
-    private var _auth = MutableLiveData<UserResponse>()
-    private val TAG = AuthViewModel::class.java.simpleName
-    private val RESPONSE_CLASS = UserResponse::class.java
 
     fun login(request: LoginRequest): LiveData<Resource<UserResponse>> = repository.login(request).asLiveData()
 

@@ -117,15 +117,15 @@ interface ApiService {
     fun storeStudentScrore(@FieldMap params: HashMap<String,Any>): Call<StudentScoreResponse>
 
     @GET("student-score/{tipe_materi}/{id_siswa}")
-    fun allStudentScoress(
+    suspend fun allStudentScoress(
         @Path("tipe_materi") materyType: Int,
         @Path("id_siswa") studentId: Int,
-    ): Call<StudentScoresResponse>
+    ): Response<StudentScoresResponse>
 
     @GET("student-score/game/{tipe_materi}/{id_siswa}")
-    fun studentGameScore(
+    suspend fun studentGameScore(
         @Path("tipe_materi") materyType: Int,
         @Path("id_siswa") studentId: Int,
-    ): Call<StudentScoreResponse>
+    ): Response<StudentScoreResponse>
 
 }

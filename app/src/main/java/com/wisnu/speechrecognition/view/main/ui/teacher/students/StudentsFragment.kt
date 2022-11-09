@@ -82,10 +82,10 @@ class StudentsFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun observeStudents() {
         with(binding){
-            viewModel.students().observe(viewLifecycleOwner, { response ->
+            viewModel.students().observe(viewLifecycleOwner) { response ->
                 pbMatery.visibility = View.GONE
                 if (response.data != null) {
-                    if(!response.data.isEmpty()){
+                    if (!response.data.isEmpty()) {
                         if (response.code == 200) {
                             val result = response.data
                             studentsAdapter.setData(result)
@@ -102,7 +102,7 @@ class StudentsFragment : Fragment(), SearchView.OnQueryTextListener {
                 } else {
                     dataNotFound()
                 }
-            })
+            }
         }
     }
 

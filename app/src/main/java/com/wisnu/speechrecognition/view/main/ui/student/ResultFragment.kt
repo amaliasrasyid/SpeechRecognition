@@ -14,13 +14,17 @@ import com.wisnu.speechrecognition.databinding.FragmentResultBinding
 import com.wisnu.speechrecognition.data.model.student.Data
 import com.wisnu.speechrecognition.data.model.student.StudentScoreResponse
 import com.wisnu.speechrecognition.session.UserPreference
+import com.wisnu.speechrecognition.utils.Status
 import com.wisnu.speechrecognition.utils.UtilsCode
 import com.wisnu.speechrecognition.utils.UtilsCode.TIPE_BERMAIN_TEBAK_KATA
 import com.wisnu.speechrecognition.utils.UtilsCode.TIPE_BERMAIN_TEMUKAN_PASANGAN
 import com.wisnu.speechrecognition.utils.showMessage
 import com.wisnu.speechrecognition.view.main.ui.score.ScoreViewModel
+import com.wisnu.speechrecognition.view.main.ui.student.study.StudyFragment
+import dagger.hilt.android.AndroidEntryPoint
 import www.sanju.motiontoast.MotionToast
 
+@AndroidEntryPoint
 class ResultFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentResultBinding? = null
@@ -116,7 +120,7 @@ class ResultFragment : Fragment(), View.OnClickListener {
         studentScore["id_tipe_game"] = if(gameType == QUESTION_TYPE) TIPE_BERMAIN_TEBAK_KATA else TIPE_BERMAIN_TEMUKAN_PASANGAN
         studentScore["id_soal"] = 0
         studentScore["nilai"] = score
-        viewModelScore.storeScore(studentScore).observe(viewLifecycleOwner, { response ->
+        viewModelScore.storeScore(studentScore).observe(viewLifecycleOwner) { response ->
             loader(false)
             if (response.data != null) {
                 if (response.code == 200) {
@@ -142,22 +146,23 @@ class ResultFragment : Fragment(), View.OnClickListener {
                     style = MotionToast.TOAST_ERROR
                 )
             }
-        })
+        }
     }
 
     private fun getGameScore(gametypeId: Int, studentId: Int) {
-        viewModelScore.studentGameScore(gametypeId,studentId).observe(viewLifecycleOwner, { response ->
-            loader(false)
-            if (response.data != null) {
-                if (response.code == 200) {
-                   prepareViewWithData(response.data)
-                } else {
-                   dataNotFound()
+        viewModelScore.studentGameScore(gametypeId,studentId).observe(viewLifecycleOwner) { result ->
+            when(result.status) {
+                Status.LOADING -> loader(true)
+                Status.SUCCESS -> {
+                    loader(false)
+                    prepareViewWithData(result.data?.data!!)
                 }
-            } else {
-               dataNotFound()
+                Status.ERROR -> {
+                    loader(false)
+                    dataNotFound()
+                }
             }
-        })
+        }
     }
 
     private fun prepareViewWithData(data: Data) {

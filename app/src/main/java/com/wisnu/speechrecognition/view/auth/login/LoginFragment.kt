@@ -152,7 +152,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
     private fun login(request: LoginRequest) {
-        val hasObserver = viewModel.login(request).observe(viewLifecycleOwner){ result ->
+        viewModel.login(request).observe(viewLifecycleOwner){ result ->
             when(result.status) {
                 Status.LOADING -> loader(true)
                 Status.SUCCESS -> {
@@ -174,7 +174,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                             showMessage(
                                 requireActivity(),
                                 TITLE_SUCESS,
-                                message = "berhasil login",
+                                result?.message ?: "Berhasi Login",
                                 style = MotionToast.TOAST_SUCCESS
                             )
                             Log.d(TAG, result?.message ?: "")
@@ -217,9 +217,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
 
     override fun onPause() {
         super.onPause()

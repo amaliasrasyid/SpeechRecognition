@@ -21,12 +21,16 @@ class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
     private var isVokal = false
     private var isLetter = false
+    private var isReading = false
 
    fun setVokal(boolean: Boolean){
         isVokal = boolean
     }
     fun setLetter(boolean: Boolean){
         isLetter = boolean
+    }
+    fun setReading(boolean: Boolean){
+        isReading = boolean
     }
 
     private var onItemClickCallBack: OnItemClickCallBack? = null
@@ -114,8 +118,9 @@ class MaterialStudyScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
                         tvNameMateryLetters.text = studentScore.namaMateri!!.uppercase()
                     }
-                    else -> tvResultScore.text = "${studentScore.nilai}/100"
+                    isReading -> tvNameMateryVokal.text = studentScore.namaMateri!!.uppercase()
                 }
+                tvResultScore.text = "${studentScore.nilai}/100"
             }
         }
     }

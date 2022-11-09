@@ -440,24 +440,24 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
         studentScore["id_tipe_game"] = 0
         studentScore["id_soal"] = listSoal[index].id
         studentScore["nilai"] = score
-        viewModel.storeScore(studentScore).observe(viewLifecycleOwner, { response ->
+        viewModel.storeScore(studentScore).observe(viewLifecycleOwner) { response ->
             loader(false)
             if (response.data != null) {
-                    if (response.code == 200) {
-                        showMessage(
-                            requireActivity(),
-                            TITLE_SUCESS,
-                            "Berhasil menyimpan nilai",
-                            style = MotionToast.TOAST_SUCCESS
-                        )
-                    } else {
-                        showMessage(
-                            requireActivity(),
-                            TITLE_ERROR,
-                            response.message ?: "",
-                            style = MotionToast.TOAST_ERROR
-                        )
-                    }
+                if (response.code == 200) {
+                    showMessage(
+                        requireActivity(),
+                        TITLE_SUCESS,
+                        "Berhasil menyimpan nilai",
+                        style = MotionToast.TOAST_SUCCESS
+                    )
+                } else {
+                    showMessage(
+                        requireActivity(),
+                        TITLE_ERROR,
+                        response.message ?: "",
+                        style = MotionToast.TOAST_ERROR
+                    )
+                }
             } else {
                 showMessage(
                     requireActivity(),
@@ -466,7 +466,7 @@ class QuestionFragment : Fragment(), View.OnClickListener, RecognitionListener {
                     style = MotionToast.TOAST_ERROR
                 )
             }
-        })
+        }
     }
 
     private fun showLayout() {

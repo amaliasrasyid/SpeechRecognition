@@ -84,7 +84,8 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
                                 R.id.action_categoryScoreFragment2_to_scoreFragment2,
                                 bundleOf(
                                     "tipe_materi_score" to TIPE_HURUF_AZ,
-                                    "nama_tipe_score" to "Nilai Huruf A-Z"
+                                    "nama_tipe_score" to "Nilai Huruf A-Z",
+                                    "id_siswa" to id_siswa
                                 )
                             )
                         }
@@ -93,7 +94,8 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
                                 R.id.action_categoryScoreFragment2_to_scoreFragment2,
                                 bundleOf(
                                     "tipe_materi_score" to TIPE_HURUF_KONSONAN,
-                                    "nama_tipe_score" to "NIlai Huruf Konsonan"
+                                    "nama_tipe_score" to "NIlai Huruf Konsonan",
+                                    "id_siswa" to id_siswa
                                 )
                             )
                         }
@@ -102,7 +104,8 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
                                 R.id.action_categoryScoreFragment2_to_scoreFragment2,
                                 bundleOf(
                                     "tipe_materi_score" to TIPE_HURUF_VOKAL,
-                                    "nama_tipe_score" to "Nilai Huruf Vokal"
+                                    "nama_tipe_score" to "Nilai Huruf Vokal",
+                                    "id_siswa" to id_siswa
                                 )
                             )
                         }
@@ -111,7 +114,8 @@ class CategoryScoreFragment : Fragment(), View.OnClickListener  {
                                 R.id.action_categoryScoreFragment2_to_scoreFragment2,
                                 bundleOf(
                                     "tipe_materi_score" to TIPE_MEMBACA,
-                                    "nama_tipe_score" to "Nilai Membaca Kosakata"
+                                    "nama_tipe_score" to "Nilai Membaca Kosakata",
+                                    "id_siswa" to id_siswa
                                 )
                             )
                         }

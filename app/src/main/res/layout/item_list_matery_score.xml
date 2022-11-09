@@ -50,15 +50,15 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tv_name_matery_vokal"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/tv_name_matery_vokal"
             android:fontFamily="@font/poppins_bold"
-            android:text="100/100"
             android:textAlignment="textEnd"
             android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toTopOf="@+id/tv_name_matery_vokal" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="100/100" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"

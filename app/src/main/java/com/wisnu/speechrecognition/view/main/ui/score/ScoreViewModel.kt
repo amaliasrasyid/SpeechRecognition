@@ -4,81 +4,32 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.google.gson.Gson
 import com.wisnu.speechrecognition.data.model.student.StudentScoreResponse
 import com.wisnu.speechrecognition.data.model.student.StudentScoresResponse
+import com.wisnu.speechrecognition.data.repository.ScoreRepository
 import com.wisnu.speechrecognition.network.ApiConfig
+import com.wisnu.speechrecognition.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-//@HiltViewModel
-class ScoreViewModel : ViewModel() {
-    private var _studentScores = MutableLiveData<StudentScoresResponse>()
+@HiltViewModel
+class ScoreViewModel @Inject constructor(private val repository: ScoreRepository) : ViewModel() {
     private var _crudScore = MutableLiveData<StudentScoreResponse>()
-    private var _gameScore = MutableLiveData<StudentScoreResponse>()
     private val TAG = ScoreViewModel::class.java.simpleName
-    private val RESPONSE_CLASS_SCORES = StudentScoresResponse::class.java
     private val RESPONSE_CLASS_SCORE = StudentScoreResponse::class.java
 
-    fun studentScores(materyType: Int,studentId: Int): LiveData<StudentScoresResponse> {
-        _studentScores = getStudentScores(materyType,studentId);
-        return _studentScores
-    }
+    fun studentScores(materyType: Int,studentId: Int): LiveData<Resource<StudentScoresResponse>> = repository.getStudentScores(materyType,studentId).asLiveData()
 
-    fun studentGameScore(gameType: Int,studentId: Int): LiveData<StudentScoreResponse> {
-        _gameScore = getGameScore(gameType,studentId);
-        return _gameScore
-    }
-
-    private fun getGameScore(gameType: Int, studentId: Int): MutableLiveData<StudentScoreResponse> {
-        val client = ApiConfig.getApiService().studentGameScore(gameType,studentId)
-        val gson = Gson()
-        client.enqueue(object : Callback<StudentScoreResponse> {
-            override fun onResponse(call: Call<StudentScoreResponse>, response: Response<StudentScoreResponse>) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    _gameScore.postValue(result!!)
-                } else {
-                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS_SCORE)
-                    _gameScore.postValue(errResult)
-                    Log.e(TAG, "onFailure: $errResult")
-                }
-            }
-
-            override fun onFailure(call: Call<StudentScoreResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        });
-        return _gameScore
-    }
+    fun studentGameScore(gameType: Int,studentId: Int): LiveData<Resource<StudentScoreResponse>> = repository.getStudentGameScores(gameType,studentId).asLiveData()
 
     fun storeScore(params: HashMap<String,Any>): LiveData<StudentScoreResponse>{
         storeStudentScore(params)
         return _crudScore
-    }
-
-    private fun getStudentScores(materyType: Int, studentId: Int): MutableLiveData<StudentScoresResponse> {
-        val client = ApiConfig.getApiService().allStudentScoress(materyType,studentId)
-        val gson = Gson()
-        client.enqueue(object : Callback<StudentScoresResponse> {
-            override fun onResponse(call: Call<StudentScoresResponse>, response: Response<StudentScoresResponse>) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    _studentScores.postValue(result!!)
-                } else {
-                    val errResult = gson.fromJson(response.errorBody()?.string(),RESPONSE_CLASS_SCORES)
-                    _studentScores.postValue(errResult)
-                    Log.e(TAG, "onFailure: $errResult")
-                }
-            }
-
-            override fun onFailure(call: Call<StudentScoresResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        });
-        return _studentScores
     }
 
     //api bisa handle sekaligus update jg jika data tidak ditemukan
